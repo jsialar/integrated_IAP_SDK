@@ -1,0 +1,10 @@
+docker run --rm ^
+-v c:/work/Code/integrated_IAP_SDK:/local ^
+openapitools/openapi-generator-cli:v4.3.0 generate ^
+-i /local/IAP.json ^
+-g python ^
+-o local/IAP_sdk ^
+-p packageName=iap
+
+docker run --rm ^
+openapitools/openapi-generator-cli:v4.3.0 help generate
