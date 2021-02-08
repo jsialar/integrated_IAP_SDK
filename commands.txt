@@ -3,8 +3,8 @@ docker run --rm ^
 openapitools/openapi-generator-cli:v4.3.0 generate ^
 -i /local/IAP.json ^
 -g python ^
--o local/IAP_sdk ^
--p packageName=iap
+-o local/ICA_SDK ^
+-p packageName=ICA_SDK
 
 docker run --rm ^
 openapitools/openapi-generator-cli:v4.3.0 help generate
