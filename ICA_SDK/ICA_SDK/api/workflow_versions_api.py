@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,18 +8,26 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from ICA_SDK.api_client import ApiClient
-from ICA_SDK.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
+from ICA_SDK.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from ICA_SDK.model.create_workflow_version_request import CreateWorkflowVersionRequest
+from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.model.launch_workflow_version_request import LaunchWorkflowVersionRequest
+from ICA_SDK.model.update_workflow_version_request import UpdateWorkflowVersionRequest
+from ICA_SDK.model.workflow_run import WorkflowRun
+from ICA_SDK.model.workflow_version import WorkflowVersion
+from ICA_SDK.model.workflow_version_list import WorkflowVersionList
 
 
 class WorkflowVersionsApi(object):
@@ -36,784 +42,837 @@ class WorkflowVersionsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_workflow_version(self, workflow_id, **kwargs):  # noqa: E501
-        """Create a new workflow version  # noqa: E501
+        def __create_workflow_version(
+            self,
+            workflow_id,
+            **kwargs
+        ):
+            """Create a new workflow version  # noqa: E501
 
-        Creates a new workflow version with a given workflow ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_workflow_version(workflow_id, async_req=True)
-        >>> result = thread.get()
+            Creates a new workflow version with a given workflow ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param CreateWorkflowVersionRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowVersion
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.create_workflow_version_with_http_info(workflow_id, **kwargs)  # noqa: E501
+            >>> thread = api.create_workflow_version(workflow_id, async_req=True)
+            >>> result = thread.get()
 
-    def create_workflow_version_with_http_info(self, workflow_id, **kwargs):  # noqa: E501
-        """Create a new workflow version  # noqa: E501
+            Args:
+                workflow_id (str): ID of the workflow
 
-        Creates a new workflow version with a given workflow ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_workflow_version_with_http_info(workflow_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                body (CreateWorkflowVersionRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param CreateWorkflowVersionRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowVersion, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                WorkflowVersion
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['workflow_id'] = \
+                workflow_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'workflow_id',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.create_workflow_version = _Endpoint(
+            settings={
+                'response_type': (WorkflowVersion,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/{workflowId}/versions',
+                'operation_id': 'create_workflow_version',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workflow_id',
+                    'body',
+                ],
+                'required': [
+                    'workflow_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'workflow_id':
+                        (str,),
+                    'body':
+                        (CreateWorkflowVersionRequest,),
+                },
+                'attribute_map': {
+                    'workflow_id': 'workflowId',
+                },
+                'location_map': {
+                    'workflow_id': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__create_workflow_version
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_workflow_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'workflow_id' is set
-        if self.api_client.client_side_validation and ('workflow_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['workflow_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `workflow_id` when calling `create_workflow_version`")  # noqa: E501
+        def __get_workflow_version(
+            self,
+            workflow_id,
+            version_name,
+            **kwargs
+        ):
+            """Get the details of a workflow version  # noqa: E501
 
-        collection_formats = {}
+            Gets the details for a workflow version with a given workflow ID and version name.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'workflow_id' in local_var_params:
-            path_params['workflowId'] = local_var_params['workflow_id']  # noqa: E501
+            >>> thread = api.get_workflow_version(workflow_id, version_name, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                workflow_id (str): ID of the workflow
+                version_name (str): Name of the workflow version
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowVersion
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['workflow_id'] = \
+                workflow_id
+            kwargs['version_name'] = \
+                version_name
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/{workflowId}/versions', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowVersion',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_workflow_version(self, workflow_id, version_name, **kwargs):  # noqa: E501
-        """Get the details of a workflow version  # noqa: E501
-
-        Gets the details for a workflow version with a given workflow ID and version name.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_workflow_version(workflow_id, version_name, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param str version_name: Name of the workflow version (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowVersion
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.get_workflow_version_with_http_info(workflow_id, version_name, **kwargs)  # noqa: E501
-
-    def get_workflow_version_with_http_info(self, workflow_id, version_name, **kwargs):  # noqa: E501
-        """Get the details of a workflow version  # noqa: E501
-
-        Gets the details for a workflow version with a given workflow ID and version name.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_workflow_version_with_http_info(workflow_id, version_name, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param str version_name: Name of the workflow version (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowVersion, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'workflow_id',
-            'version_name'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.get_workflow_version = _Endpoint(
+            settings={
+                'response_type': (WorkflowVersion,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/{workflowId}/versions/{versionName}',
+                'operation_id': 'get_workflow_version',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workflow_id',
+                    'version_name',
+                ],
+                'required': [
+                    'workflow_id',
+                    'version_name',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'workflow_id':
+                        (str,),
+                    'version_name':
+                        (str,),
+                },
+                'attribute_map': {
+                    'workflow_id': 'workflowId',
+                    'version_name': 'versionName',
+                },
+                'location_map': {
+                    'workflow_id': 'path',
+                    'version_name': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_workflow_version
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_workflow_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'workflow_id' is set
-        if self.api_client.client_side_validation and ('workflow_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['workflow_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `workflow_id` when calling `get_workflow_version`")  # noqa: E501
-        # verify the required parameter 'version_name' is set
-        if self.api_client.client_side_validation and ('version_name' not in local_var_params or  # noqa: E501
-                                                        local_var_params['version_name'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version_name` when calling `get_workflow_version`")  # noqa: E501
+        def __launch_workflow_version(
+            self,
+            workflow_id,
+            version_name,
+            **kwargs
+        ):
+            """Launch a workflow version  # noqa: E501
 
-        collection_formats = {}
+            Launches a workflow version with a given workflow ID and version name.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'workflow_id' in local_var_params:
-            path_params['workflowId'] = local_var_params['workflow_id']  # noqa: E501
-        if 'version_name' in local_var_params:
-            path_params['versionName'] = local_var_params['version_name']  # noqa: E501
+            >>> thread = api.launch_workflow_version(workflow_id, version_name, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                workflow_id (str): ID of the workflow
+                version_name (str): Name of the workflow version
 
-        header_params = {}
+            Keyword Args:
+                include ([str]): Comma-separated list of properties to include in the response. [optional]
+                body (LaunchWorkflowVersionRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowRun
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['workflow_id'] = \
+                workflow_id
+            kwargs['version_name'] = \
+                version_name
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.launch_workflow_version = _Endpoint(
+            settings={
+                'response_type': (WorkflowRun,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/{workflowId}/versions/{versionName}:launch',
+                'operation_id': 'launch_workflow_version',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workflow_id',
+                    'version_name',
+                    'include',
+                    'body',
+                ],
+                'required': [
+                    'workflow_id',
+                    'version_name',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                    'include',
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                    ('include',): {
 
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/{workflowId}/versions/{versionName}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowVersion',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def launch_workflow_version(self, workflow_id, version_name, **kwargs):  # noqa: E501
-        """Launch a workflow version  # noqa: E501
-
-        Launches a workflow version with a given workflow ID and version name.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.launch_workflow_version(workflow_id, version_name, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param str version_name: Name of the workflow version (required)
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param LaunchWorkflowVersionRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowRun
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.launch_workflow_version_with_http_info(workflow_id, version_name, **kwargs)  # noqa: E501
-
-    def launch_workflow_version_with_http_info(self, workflow_id, version_name, **kwargs):  # noqa: E501
-        """Launch a workflow version  # noqa: E501
-
-        Launches a workflow version with a given workflow ID and version name.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.launch_workflow_version_with_http_info(workflow_id, version_name, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param str version_name: Name of the workflow version (required)
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param LaunchWorkflowVersionRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowRun, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'workflow_id',
-            'version_name',
-            'include',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        "DEFINITION": "definition",
+                        "ENGINEPARAMETERS": "engineParameters"
+                    },
+                },
+                'openapi_types': {
+                    'workflow_id':
+                        (str,),
+                    'version_name':
+                        (str,),
+                    'include':
+                        ([str],),
+                    'body':
+                        (LaunchWorkflowVersionRequest,),
+                },
+                'attribute_map': {
+                    'workflow_id': 'workflowId',
+                    'version_name': 'versionName',
+                    'include': 'include',
+                },
+                'location_map': {
+                    'workflow_id': 'path',
+                    'version_name': 'path',
+                    'include': 'query',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                    'include': 'csv',
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__launch_workflow_version
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method launch_workflow_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'workflow_id' is set
-        if self.api_client.client_side_validation and ('workflow_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['workflow_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `workflow_id` when calling `launch_workflow_version`")  # noqa: E501
-        # verify the required parameter 'version_name' is set
-        if self.api_client.client_side_validation and ('version_name' not in local_var_params or  # noqa: E501
-                                                        local_var_params['version_name'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version_name` when calling `launch_workflow_version`")  # noqa: E501
+        def __list_all_workflow_versions(
+            self,
+            **kwargs
+        ):
+            """Get a list of all workflow versions  # noqa: E501
 
-        collection_formats = {}
+            Gets a list of workflow versions across all workflows.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'workflow_id' in local_var_params:
-            path_params['workflowId'] = local_var_params['workflow_id']  # noqa: E501
-        if 'version_name' in local_var_params:
-            path_params['versionName'] = local_var_params['version_name']  # noqa: E501
+            >>> thread = api.list_all_workflow_versions(async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
 
-        header_params = {}
+            Keyword Args:
+                tenant_id (str): ID of the tenant. [optional]
+                include ([str]): Comma-separated list of properties to include in the response. [optional]
+                page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
+                page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
+                sort (str): Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).. [optional] if omitted the server will use the default value of "timeCreated asc"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowVersionList
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.list_all_workflow_versions = _Endpoint(
+            settings={
+                'response_type': (WorkflowVersionList,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/versions',
+                'operation_id': 'list_all_workflow_versions',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'tenant_id',
+                    'include',
+                    'page_size',
+                    'page_token',
+                    'sort',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                    'include',
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                    ('include',): {
 
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/{workflowId}/versions/{versionName}:launch', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowRun',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def list_all_workflow_versions(self, **kwargs):  # noqa: E501
-        """Get a list of all workflow versions  # noqa: E501
-
-        Gets a list of workflow versions across all workflows.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_all_workflow_versions(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str tenant_id: ID of the tenant
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
-        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
-        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowVersionList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.list_all_workflow_versions_with_http_info(**kwargs)  # noqa: E501
-
-    def list_all_workflow_versions_with_http_info(self, **kwargs):  # noqa: E501
-        """Get a list of all workflow versions  # noqa: E501
-
-        Gets a list of workflow versions across all workflows.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_all_workflow_versions_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str tenant_id: ID of the tenant
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
-        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
-        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowVersionList, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'tenant_id',
-            'include',
-            'page_size',
-            'page_token',
-            'sort'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        "TOTALITEMCOUNT": "totalItemCount"
+                    },
+                },
+                'openapi_types': {
+                    'tenant_id':
+                        (str,),
+                    'include':
+                        ([str],),
+                    'page_size':
+                        (int,),
+                    'page_token':
+                        (str,),
+                    'sort':
+                        (str,),
+                },
+                'attribute_map': {
+                    'tenant_id': 'tenantId',
+                    'include': 'include',
+                    'page_size': 'pageSize',
+                    'page_token': 'pageToken',
+                    'sort': 'sort',
+                },
+                'location_map': {
+                    'tenant_id': 'query',
+                    'include': 'query',
+                    'page_size': 'query',
+                    'page_token': 'query',
+                    'sort': 'query',
+                },
+                'collection_format_map': {
+                    'include': 'csv',
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__list_all_workflow_versions
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method list_all_workflow_versions" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
+        def __list_workflow_versions(
+            self,
+            workflow_id,
+            **kwargs
+        ):
+            """Get a list of workflow versions  # noqa: E501
 
-        collection_formats = {}
+            Gets a list of workflow versions with a given workflow ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
+            >>> thread = api.list_workflow_versions(workflow_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
-            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
-            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
-        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
-            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
-        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
-            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
+            Args:
+                workflow_id (str): ID of the workflow
 
-        header_params = {}
+            Keyword Args:
+                include ([str]): Comma-separated list of properties to include in the response. [optional]
+                page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
+                page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
+                sort (str): Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).. [optional] if omitted the server will use the default value of "timeCreated asc"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowVersionList
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['workflow_id'] = \
+                workflow_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.list_workflow_versions = _Endpoint(
+            settings={
+                'response_type': (WorkflowVersionList,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/{workflowId}/versions',
+                'operation_id': 'list_workflow_versions',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workflow_id',
+                    'include',
+                    'page_size',
+                    'page_token',
+                    'sort',
+                ],
+                'required': [
+                    'workflow_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                    'include',
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                    ('include',): {
 
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/versions', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowVersionList',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def list_workflow_versions(self, workflow_id, **kwargs):  # noqa: E501
-        """Get a list of workflow versions  # noqa: E501
-
-        Gets a list of workflow versions with a given workflow ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_workflow_versions(workflow_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
-        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
-        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowVersionList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.list_workflow_versions_with_http_info(workflow_id, **kwargs)  # noqa: E501
-
-    def list_workflow_versions_with_http_info(self, workflow_id, **kwargs):  # noqa: E501
-        """Get a list of workflow versions  # noqa: E501
-
-        Gets a list of workflow versions with a given workflow ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_workflow_versions_with_http_info(workflow_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
-        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
-        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowVersionList, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'workflow_id',
-            'include',
-            'page_size',
-            'page_token',
-            'sort'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        "TOTALITEMCOUNT": "totalItemCount"
+                    },
+                },
+                'openapi_types': {
+                    'workflow_id':
+                        (str,),
+                    'include':
+                        ([str],),
+                    'page_size':
+                        (int,),
+                    'page_token':
+                        (str,),
+                    'sort':
+                        (str,),
+                },
+                'attribute_map': {
+                    'workflow_id': 'workflowId',
+                    'include': 'include',
+                    'page_size': 'pageSize',
+                    'page_token': 'pageToken',
+                    'sort': 'sort',
+                },
+                'location_map': {
+                    'workflow_id': 'path',
+                    'include': 'query',
+                    'page_size': 'query',
+                    'page_token': 'query',
+                    'sort': 'query',
+                },
+                'collection_format_map': {
+                    'include': 'csv',
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__list_workflow_versions
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method list_workflow_versions" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'workflow_id' is set
-        if self.api_client.client_side_validation and ('workflow_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['workflow_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `workflow_id` when calling `list_workflow_versions`")  # noqa: E501
+        def __update_workflow_version(
+            self,
+            workflow_id,
+            version_name,
+            **kwargs
+        ):
+            """Update an existing workflow version  # noqa: E501
 
-        collection_formats = {}
+            Updates an existing workflow version. Note: The Version, Definition, and Status cannot be changed simultaneously. Only one of these can be changed per API call.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'workflow_id' in local_var_params:
-            path_params['workflowId'] = local_var_params['workflow_id']  # noqa: E501
+            >>> thread = api.update_workflow_version(workflow_id, version_name, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
-            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
-        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
-            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
-        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
-            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
+            Args:
+                workflow_id (str): ID of the workflow
+                version_name (str): Name of the workflow version
 
-        header_params = {}
+            Keyword Args:
+                body (UpdateWorkflowVersionRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowVersion
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['workflow_id'] = \
+                workflow_id
+            kwargs['version_name'] = \
+                version_name
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/{workflowId}/versions', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowVersionList',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def update_workflow_version(self, workflow_id, version_name, **kwargs):  # noqa: E501
-        """Update an existing workflow version  # noqa: E501
-
-        Updates an existing workflow version. Note: The Version, Definition, and Status cannot be changed simultaneously. Only one of these can be changed per API call.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.update_workflow_version(workflow_id, version_name, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param str version_name: Name of the workflow version (required)
-        :param UpdateWorkflowVersionRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowVersion
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.update_workflow_version_with_http_info(workflow_id, version_name, **kwargs)  # noqa: E501
-
-    def update_workflow_version_with_http_info(self, workflow_id, version_name, **kwargs):  # noqa: E501
-        """Update an existing workflow version  # noqa: E501
-
-        Updates an existing workflow version. Note: The Version, Definition, and Status cannot be changed simultaneously. Only one of these can be changed per API call.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.update_workflow_version_with_http_info(workflow_id, version_name, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str workflow_id: ID of the workflow (required)
-        :param str version_name: Name of the workflow version (required)
-        :param UpdateWorkflowVersionRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowVersion, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'workflow_id',
-            'version_name',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.update_workflow_version = _Endpoint(
+            settings={
+                'response_type': (WorkflowVersion,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/{workflowId}/versions/{versionName}',
+                'operation_id': 'update_workflow_version',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workflow_id',
+                    'version_name',
+                    'body',
+                ],
+                'required': [
+                    'workflow_id',
+                    'version_name',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'workflow_id':
+                        (str,),
+                    'version_name':
+                        (str,),
+                    'body':
+                        (UpdateWorkflowVersionRequest,),
+                },
+                'attribute_map': {
+                    'workflow_id': 'workflowId',
+                    'version_name': 'versionName',
+                },
+                'location_map': {
+                    'workflow_id': 'path',
+                    'version_name': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__update_workflow_version
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_workflow_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'workflow_id' is set
-        if self.api_client.client_side_validation and ('workflow_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['workflow_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `workflow_id` when calling `update_workflow_version`")  # noqa: E501
-        # verify the required parameter 'version_name' is set
-        if self.api_client.client_side_validation and ('version_name' not in local_var_params or  # noqa: E501
-                                                        local_var_params['version_name'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version_name` when calling `update_workflow_version`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'workflow_id' in local_var_params:
-            path_params['workflowId'] = local_var_params['workflow_id']  # noqa: E501
-        if 'version_name' in local_var_params:
-            path_params['versionName'] = local_var_params['version_name']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/{workflowId}/versions/{versionName}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowVersion',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

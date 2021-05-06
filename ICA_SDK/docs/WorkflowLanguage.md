@@ -1,6 +1,7 @@
 # WorkflowLanguage
 
 Language details about a workflow version
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import ICA_SDK
-from ICA_SDK.models.create_workflow_request import CreateWorkflowRequest  # noqa: E501
-from ICA_SDK.rest import ApiException
+from ICA_SDK.model.create_workflow_version_request import CreateWorkflowVersionRequest
+globals()['CreateWorkflowVersionRequest'] = CreateWorkflowVersionRequest
+from ICA_SDK.model.create_workflow_request import CreateWorkflowRequest
+
 
 class TestCreateWorkflowRequest(unittest.TestCase):
     """CreateWorkflowRequest unit test stubs"""
@@ -28,45 +26,11 @@ class TestCreateWorkflowRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test CreateWorkflowRequest
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = ICA_SDK.models.create_workflow_request.CreateWorkflowRequest()  # noqa: E501
-        if include_optional :
-            return CreateWorkflowRequest(
-                name = '0', 
-                description = '0', 
-                organization = '0', 
-                workflow_version = ICA_SDK.models.create_workflow_version_request.CreateWorkflowVersionRequest(
-                    version = '0', 
-                    description = '0', 
-                    language = ICA_SDK.models.workflow_language.WorkflowLanguage(
-                        name = '0', 
-                        version = '0', ), 
-                    definition = ICA_SDK.models.definition.definition(), 
-                    acl = [
-                        '0'
-                        ], 
-                    status = 'draft', ), 
-                tool_class = 'workflow', 
-                acl = [
-                    '0'
-                    ], 
-                categories = [
-                    '0'
-                    ]
-            )
-        else :
-            return CreateWorkflowRequest(
-                name = '0',
-        )
-
     def testCreateWorkflowRequest(self):
         """Test CreateWorkflowRequest"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = CreateWorkflowRequest()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

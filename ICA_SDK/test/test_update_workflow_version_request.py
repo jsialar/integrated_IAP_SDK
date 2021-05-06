@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import ICA_SDK
-from ICA_SDK.models.update_workflow_version_request import UpdateWorkflowVersionRequest  # noqa: E501
-from ICA_SDK.rest import ApiException
+from ICA_SDK.model.workflow_language import WorkflowLanguage
+globals()['WorkflowLanguage'] = WorkflowLanguage
+from ICA_SDK.model.update_workflow_version_request import UpdateWorkflowVersionRequest
+
 
 class TestUpdateWorkflowVersionRequest(unittest.TestCase):
     """UpdateWorkflowVersionRequest unit test stubs"""
@@ -28,33 +26,11 @@ class TestUpdateWorkflowVersionRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test UpdateWorkflowVersionRequest
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = ICA_SDK.models.update_workflow_version_request.UpdateWorkflowVersionRequest()  # noqa: E501
-        if include_optional :
-            return UpdateWorkflowVersionRequest(
-                version = '0', 
-                description = '0', 
-                language = ICA_SDK.models.workflow_language.WorkflowLanguage(
-                    name = '0', 
-                    version = '0', ), 
-                definition = None, 
-                acl = [
-                    '0'
-                    ], 
-                status = 'draft'
-            )
-        else :
-            return UpdateWorkflowVersionRequest(
-        )
-
     def testUpdateWorkflowVersionRequest(self):
         """Test UpdateWorkflowVersionRequest"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = UpdateWorkflowVersionRequest()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

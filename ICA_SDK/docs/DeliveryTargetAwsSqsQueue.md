@@ -1,6 +1,7 @@
 # DeliveryTargetAwsSqsQueue
 
 Configuration for an AWS SQS delivery queue
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

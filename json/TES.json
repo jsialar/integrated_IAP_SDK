@@ -4,7 +4,7 @@
     "title": "Task Execution Service",
     "version": "v1"
   },
-  "host": "aps1.platform.illumina.com",
+  "host": "use1.platform.illumina.com",
   "schemes": [
     "https"
   ],
@@ -1976,6 +1976,120 @@
         "timeModified": {
           "format": "date-time",
           "description": "Date and Time (in UTC) when object was modified in TES",
+          "type": "string"
+        }
+      }
+    },
+    "ContainerStateWaiting": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ContainerStateRunning": {
+      "type": "object",
+      "properties": {
+        "startedAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      }
+    },
+    "ContainerStateTerminated": {
+      "type": "object",
+      "properties": {
+        "exitCode": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "signal": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "startedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "finishedAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "containerID": {
+          "type": "string"
+        }
+      }
+    },
+    "ContainerState": {
+      "type": "object",
+      "properties": {
+        "waiting": {
+          "$ref": "#/definitions/ContainerStateWaiting"
+        },
+        "running": {
+          "$ref": "#/definitions/ContainerStateRunning"
+        },
+        "terminated": {
+          "$ref": "#/definitions/ContainerStateTerminated"
+        }
+      }
+    },
+    "ContainerStatus": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/definitions/ContainerState"
+        }
+      }
+    },
+    "HeartbeatTaskRunRequest": {
+      "type": "object",
+      "properties": {
+        "lastHeartbeat": {
+          "description": "LastHeartbeat",
+          "type": "boolean"
+        },
+        "podName": {
+          "type": "string"
+        },
+        "podUID": {
+          "type": "string"
+        },
+        "podHardwareDetails": {
+          "type": "string"
+        },
+        "jobRetryCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "nonce": {
+          "type": "string"
+        },
+        "containerStatus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerStatus"
+          }
+        }
+      }
+    },
+    "TaskRunHeartbeat": {
+      "type": "object",
+      "properties": {
+        "jwt": {
           "type": "string"
         }
       }

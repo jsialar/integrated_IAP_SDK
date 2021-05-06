@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,18 +8,24 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from ICA_SDK.api_client import ApiClient
-from ICA_SDK.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
+from ICA_SDK.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.model.fail_workflow_signal_request import FailWorkflowSignalRequest
+from ICA_SDK.model.succeed_workflow_signal_request import SucceedWorkflowSignalRequest
+from ICA_SDK.model.workflow_signal import WorkflowSignal
+from ICA_SDK.model.workflow_signal_list import WorkflowSignalList
 
 
 class WorkflowSignalsApi(object):
@@ -36,493 +40,522 @@ class WorkflowSignalsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def fail_signal(self, signal_id, **kwargs):  # noqa: E501
-        """Fail a workflow signal  # noqa: E501
+        def __fail_signal(
+            self,
+            signal_id,
+            **kwargs
+        ):
+            """Fail a workflow signal  # noqa: E501
 
-        Responds to a pending workflow signal with a failure result.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.fail_signal(signal_id, async_req=True)
-        >>> result = thread.get()
+            Responds to a pending workflow signal with a failure result.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str signal_id: ID of the workflow signal (required)
-        :param FailWorkflowSignalRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowSignal
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.fail_signal_with_http_info(signal_id, **kwargs)  # noqa: E501
+            >>> thread = api.fail_signal(signal_id, async_req=True)
+            >>> result = thread.get()
 
-    def fail_signal_with_http_info(self, signal_id, **kwargs):  # noqa: E501
-        """Fail a workflow signal  # noqa: E501
+            Args:
+                signal_id (str): ID of the workflow signal
 
-        Responds to a pending workflow signal with a failure result.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.fail_signal_with_http_info(signal_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                body (FailWorkflowSignalRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str signal_id: ID of the workflow signal (required)
-        :param FailWorkflowSignalRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowSignal, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                WorkflowSignal
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['signal_id'] = \
+                signal_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'signal_id',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.fail_signal = _Endpoint(
+            settings={
+                'response_type': (WorkflowSignal,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/signals/{signalId}:fail',
+                'operation_id': 'fail_signal',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'signal_id',
+                    'body',
+                ],
+                'required': [
+                    'signal_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'signal_id':
+                        (str,),
+                    'body':
+                        (FailWorkflowSignalRequest,),
+                },
+                'attribute_map': {
+                    'signal_id': 'signalId',
+                },
+                'location_map': {
+                    'signal_id': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__fail_signal
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method fail_signal" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'signal_id' is set
-        if self.api_client.client_side_validation and ('signal_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['signal_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `signal_id` when calling `fail_signal`")  # noqa: E501
+        def __get_signal(
+            self,
+            signal_id,
+            **kwargs
+        ):
+            """Get the details of a workflow signal  # noqa: E501
 
-        collection_formats = {}
+            Gets the details of a workflow signal with a given ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'signal_id' in local_var_params:
-            path_params['signalId'] = local_var_params['signal_id']  # noqa: E501
+            >>> thread = api.get_signal(signal_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                signal_id (str): ID of the workflow signal
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowSignal
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['signal_id'] = \
+                signal_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/signals/{signalId}:fail', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowSignal',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_signal(self, signal_id, **kwargs):  # noqa: E501
-        """Get the details of a workflow signal  # noqa: E501
-
-        Gets the details of a workflow signal with a given ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_signal(signal_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str signal_id: ID of the workflow signal (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowSignal
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.get_signal_with_http_info(signal_id, **kwargs)  # noqa: E501
-
-    def get_signal_with_http_info(self, signal_id, **kwargs):  # noqa: E501
-        """Get the details of a workflow signal  # noqa: E501
-
-        Gets the details of a workflow signal with a given ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_signal_with_http_info(signal_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str signal_id: ID of the workflow signal (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowSignal, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'signal_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.get_signal = _Endpoint(
+            settings={
+                'response_type': (WorkflowSignal,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/signals/{signalId}',
+                'operation_id': 'get_signal',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'signal_id',
+                ],
+                'required': [
+                    'signal_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'signal_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'signal_id': 'signalId',
+                },
+                'location_map': {
+                    'signal_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_signal
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_signal" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'signal_id' is set
-        if self.api_client.client_side_validation and ('signal_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['signal_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `signal_id` when calling `get_signal`")  # noqa: E501
+        def __list_signals(
+            self,
+            **kwargs
+        ):
+            """Get a list of workflow signals  # noqa: E501
 
-        collection_formats = {}
+            Gets a list of workflow signals.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'signal_id' in local_var_params:
-            path_params['signalId'] = local_var_params['signal_id']  # noqa: E501
+            >>> thread = api.list_signals(async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
 
-        header_params = {}
+            Keyword Args:
+                tenant_id (str): ID of the tenant. [optional]
+                include ([str]): Comma-separated list of properties to include in the response. [optional]
+                page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
+                page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
+                sort (str): Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).. [optional] if omitted the server will use the default value of "timeCreated asc"
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowSignalList
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.list_signals = _Endpoint(
+            settings={
+                'response_type': (WorkflowSignalList,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/signals',
+                'operation_id': 'list_signals',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'tenant_id',
+                    'include',
+                    'page_size',
+                    'page_token',
+                    'sort',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                    'include',
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                    ('include',): {
 
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/signals/{signalId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowSignal',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def list_signals(self, **kwargs):  # noqa: E501
-        """Get a list of workflow signals  # noqa: E501
-
-        Gets a list of workflow signals.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_signals(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str tenant_id: ID of the tenant
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
-        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
-        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowSignalList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.list_signals_with_http_info(**kwargs)  # noqa: E501
-
-    def list_signals_with_http_info(self, **kwargs):  # noqa: E501
-        """Get a list of workflow signals  # noqa: E501
-
-        Gets a list of workflow signals.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_signals_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str tenant_id: ID of the tenant
-        :param list[str] include: Comma-separated list of properties to include in the response
-        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
-        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
-        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowSignalList, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'tenant_id',
-            'include',
-            'page_size',
-            'page_token',
-            'sort'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        "TOTALITEMCOUNT": "totalItemCount"
+                    },
+                },
+                'openapi_types': {
+                    'tenant_id':
+                        (str,),
+                    'include':
+                        ([str],),
+                    'page_size':
+                        (int,),
+                    'page_token':
+                        (str,),
+                    'sort':
+                        (str,),
+                },
+                'attribute_map': {
+                    'tenant_id': 'tenantId',
+                    'include': 'include',
+                    'page_size': 'pageSize',
+                    'page_token': 'pageToken',
+                    'sort': 'sort',
+                },
+                'location_map': {
+                    'tenant_id': 'query',
+                    'include': 'query',
+                    'page_size': 'query',
+                    'page_token': 'query',
+                    'sort': 'query',
+                },
+                'collection_format_map': {
+                    'include': 'csv',
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__list_signals
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method list_signals" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
+        def __succeed_signal(
+            self,
+            signal_id,
+            **kwargs
+        ):
+            """Succeed a workflow signal  # noqa: E501
 
-        collection_formats = {}
+            Responds to a pending workflow signal with a successful result.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
+            >>> thread = api.succeed_signal(signal_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
-            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
-            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
-        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
-            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
-        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
-            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
+            Args:
+                signal_id (str): ID of the workflow signal
 
-        header_params = {}
+            Keyword Args:
+                body (SucceedWorkflowSignalRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                WorkflowSignal
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['signal_id'] = \
+                signal_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/signals', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowSignalList',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def succeed_signal(self, signal_id, **kwargs):  # noqa: E501
-        """Succeed a workflow signal  # noqa: E501
-
-        Responds to a pending workflow signal with a successful result.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.succeed_signal(signal_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str signal_id: ID of the workflow signal (required)
-        :param SucceedWorkflowSignalRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: WorkflowSignal
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.succeed_signal_with_http_info(signal_id, **kwargs)  # noqa: E501
-
-    def succeed_signal_with_http_info(self, signal_id, **kwargs):  # noqa: E501
-        """Succeed a workflow signal  # noqa: E501
-
-        Responds to a pending workflow signal with a successful result.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.succeed_signal_with_http_info(signal_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str signal_id: ID of the workflow signal (required)
-        :param SucceedWorkflowSignalRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(WorkflowSignal, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'signal_id',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.succeed_signal = _Endpoint(
+            settings={
+                'response_type': (WorkflowSignal,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/workflows/signals/{signalId}:succeed',
+                'operation_id': 'succeed_signal',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'signal_id',
+                    'body',
+                ],
+                'required': [
+                    'signal_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'signal_id':
+                        (str,),
+                    'body':
+                        (SucceedWorkflowSignalRequest,),
+                },
+                'attribute_map': {
+                    'signal_id': 'signalId',
+                },
+                'location_map': {
+                    'signal_id': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__succeed_signal
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method succeed_signal" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'signal_id' is set
-        if self.api_client.client_side_validation and ('signal_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['signal_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `signal_id` when calling `succeed_signal`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'signal_id' in local_var_params:
-            path_params['signalId'] = local_var_params['signal_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/workflows/signals/{signalId}:succeed', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='WorkflowSignal',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

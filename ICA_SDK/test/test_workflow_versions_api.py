@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,20 +8,17 @@
 """
 
 
-from __future__ import absolute_import
-
 import unittest
 
 import ICA_SDK
 from ICA_SDK.api.workflow_versions_api import WorkflowVersionsApi  # noqa: E501
-from ICA_SDK.rest import ApiException
 
 
 class TestWorkflowVersionsApi(unittest.TestCase):
     """WorkflowVersionsApi unit test stubs"""
 
     def setUp(self):
-        self.api = ICA_SDK.api.workflow_versions_api.WorkflowVersionsApi()  # noqa: E501
+        self.api = WorkflowVersionsApi()  # noqa: E501
 
     def tearDown(self):
         pass

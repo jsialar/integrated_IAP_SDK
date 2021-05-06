@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,18 +8,26 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from ICA_SDK.api_client import ApiClient
-from ICA_SDK.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
+from ICA_SDK.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from ICA_SDK.model.create_task_version_request import CreateTaskVersionRequest
+from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.model.launch_task_request import LaunchTaskRequest
+from ICA_SDK.model.task_run import TaskRun
+from ICA_SDK.model.task_version import TaskVersion
+from ICA_SDK.model.task_version_summary_paged_items import TaskVersionSummaryPagedItems
+from ICA_SDK.model.update_task_version_request import UpdateTaskVersionRequest
 
 
 class TaskVersionsApi(object):
@@ -36,656 +42,693 @@ class TaskVersionsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_task_version(self, task_id, **kwargs):  # noqa: E501
-        """Create a task version  # noqa: E501
+        def __create_task_version(
+            self,
+            task_id,
+            **kwargs
+        ):
+            """Create a task version  # noqa: E501
 
-        Creates a new task version within an existing task. Returns the ID associated with the new task version. Substitutions can be defined in the following format: \"{{string}}\", and specified at launch time.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_task_version(task_id, async_req=True)
-        >>> result = thread.get()
+            Creates a new task version within an existing task. Returns the ID associated with the new task version. Substitutions can be defined in the following format: \"{{string}}\", and specified at launch time.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param CreateTaskVersionRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: TaskVersion
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.create_task_version_with_http_info(task_id, **kwargs)  # noqa: E501
+            >>> thread = api.create_task_version(task_id, async_req=True)
+            >>> result = thread.get()
 
-    def create_task_version_with_http_info(self, task_id, **kwargs):  # noqa: E501
-        """Create a task version  # noqa: E501
+            Args:
+                task_id (str):
 
-        Creates a new task version within an existing task. Returns the ID associated with the new task version. Substitutions can be defined in the following format: \"{{string}}\", and specified at launch time.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_task_version_with_http_info(task_id, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                body (CreateTaskVersionRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param CreateTaskVersionRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(TaskVersion, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                TaskVersion
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['task_id'] = \
+                task_id
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'task_id',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.create_task_version = _Endpoint(
+            settings={
+                'response_type': (TaskVersion,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/tasks/{taskId}/versions',
+                'operation_id': 'create_task_version',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'task_id',
+                    'body',
+                ],
+                'required': [
+                    'task_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'task_id':
+                        (str,),
+                    'body':
+                        (CreateTaskVersionRequest,),
+                },
+                'attribute_map': {
+                    'task_id': 'taskId',
+                },
+                'location_map': {
+                    'task_id': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__create_task_version
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_task_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'task_id' is set
-        if self.api_client.client_side_validation and ('task_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['task_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `task_id` when calling `create_task_version`")  # noqa: E501
+        def __get_task_version(
+            self,
+            task_id,
+            version_id,
+            **kwargs
+        ):
+            """Get the details of a task version  # noqa: E501
 
-        collection_formats = {}
+            Gets details of a task version for a given task version ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'task_id' in local_var_params:
-            path_params['taskId'] = local_var_params['task_id']  # noqa: E501
+            >>> thread = api.get_task_version(task_id, version_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                task_id (str):
+                version_id (str):
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                TaskVersion
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['task_id'] = \
+                task_id
+            kwargs['version_id'] = \
+                version_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/tasks/{taskId}/versions', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='TaskVersion',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_task_version(self, task_id, version_id, **kwargs):  # noqa: E501
-        """Get the details of a task version  # noqa: E501
-
-        Gets details of a task version for a given task version ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_task_version(task_id, version_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str version_id: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: TaskVersion
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.get_task_version_with_http_info(task_id, version_id, **kwargs)  # noqa: E501
-
-    def get_task_version_with_http_info(self, task_id, version_id, **kwargs):  # noqa: E501
-        """Get the details of a task version  # noqa: E501
-
-        Gets details of a task version for a given task version ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_task_version_with_http_info(task_id, version_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str version_id: (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(TaskVersion, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'task_id',
-            'version_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.get_task_version = _Endpoint(
+            settings={
+                'response_type': (TaskVersion,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/tasks/{taskId}/versions/{versionId}',
+                'operation_id': 'get_task_version',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'task_id',
+                    'version_id',
+                ],
+                'required': [
+                    'task_id',
+                    'version_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'task_id':
+                        (str,),
+                    'version_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'task_id': 'taskId',
+                    'version_id': 'versionId',
+                },
+                'location_map': {
+                    'task_id': 'path',
+                    'version_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_task_version
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_task_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'task_id' is set
-        if self.api_client.client_side_validation and ('task_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['task_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `task_id` when calling `get_task_version`")  # noqa: E501
-        # verify the required parameter 'version_id' is set
-        if self.api_client.client_side_validation and ('version_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['version_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version_id` when calling `get_task_version`")  # noqa: E501
+        def __launch_task_run(
+            self,
+            task_id,
+            version_id,
+            **kwargs
+        ):
+            """Launch a task version  # noqa: E501
 
-        collection_formats = {}
+            Launches a task version for a given task version ID. Returns the ID associated with the new task run. Substitutions defined in the task version must be specified.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'task_id' in local_var_params:
-            path_params['taskId'] = local_var_params['task_id']  # noqa: E501
-        if 'version_id' in local_var_params:
-            path_params['versionId'] = local_var_params['version_id']  # noqa: E501
+            >>> thread = api.launch_task_run(task_id, version_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                task_id (str):
+                version_id (str):
 
-        header_params = {}
+            Keyword Args:
+                body (LaunchTaskRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                TaskRun
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['task_id'] = \
+                task_id
+            kwargs['version_id'] = \
+                version_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/tasks/{taskId}/versions/{versionId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='TaskVersion',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def launch_task_run(self, task_id, version_id, **kwargs):  # noqa: E501
-        """Launch a task version  # noqa: E501
-
-        Launches a task version for a given task version ID. Returns the ID associated with the new task run. Substitutions defined in the task version must be specified.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.launch_task_run(task_id, version_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str version_id: (required)
-        :param LaunchTaskRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: TaskRun
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.launch_task_run_with_http_info(task_id, version_id, **kwargs)  # noqa: E501
-
-    def launch_task_run_with_http_info(self, task_id, version_id, **kwargs):  # noqa: E501
-        """Launch a task version  # noqa: E501
-
-        Launches a task version for a given task version ID. Returns the ID associated with the new task run. Substitutions defined in the task version must be specified.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.launch_task_run_with_http_info(task_id, version_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str version_id: (required)
-        :param LaunchTaskRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(TaskRun, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'task_id',
-            'version_id',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.launch_task_run = _Endpoint(
+            settings={
+                'response_type': (TaskRun,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/tasks/{taskId}/versions/{versionId}:launch',
+                'operation_id': 'launch_task_run',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'task_id',
+                    'version_id',
+                    'body',
+                ],
+                'required': [
+                    'task_id',
+                    'version_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'task_id':
+                        (str,),
+                    'version_id':
+                        (str,),
+                    'body':
+                        (LaunchTaskRequest,),
+                },
+                'attribute_map': {
+                    'task_id': 'taskId',
+                    'version_id': 'versionId',
+                },
+                'location_map': {
+                    'task_id': 'path',
+                    'version_id': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__launch_task_run
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method launch_task_run" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'task_id' is set
-        if self.api_client.client_side_validation and ('task_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['task_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `task_id` when calling `launch_task_run`")  # noqa: E501
-        # verify the required parameter 'version_id' is set
-        if self.api_client.client_side_validation and ('version_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['version_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version_id` when calling `launch_task_run`")  # noqa: E501
+        def __list_task_versions(
+            self,
+            task_id,
+            **kwargs
+        ):
+            """Get a list of versions  # noqa: E501
 
-        collection_formats = {}
+            Gets a list of task versions within the given task accessible by the current tenant ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'task_id' in local_var_params:
-            path_params['taskId'] = local_var_params['task_id']  # noqa: E501
-        if 'version_id' in local_var_params:
-            path_params['versionId'] = local_var_params['version_id']  # noqa: E501
+            >>> thread = api.list_task_versions(task_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                task_id (str):
 
-        header_params = {}
+            Keyword Args:
+                sort (str): Sort: Optional parameter to set the sort of the returned list. Valid fields include: name, version, timeCreated, timeModified.  The sort can be specified as asc or desc. (Default: asc.). [optional]
+                versions (str): [optional]
+                ids (str): [optional]
+                acls (str): [optional]
+                page_size (int): Optional parameter to define the page size returned. Valid inputs range from 1-1000.. [optional] if omitted the server will use the default value of 10
+                page_token (str): pageToken: Optional parameter for navigation after initial listing. Valid values include firstPageToken,  nextPageToken, and previousPageToken (provided in the list response). [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                TaskVersionSummaryPagedItems
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['task_id'] = \
+                task_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/tasks/{taskId}/versions/{versionId}:launch', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='TaskRun',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def list_task_versions(self, task_id, **kwargs):  # noqa: E501
-        """Get a list of versions  # noqa: E501
-
-        Gets a list of task versions within the given task accessible by the current tenant ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_task_versions(task_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str sort: Sort: Optional parameter to set the sort of the returned list. Valid fields include: name, version, timeCreated, timeModified.  The sort can be specified as asc or desc. (Default: asc.)
-        :param str versions:
-        :param str ids:
-        :param str acls:
-        :param int page_size: Optional parameter to define the page size returned. Valid inputs range from 1-1000.
-        :param str page_token: pageToken: Optional parameter for navigation after initial listing. Valid values include firstPageToken,  nextPageToken, and previousPageToken (provided in the list response)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: TaskVersionSummaryPagedItems
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.list_task_versions_with_http_info(task_id, **kwargs)  # noqa: E501
-
-    def list_task_versions_with_http_info(self, task_id, **kwargs):  # noqa: E501
-        """Get a list of versions  # noqa: E501
-
-        Gets a list of task versions within the given task accessible by the current tenant ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_task_versions_with_http_info(task_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str sort: Sort: Optional parameter to set the sort of the returned list. Valid fields include: name, version, timeCreated, timeModified.  The sort can be specified as asc or desc. (Default: asc.)
-        :param str versions:
-        :param str ids:
-        :param str acls:
-        :param int page_size: Optional parameter to define the page size returned. Valid inputs range from 1-1000.
-        :param str page_token: pageToken: Optional parameter for navigation after initial listing. Valid values include firstPageToken,  nextPageToken, and previousPageToken (provided in the list response)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(TaskVersionSummaryPagedItems, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'task_id',
-            'sort',
-            'versions',
-            'ids',
-            'acls',
-            'page_size',
-            'page_token'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.list_task_versions = _Endpoint(
+            settings={
+                'response_type': (TaskVersionSummaryPagedItems,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/tasks/{taskId}/versions',
+                'operation_id': 'list_task_versions',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'task_id',
+                    'sort',
+                    'versions',
+                    'ids',
+                    'acls',
+                    'page_size',
+                    'page_token',
+                ],
+                'required': [
+                    'task_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'task_id':
+                        (str,),
+                    'sort':
+                        (str,),
+                    'versions':
+                        (str,),
+                    'ids':
+                        (str,),
+                    'acls':
+                        (str,),
+                    'page_size':
+                        (int,),
+                    'page_token':
+                        (str,),
+                },
+                'attribute_map': {
+                    'task_id': 'taskId',
+                    'sort': 'sort',
+                    'versions': 'versions',
+                    'ids': 'ids',
+                    'acls': 'acls',
+                    'page_size': 'pageSize',
+                    'page_token': 'pageToken',
+                },
+                'location_map': {
+                    'task_id': 'path',
+                    'sort': 'query',
+                    'versions': 'query',
+                    'ids': 'query',
+                    'acls': 'query',
+                    'page_size': 'query',
+                    'page_token': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__list_task_versions
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method list_task_versions" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'task_id' is set
-        if self.api_client.client_side_validation and ('task_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['task_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `task_id` when calling `list_task_versions`")  # noqa: E501
+        def __update_task_version(
+            self,
+            task_id,
+            version_id,
+            **kwargs
+        ):
+            """Update task version properties  # noqa: E501
 
-        collection_formats = {}
+            Update details of a task version for a given task version ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'task_id' in local_var_params:
-            path_params['taskId'] = local_var_params['task_id']  # noqa: E501
+            >>> thread = api.update_task_version(task_id, version_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
-            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
-        if 'versions' in local_var_params and local_var_params['versions'] is not None:  # noqa: E501
-            query_params.append(('versions', local_var_params['versions']))  # noqa: E501
-        if 'ids' in local_var_params and local_var_params['ids'] is not None:  # noqa: E501
-            query_params.append(('ids', local_var_params['ids']))  # noqa: E501
-        if 'acls' in local_var_params and local_var_params['acls'] is not None:  # noqa: E501
-            query_params.append(('acls', local_var_params['acls']))  # noqa: E501
-        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
-            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
-        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
-            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
+            Args:
+                task_id (str):
+                version_id (str):
 
-        header_params = {}
+            Keyword Args:
+                body (UpdateTaskVersionRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                TaskVersion
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['task_id'] = \
+                task_id
+            kwargs['version_id'] = \
+                version_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/tasks/{taskId}/versions', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='TaskVersionSummaryPagedItems',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def update_task_version(self, task_id, version_id, **kwargs):  # noqa: E501
-        """Update task version properties  # noqa: E501
-
-        Update details of a task version for a given task version ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.update_task_version(task_id, version_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str version_id: (required)
-        :param UpdateTaskVersionRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: TaskVersion
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.update_task_version_with_http_info(task_id, version_id, **kwargs)  # noqa: E501
-
-    def update_task_version_with_http_info(self, task_id, version_id, **kwargs):  # noqa: E501
-        """Update task version properties  # noqa: E501
-
-        Update details of a task version for a given task version ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.update_task_version_with_http_info(task_id, version_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str task_id: (required)
-        :param str version_id: (required)
-        :param UpdateTaskVersionRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(TaskVersion, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'task_id',
-            'version_id',
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.update_task_version = _Endpoint(
+            settings={
+                'response_type': (TaskVersion,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/tasks/{taskId}/versions/{versionId}',
+                'operation_id': 'update_task_version',
+                'http_method': 'PATCH',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'task_id',
+                    'version_id',
+                    'body',
+                ],
+                'required': [
+                    'task_id',
+                    'version_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'task_id':
+                        (str,),
+                    'version_id':
+                        (str,),
+                    'body':
+                        (UpdateTaskVersionRequest,),
+                },
+                'attribute_map': {
+                    'task_id': 'taskId',
+                    'version_id': 'versionId',
+                },
+                'location_map': {
+                    'task_id': 'path',
+                    'version_id': 'path',
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__update_task_version
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_task_version" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'task_id' is set
-        if self.api_client.client_side_validation and ('task_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['task_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `task_id` when calling `update_task_version`")  # noqa: E501
-        # verify the required parameter 'version_id' is set
-        if self.api_client.client_side_validation and ('version_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['version_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `version_id` when calling `update_task_version`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'task_id' in local_var_params:
-            path_params['taskId'] = local_var_params['task_id']  # noqa: E501
-        if 'version_id' in local_var_params:
-            path_params['versionId'] = local_var_params['version_id']  # noqa: E501
-
-        query_params = []
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/tasks/{taskId}/versions/{versionId}', 'PATCH',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='TaskVersion',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

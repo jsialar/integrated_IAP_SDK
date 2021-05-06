@@ -1,5 +1,6 @@
 # TaskVersion
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -9,7 +10,7 @@ Name | Type | Description | Notes
 **version** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **execution** | [**Execution**](Execution.md) |  | [optional] 
-**acl** | **list[str]** | Access Control List | [optional] 
+**acl** | **[str]** | Access Control List | [optional] 
 **tenant_id** | **str** |  | [optional] 
 **sub_tenant_id** | **str** |  | [optional] 
 **created_by** | **str** | User who created the object | [optional] 

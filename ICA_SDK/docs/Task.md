@@ -1,5 +1,6 @@
 # Task
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -8,8 +9,8 @@ Name | Type | Description | Notes
 **urn** | **str** | URN of the resource | [optional] 
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
-**task_versions** | [**list[TaskVersion]**](TaskVersion.md) |  | [optional] 
-**acl** | **list[str]** | Access Control List | [optional] 
+**task_versions** | [**[TaskVersion]**](TaskVersion.md) |  | [optional] 
+**acl** | **[str]** | Access Control List | [optional] 
 **tenant_id** | **str** |  | [optional] 
 **sub_tenant_id** | **str** |  | [optional] 
 **created_by** | **str** | User who created the object | [optional] 

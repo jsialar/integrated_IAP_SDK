@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import ICA_SDK
-from ICA_SDK.models.complete_session_request import CompleteSessionRequest  # noqa: E501
-from ICA_SDK.rest import ApiException
+from ICA_SDK.model.complete_session_request import CompleteSessionRequest
+
 
 class TestCompleteSessionRequest(unittest.TestCase):
     """CompleteSessionRequest unit test stubs"""
@@ -28,25 +24,11 @@ class TestCompleteSessionRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test CompleteSessionRequest
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = ICA_SDK.models.complete_session_request.CompleteSessionRequest()  # noqa: E501
-        if include_optional :
-            return CompleteSessionRequest(
-                expected_session_file_count = 56
-            )
-        else :
-            return CompleteSessionRequest(
-                expected_session_file_count = 56,
-        )
-
     def testCompleteSessionRequest(self):
         """Test CompleteSessionRequest"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = CompleteSessionRequest()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

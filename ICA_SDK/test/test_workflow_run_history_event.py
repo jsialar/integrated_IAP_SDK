@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import ICA_SDK
-from ICA_SDK.models.workflow_run_history_event import WorkflowRunHistoryEvent  # noqa: E501
-from ICA_SDK.rest import ApiException
+from ICA_SDK.model.workflow_run_history_event import WorkflowRunHistoryEvent
+
 
 class TestWorkflowRunHistoryEvent(unittest.TestCase):
     """WorkflowRunHistoryEvent unit test stubs"""
@@ -28,29 +24,11 @@ class TestWorkflowRunHistoryEvent(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test WorkflowRunHistoryEvent
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = ICA_SDK.models.workflow_run_history_event.WorkflowRunHistoryEvent()  # noqa: E501
-        if include_optional :
-            return WorkflowRunHistoryEvent(
-                name = '0', 
-                event_id = 56, 
-                previous_event_id = 56, 
-                event_type = '0', 
-                timestamp = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                event_details = None
-            )
-        else :
-            return WorkflowRunHistoryEvent(
-        )
-
     def testWorkflowRunHistoryEvent(self):
         """Test WorkflowRunHistoryEvent"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = WorkflowRunHistoryEvent()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

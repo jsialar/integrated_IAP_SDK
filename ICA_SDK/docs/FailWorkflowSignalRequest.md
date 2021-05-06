@@ -1,6 +1,7 @@
 # FailWorkflowSignalRequest
 
 Fail workflow signal request
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

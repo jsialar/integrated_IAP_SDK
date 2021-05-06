@@ -4,7 +4,7 @@
     "title": "Event Notification Service",
     "version": "v1"
   },
-  "host": "aps1.platform.illumina.com",
+  "host": "use1.platform.illumina.com",
   "schemes": [
     "https"
   ],

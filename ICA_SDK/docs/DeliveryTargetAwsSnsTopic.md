@@ -1,6 +1,7 @@
 # DeliveryTargetAwsSnsTopic
 
 Configuration for an AWS SNS delivery topic
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

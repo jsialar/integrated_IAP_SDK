@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,18 +8,24 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from ICA_SDK.api_client import ApiClient
-from ICA_SDK.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
+from ICA_SDK.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from ICA_SDK.model.create_volume_request import CreateVolumeRequest
+from ICA_SDK.model.create_volume_response import CreateVolumeResponse
+from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.model.volume_list_response import VolumeListResponse
+from ICA_SDK.model.volume_response import VolumeResponse
 
 
 class VolumesApi(object):
@@ -36,488 +40,531 @@ class VolumesApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_volume(self, body, **kwargs):  # noqa: E501
-        """Create a volume in GDS and receive temporary credentials for upload  # noqa: E501
+        def __create_volume(
+            self,
+            body,
+            **kwargs
+        ):
+            """Create a volume in GDS and receive temporary credentials for upload  # noqa: E501
 
-        Create a volume in GDS to hold folders and files. Returns upload credentials to the root folder of the volume when the include=objectStoreAccess parameter is used. You must create a volume prior to uploading files or folders.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_volume(body, async_req=True)
-        >>> result = thread.get()
+            Create a volume in GDS to hold folders and files. Returns upload credentials to the root folder of the volume when the include=objectStoreAccess parameter is used. You must create a volume prior to uploading files or folders.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param CreateVolumeRequest body: (required)
-        :param str include: Comma-separated list of properties to include in the response ([include=[totalItemCount]).Example: include=totalItemCount
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: CreateVolumeResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.create_volume_with_http_info(body, **kwargs)  # noqa: E501
+            >>> thread = api.create_volume(body, async_req=True)
+            >>> result = thread.get()
 
-    def create_volume_with_http_info(self, body, **kwargs):  # noqa: E501
-        """Create a volume in GDS and receive temporary credentials for upload  # noqa: E501
+            Args:
+                body (CreateVolumeRequest):
 
-        Create a volume in GDS to hold folders and files. Returns upload credentials to the root folder of the volume when the include=objectStoreAccess parameter is used. You must create a volume prior to uploading files or folders.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_volume_with_http_info(body, async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                include (str): Optionally include additional fields in the response.              Possible values: ObjectStoreAccess. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param CreateVolumeRequest body: (required)
-        :param str include: Comma-separated list of properties to include in the response ([include=[totalItemCount]).Example: include=totalItemCount
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(CreateVolumeResponse, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                CreateVolumeResponse
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['body'] = \
+                body
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'body',
-            'include'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.create_volume = _Endpoint(
+            settings={
+                'response_type': (CreateVolumeResponse,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/volumes',
+                'operation_id': 'create_volume',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'body',
+                    'include',
+                ],
+                'required': [
+                    'body',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'body':
+                        (CreateVolumeRequest,),
+                    'include':
+                        (str,),
+                },
+                'attribute_map': {
+                    'include': 'include',
+                },
+                'location_map': {
+                    'body': 'body',
+                    'include': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json'
+                ]
+            },
+            api_client=api_client,
+            callable=__create_volume
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_volume" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'body' is set
-        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
-                                                        local_var_params['body'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `body` when calling `create_volume`")  # noqa: E501
+        def __delete_volume(
+            self,
+            volume_id,
+            **kwargs
+        ):
+            """Deletes a volume by Id  # noqa: E501
 
-        collection_formats = {}
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
+            >>> thread = api.delete_volume(volume_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            Args:
+                volume_id (str): Unique identifier for the Volume to be deleted.
 
-        header_params = {}
+            Keyword Args:
+                purge_object_store_data (bool): Optional and for BYOB only. If true, the volume's data in object storage will be erased.              This field is ignored for non-BYOB volumes where the object store data is always removed upon deleting the volume.. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                VolumeResponse
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['volume_id'] = \
+                volume_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/volumes', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='CreateVolumeResponse',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def delete_volume(self, volume_id, **kwargs):  # noqa: E501
-        """Deletes a volume by Id  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_volume(volume_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str volume_id: Unique identifier for the Volume to be deleted. (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: VolumeResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.delete_volume_with_http_info(volume_id, **kwargs)  # noqa: E501
-
-    def delete_volume_with_http_info(self, volume_id, **kwargs):  # noqa: E501
-        """Deletes a volume by Id  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_volume_with_http_info(volume_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str volume_id: Unique identifier for the Volume to be deleted. (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(VolumeResponse, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'volume_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.delete_volume = _Endpoint(
+            settings={
+                'response_type': (VolumeResponse,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/volumes/{volumeId}',
+                'operation_id': 'delete_volume',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'volume_id',
+                    'purge_object_store_data',
+                ],
+                'required': [
+                    'volume_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'volume_id':
+                        (str,),
+                    'purge_object_store_data':
+                        (bool,),
+                },
+                'attribute_map': {
+                    'volume_id': 'volumeId',
+                    'purge_object_store_data': 'purgeObjectStoreData',
+                },
+                'location_map': {
+                    'volume_id': 'path',
+                    'purge_object_store_data': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__delete_volume
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_volume" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'volume_id' is set
-        if self.api_client.client_side_validation and ('volume_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['volume_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `volume_id` when calling `delete_volume`")  # noqa: E501
+        def __get_volume(
+            self,
+            volume_id,
+            **kwargs
+        ):
+            """Get information for the specified volume ID or volume name  # noqa: E501
 
-        collection_formats = {}
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'volume_id' in local_var_params:
-            path_params['volumeId'] = local_var_params['volume_id']  # noqa: E501
+            >>> thread = api.get_volume(volume_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                volume_id (str): Unique identifier for the volume to retrieve information for.
 
-        header_params = {}
+            Keyword Args:
+                tenant_id (str): Optional parameter to see shared data in another tenant. [optional]
+                metadata_include (str): Optional parameter to specify comma separated patterns to include metadata by their field names.. [optional]
+                metadata_exclude (str): Optional parameter to specify comma separated patterns to exclude metadata by their field names.. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                VolumeResponse
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['volume_id'] = \
+                volume_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/volumes/{volumeId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='VolumeResponse',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_volume(self, volume_id, **kwargs):  # noqa: E501
-        """Get information for the specified volume ID or volume name  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_volume(volume_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str volume_id: Unique identifier for the volume to retrieve information for. (required)
-        :param str tenant_id: Optional parameter to see shared data in another tenant
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: VolumeResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.get_volume_with_http_info(volume_id, **kwargs)  # noqa: E501
-
-    def get_volume_with_http_info(self, volume_id, **kwargs):  # noqa: E501
-        """Get information for the specified volume ID or volume name  # noqa: E501
-
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_volume_with_http_info(volume_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str volume_id: Unique identifier for the volume to retrieve information for. (required)
-        :param str tenant_id: Optional parameter to see shared data in another tenant
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(VolumeResponse, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'volume_id',
-            'tenant_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.get_volume = _Endpoint(
+            settings={
+                'response_type': (VolumeResponse,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/volumes/{volumeId}',
+                'operation_id': 'get_volume',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'volume_id',
+                    'tenant_id',
+                    'metadata_include',
+                    'metadata_exclude',
+                ],
+                'required': [
+                    'volume_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'volume_id':
+                        (str,),
+                    'tenant_id':
+                        (str,),
+                    'metadata_include':
+                        (str,),
+                    'metadata_exclude':
+                        (str,),
+                },
+                'attribute_map': {
+                    'volume_id': 'volumeId',
+                    'tenant_id': 'tenantId',
+                    'metadata_include': 'metadata.include',
+                    'metadata_exclude': 'metadata.exclude',
+                },
+                'location_map': {
+                    'volume_id': 'path',
+                    'tenant_id': 'query',
+                    'metadata_include': 'query',
+                    'metadata_exclude': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_volume
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_volume" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'volume_id' is set
-        if self.api_client.client_side_validation and ('volume_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['volume_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `volume_id` when calling `get_volume`")  # noqa: E501
+        def __list_volumes(
+            self,
+            **kwargs
+        ):
+            """Get a list of volumes  # noqa: E501
 
-        collection_formats = {}
+            Get a list of volumes accessible by the current JWT tokenâ€™s tenant ID in GDS. The default sort returned is alphabetical, ascending. The default page size is 10 items.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'volume_id' in local_var_params:
-            path_params['volumeId'] = local_var_params['volume_id']  # noqa: E501
+            >>> thread = api.list_volumes(async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
-        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
-            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
 
-        header_params = {}
+            Keyword Args:
+                page_size (int): START_DESC END_DESC. [optional]
+                page_token (str): START_DESC END_DESC. [optional]
+                include (str): Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl. [optional]
+                tenant_id (str): Optional parameter to see shared data in another tenant. [optional]
+                volume_configuration_name (str): Unique name of the volume configuration. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                VolumeListResponse
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.list_volumes = _Endpoint(
+            settings={
+                'response_type': (VolumeListResponse,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/volumes',
+                'operation_id': 'list_volumes',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'page_size',
+                    'page_token',
+                    'include',
+                    'tenant_id',
+                    'volume_configuration_name',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'page_size',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('page_size',): {
 
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/volumes/{volumeId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='VolumeResponse',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def list_volumes(self, **kwargs):  # noqa: E501
-        """Get a list of volumes  # noqa: E501
-
-        Get a list of volumes accessible by the current JWT tokenâ€™s tenant ID in GDS. The default sort returned is alphabetical, ascending. The default page size is 10 items.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_volumes(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param int page_size: START_DESC END_DESC
-        :param str page_token: START_DESC END_DESC
-        :param str include: START_DESC END_DESC
-        :param str tenant_id: Optional parameter to see shared data in another tenant
-        :param str volume_configuration_name: Unique name of the volume configuration
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: VolumeListResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.list_volumes_with_http_info(**kwargs)  # noqa: E501
-
-    def list_volumes_with_http_info(self, **kwargs):  # noqa: E501
-        """Get a list of volumes  # noqa: E501
-
-        Get a list of volumes accessible by the current JWT tokenâ€™s tenant ID in GDS. The default sort returned is alphabetical, ascending. The default page size is 10 items.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_volumes_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param int page_size: START_DESC END_DESC
-        :param str page_token: START_DESC END_DESC
-        :param str include: START_DESC END_DESC
-        :param str tenant_id: Optional parameter to see shared data in another tenant
-        :param str volume_configuration_name: Unique name of the volume configuration
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(VolumeListResponse, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'page_size',
-            'page_token',
-            'include',
-            'tenant_id',
-            'volume_configuration_name'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        'inclusive_maximum': 1000,
+                        'inclusive_minimum': 0,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'page_size':
+                        (int,),
+                    'page_token':
+                        (str,),
+                    'include':
+                        (str,),
+                    'tenant_id':
+                        (str,),
+                    'volume_configuration_name':
+                        (str,),
+                },
+                'attribute_map': {
+                    'page_size': 'pageSize',
+                    'page_token': 'pageToken',
+                    'include': 'include',
+                    'tenant_id': 'tenantId',
+                    'volume_configuration_name': 'volumeConfigurationName',
+                },
+                'location_map': {
+                    'page_size': 'query',
+                    'page_token': 'query',
+                    'include': 'query',
+                    'tenant_id': 'query',
+                    'volume_configuration_name': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__list_volumes
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method list_volumes" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-
-        if self.api_client.client_side_validation and 'page_size' in local_var_params and local_var_params['page_size'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page_size` when calling `list_volumes`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'page_size' in local_var_params and local_var_params['page_size'] < 0:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page_size` when calling `list_volumes`, must be a value greater than or equal to `0`")  # noqa: E501
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
-            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
-        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
-            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
-            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
-        if 'volume_configuration_name' in local_var_params and local_var_params['volume_configuration_name'] is not None:  # noqa: E501
-            query_params.append(('volumeConfigurationName', local_var_params['volume_configuration_name']))  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/volumes', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='VolumeListResponse',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

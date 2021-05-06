@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,18 +8,23 @@
 """
 
 
-from __future__ import absolute_import
-
 import re  # noqa: F401
+import sys  # noqa: F401
 
-# python 2 and python 3 compatibility library
-import six
-
-from ICA_SDK.api_client import ApiClient
-from ICA_SDK.exceptions import (  # noqa: F401
-    ApiTypeError,
-    ApiValueError
+from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
+from ICA_SDK.model_utils import (  # noqa: F401
+    check_allowed_values,
+    check_validations,
+    date,
+    datetime,
+    file_type,
+    none_type,
+    validate_and_convert_types
 )
+from ICA_SDK.model.create_subscription_request import CreateSubscriptionRequest
+from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.model.subscription import Subscription
+from ICA_SDK.model.subscription_list import SubscriptionList
 
 
 class SubscriptionsApi(object):
@@ -36,477 +39,500 @@ class SubscriptionsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_subscription(self, **kwargs):  # noqa: E501
-        """Creates a subscription to an event type and defines how those events get delivered.  # noqa: E501
+        def __create_subscription(
+            self,
+            **kwargs
+        ):
+            """Creates a subscription to an event type and defines how those events get delivered.  # noqa: E501
 
-        Events can be delivered to AWS SQS, AWS SNS, or can be used to launch a WES workflow.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_subscription(async_req=True)
-        >>> result = thread.get()
+            Events can be delivered to AWS SQS, AWS SNS, or can be used to launch a WES workflow.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        :param async_req bool: execute request asynchronously
-        :param CreateSubscriptionRequest body:
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Subscription
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.create_subscription_with_http_info(**kwargs)  # noqa: E501
+            >>> thread = api.create_subscription(async_req=True)
+            >>> result = thread.get()
 
-    def create_subscription_with_http_info(self, **kwargs):  # noqa: E501
-        """Creates a subscription to an event type and defines how those events get delivered.  # noqa: E501
 
-        Events can be delivered to AWS SQS, AWS SNS, or can be used to launch a WES workflow.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.create_subscription_with_http_info(async_req=True)
-        >>> result = thread.get()
+            Keyword Args:
+                body (CreateSubscriptionRequest): [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        :param async_req bool: execute request asynchronously
-        :param CreateSubscriptionRequest body:
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Subscription, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
+            Returns:
+                Subscription
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            return self.call_with_http_info(**kwargs)
 
-        local_var_params = locals()
-
-        all_params = [
-            'body'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.create_subscription = _Endpoint(
+            settings={
+                'response_type': (Subscription,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/subscriptions',
+                'operation_id': 'create_subscription',
+                'http_method': 'POST',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'body',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'body':
+                        (CreateSubscriptionRequest,),
+                },
+                'attribute_map': {
+                },
+                'location_map': {
+                    'body': 'body',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [
+                    'application/json-patch+json',
+                    'application/json',
+                    'text/json',
+                    'application/*+json'
+                ]
+            },
+            api_client=api_client,
+            callable=__create_subscription
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_subscription" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
+        def __disable_subscription(
+            self,
+            subscription_id,
+            **kwargs
+        ):
+            """Given a subscription id, disables the specified subscription.  # noqa: E501
 
-        collection_formats = {}
+            Given a subscription id, disables that subscription with the current JWT tokenâ€™s tenant Id.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
+            >>> thread = api.disable_subscription(subscription_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                subscription_id (str): Id of the subscription to be disabled
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Subscription
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['subscription_id'] = \
+                subscription_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        if 'body' in local_var_params:
-            body_params = local_var_params['body']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/subscriptions', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Subscription',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def disable_subscription(self, subscription_id, **kwargs):  # noqa: E501
-        """Given a subscription id, disables the specified subscription.  # noqa: E501
-
-        Given a subscription id, disables that subscription with the current JWT tokenâ€™s tenant Id.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.disable_subscription(subscription_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str subscription_id: Id of the subscription to be disabled (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Subscription
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.disable_subscription_with_http_info(subscription_id, **kwargs)  # noqa: E501
-
-    def disable_subscription_with_http_info(self, subscription_id, **kwargs):  # noqa: E501
-        """Given a subscription id, disables the specified subscription.  # noqa: E501
-
-        Given a subscription id, disables that subscription with the current JWT tokenâ€™s tenant Id.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.disable_subscription_with_http_info(subscription_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str subscription_id: Id of the subscription to be disabled (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Subscription, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'subscription_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.disable_subscription = _Endpoint(
+            settings={
+                'response_type': (Subscription,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/subscriptions/{subscriptionId}',
+                'operation_id': 'disable_subscription',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'subscription_id',
+                ],
+                'required': [
+                    'subscription_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'subscription_id',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('subscription_id',): {
+                        'max_length': 255,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'subscription_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'subscription_id': 'subscriptionId',
+                },
+                'location_map': {
+                    'subscription_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__disable_subscription
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method disable_subscription" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'subscription_id' is set
-        if self.api_client.client_side_validation and ('subscription_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['subscription_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `subscription_id` when calling `disable_subscription`")  # noqa: E501
+        def __get_subscription(
+            self,
+            subscription_id,
+            **kwargs
+        ):
+            """Given a subscription id, returns information about that subscription.  # noqa: E501
 
-        if self.api_client.client_side_validation and ('subscription_id' in local_var_params and  # noqa: E501
-                                                        len(local_var_params['subscription_id']) > 255):  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `subscription_id` when calling `disable_subscription`, length must be less than or equal to `255`")  # noqa: E501
-        collection_formats = {}
+            Given a subscription id, returns information about that subscription accessible by the current JWT tokenâ€™s tenant Id.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'subscription_id' in local_var_params:
-            path_params['subscriptionId'] = local_var_params['subscription_id']  # noqa: E501
+            >>> thread = api.get_subscription(subscription_id, async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
+            Args:
+                subscription_id (str): Id of the subscription to return
 
-        header_params = {}
+            Keyword Args:
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                Subscription
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            kwargs['subscription_id'] = \
+                subscription_id
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/subscriptions/{subscriptionId}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Subscription',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def get_subscription(self, subscription_id, **kwargs):  # noqa: E501
-        """Given a subscription id, returns information about that subscription.  # noqa: E501
-
-        Given a subscription id, returns information about that subscription accessible by the current JWT tokenâ€™s tenant Id.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_subscription(subscription_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str subscription_id: Id of the subscription to return (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Subscription
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.get_subscription_with_http_info(subscription_id, **kwargs)  # noqa: E501
-
-    def get_subscription_with_http_info(self, subscription_id, **kwargs):  # noqa: E501
-        """Given a subscription id, returns information about that subscription.  # noqa: E501
-
-        Given a subscription id, returns information about that subscription accessible by the current JWT tokenâ€™s tenant Id.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_subscription_with_http_info(subscription_id, async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str subscription_id: Id of the subscription to return (required)
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(Subscription, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'subscription_id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+        self.get_subscription = _Endpoint(
+            settings={
+                'response_type': (Subscription,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/subscriptions/{subscriptionId}',
+                'operation_id': 'get_subscription',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'subscription_id',
+                ],
+                'required': [
+                    'subscription_id',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'subscription_id',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('subscription_id',): {
+                        'max_length': 255,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'subscription_id':
+                        (str,),
+                },
+                'attribute_map': {
+                    'subscription_id': 'subscriptionId',
+                },
+                'location_map': {
+                    'subscription_id': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__get_subscription
         )
 
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_subscription" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'subscription_id' is set
-        if self.api_client.client_side_validation and ('subscription_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['subscription_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `subscription_id` when calling `get_subscription`")  # noqa: E501
+        def __list_subscriptions(
+            self,
+            **kwargs
+        ):
+            """Get a list of subscriptions.  # noqa: E501
 
-        if self.api_client.client_side_validation and ('subscription_id' in local_var_params and  # noqa: E501
-                                                        len(local_var_params['subscription_id']) > 255):  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `subscription_id` when calling `get_subscription`, length must be less than or equal to `255`")  # noqa: E501
-        collection_formats = {}
+            Get a list of subscriptions accessible by the current JWT tokenâ€™s tenant Id.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
 
-        path_params = {}
-        if 'subscription_id' in local_var_params:
-            path_params['subscriptionId'] = local_var_params['subscription_id']  # noqa: E501
+            >>> thread = api.list_subscriptions(async_req=True)
+            >>> result = thread.get()
 
-        query_params = []
 
-        header_params = {}
+            Keyword Args:
+                event_type (str): Optional event type for filtering returned subscriptions. [optional]
+                page_size (int): Optional parameter to define the page size returned. Valid inputs range from 1-1000.. [optional]
+                page_token (str): Utilized for navigation after initial listing. Valid values include those of  firstPageToken, nextPageToken, and previousPageToken in the list response.  When there are no more pages, the nextPageToken will be null.. [optional]
+                _return_http_data_only (bool): response data without head status
+                    code and headers. Default is True.
+                _preload_content (bool): if False, the urllib3.HTTPResponse object
+                    will be returned without reading/decoding response data.
+                    Default is True.
+                _request_timeout (float/tuple): timeout setting for this request. If one
+                    number provided, it will be total request timeout. It can also
+                    be a pair (tuple) of (connection, read) timeouts.
+                    Default is None.
+                _check_input_type (bool): specifies if type checking
+                    should be done one the data sent to the server.
+                    Default is True.
+                _check_return_type (bool): specifies if type checking
+                    should be done one the data received from the server.
+                    Default is True.
+                _host_index (int/None): specifies the index of the server
+                    that we want to use.
+                    Default is read from the configuration.
+                async_req (bool): execute request asynchronously
 
-        form_params = []
-        local_var_files = {}
+            Returns:
+                SubscriptionList
+                    If the method is called asynchronously, returns the request
+                    thread.
+            """
+            kwargs['async_req'] = kwargs.get(
+                'async_req', False
+            )
+            kwargs['_return_http_data_only'] = kwargs.get(
+                '_return_http_data_only', True
+            )
+            kwargs['_preload_content'] = kwargs.get(
+                '_preload_content', True
+            )
+            kwargs['_request_timeout'] = kwargs.get(
+                '_request_timeout', None
+            )
+            kwargs['_check_input_type'] = kwargs.get(
+                '_check_input_type', True
+            )
+            kwargs['_check_return_type'] = kwargs.get(
+                '_check_return_type', True
+            )
+            kwargs['_host_index'] = kwargs.get('_host_index')
+            return self.call_with_http_info(**kwargs)
 
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+        self.list_subscriptions = _Endpoint(
+            settings={
+                'response_type': (SubscriptionList,),
+                'auth': [
+                    'Bearer'
+                ],
+                'endpoint_path': '/v1/subscriptions',
+                'operation_id': 'list_subscriptions',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'event_type',
+                    'page_size',
+                    'page_token',
+                ],
+                'required': [],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                    'event_type',
+                    'page_size',
+                ]
+            },
+            root_map={
+                'validations': {
+                    ('event_type',): {
+                        'max_length': 255,
+                    },
+                    ('page_size',): {
 
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/subscriptions/{subscriptionId}', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='Subscription',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)
-
-    def list_subscriptions(self, **kwargs):  # noqa: E501
-        """Get a list of subscriptions.  # noqa: E501
-
-        Get a list of subscriptions accessible by the current JWT tokenâ€™s tenant Id.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_subscriptions(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str event_type: Optional event type for filtering returned subscriptions
-        :param int page_size: Optional parameter to define the page size returned. Valid inputs range from 1-1000.
-        :param str page_token: Utilized for navigation after initial listing. Valid values include those of  firstPageToken, nextPageToken, and previousPageToken in the list response.  When there are no more pages, the nextPageToken will be null.
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: SubscriptionList
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.list_subscriptions_with_http_info(**kwargs)  # noqa: E501
-
-    def list_subscriptions_with_http_info(self, **kwargs):  # noqa: E501
-        """Get a list of subscriptions.  # noqa: E501
-
-        Get a list of subscriptions accessible by the current JWT tokenâ€™s tenant Id.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_subscriptions_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req bool: execute request asynchronously
-        :param str event_type: Optional event type for filtering returned subscriptions
-        :param int page_size: Optional parameter to define the page size returned. Valid inputs range from 1-1000.
-        :param str page_token: Utilized for navigation after initial listing. Valid values include those of  firstPageToken, nextPageToken, and previousPageToken in the list response.  When there are no more pages, the nextPageToken will be null.
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: tuple(SubscriptionList, status_code(int), headers(HTTPHeaderDict))
-                 If the method is called asynchronously,
-                 returns the request thread.
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'event_type',
-            'page_size',
-            'page_token'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout'
-            ]
+                        'inclusive_maximum': 1000,
+                        'inclusive_minimum': 1,
+                    },
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'event_type':
+                        (str,),
+                    'page_size':
+                        (int,),
+                    'page_token':
+                        (str,),
+                },
+                'attribute_map': {
+                    'event_type': 'eventType',
+                    'page_size': 'pageSize',
+                    'page_token': 'pageToken',
+                },
+                'location_map': {
+                    'event_type': 'query',
+                    'page_size': 'query',
+                    'page_token': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'application/json'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client,
+            callable=__list_subscriptions
         )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method list_subscriptions" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-
-        if self.api_client.client_side_validation and ('event_type' in local_var_params and  # noqa: E501
-                                                        len(local_var_params['event_type']) > 255):  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `event_type` when calling `list_subscriptions`, length must be less than or equal to `255`")  # noqa: E501
-        if self.api_client.client_side_validation and 'page_size' in local_var_params and local_var_params['page_size'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page_size` when calling `list_subscriptions`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'page_size' in local_var_params and local_var_params['page_size'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page_size` when calling `list_subscriptions`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
-
-        path_params = {}
-
-        query_params = []
-        if 'event_type' in local_var_params and local_var_params['event_type'] is not None:  # noqa: E501
-            query_params.append(('eventType', local_var_params['event_type']))  # noqa: E501
-        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
-            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
-        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
-            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
-
-        header_params = {}
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['Bearer']  # noqa: E501
-
-        return self.api_client.call_api(
-            '/v1/subscriptions', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_type='SubscriptionList',  # noqa: E501
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats)

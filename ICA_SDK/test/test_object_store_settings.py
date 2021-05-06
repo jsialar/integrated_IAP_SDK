@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,14 +8,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import ICA_SDK
-from ICA_SDK.models.object_store_settings import ObjectStoreSettings  # noqa: E501
-from ICA_SDK.rest import ApiException
+from ICA_SDK.model.awss3_object_store_setting import AWSS3ObjectStoreSetting
+globals()['AWSS3ObjectStoreSetting'] = AWSS3ObjectStoreSetting
+from ICA_SDK.model.object_store_settings import ObjectStoreSettings
+
 
 class TestObjectStoreSettings(unittest.TestCase):
     """ObjectStoreSettings unit test stubs"""
@@ -28,31 +26,11 @@ class TestObjectStoreSettings(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ObjectStoreSettings
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = ICA_SDK.models.object_store_settings.ObjectStoreSettings()  # noqa: E501
-        if include_optional :
-            return ObjectStoreSettings(
-                aws_s3 = ICA_SDK.models.awss3_object_store_setting.AWSS3ObjectStoreSetting(
-                    bucket_name = '012', 
-                    key_prefix = 'gds-volumes/', ), 
-                platform_credentials_name = '0'
-            )
-        else :
-            return ObjectStoreSettings(
-                aws_s3 = ICA_SDK.models.awss3_object_store_setting.AWSS3ObjectStoreSetting(
-                    bucket_name = '012', 
-                    key_prefix = 'gds-volumes/', ),
-                platform_credentials_name = '0',
-        )
-
     def testObjectStoreSettings(self):
         """Test ObjectStoreSettings"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ObjectStoreSettings()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

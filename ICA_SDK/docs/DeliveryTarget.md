@@ -1,6 +1,7 @@
 # DeliveryTarget
 
 Configuration for the action to perform for events matching this subscription; only one delivery type may be specified
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

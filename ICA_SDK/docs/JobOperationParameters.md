@@ -1,6 +1,7 @@
 # JobOperationParameters
 
 Container for XXXOperationParameters objects, which have additional details related to the specific job operation type.  Only one object will be populated.
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

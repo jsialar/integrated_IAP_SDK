@@ -1,5 +1,3 @@
-# coding: utf-8
-
 """
     IAP Services
 
@@ -10,14 +8,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import ICA_SDK
-from ICA_SDK.models.update_file_request import UpdateFileRequest  # noqa: E501
-from ICA_SDK.rest import ApiException
+from ICA_SDK.model.update_file_request import UpdateFileRequest
+
 
 class TestUpdateFileRequest(unittest.TestCase):
     """UpdateFileRequest unit test stubs"""
@@ -28,24 +24,11 @@ class TestUpdateFileRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test UpdateFileRequest
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = ICA_SDK.models.update_file_request.UpdateFileRequest()  # noqa: E501
-        if include_optional :
-            return UpdateFileRequest(
-                type = '0'
-            )
-        else :
-            return UpdateFileRequest(
-        )
-
     def testUpdateFileRequest(self):
         """Test UpdateFileRequest"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = UpdateFileRequest()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

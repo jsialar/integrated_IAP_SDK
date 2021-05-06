@@ -1,5 +1,6 @@
 # SessionResponse
 
+
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -10,6 +11,7 @@ Name | Type | Description | Notes
 **time_credentials_expire** | **datetime** | The date &amp; time this upload session expires | [optional] 
 **time_closed** | **datetime** | The date &amp; time this Session was closed, in GDS | [optional] 
 **time_completed** | **datetime** | The date &amp; time this Session was completed, in GDS | [optional] 
+**metadata** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
