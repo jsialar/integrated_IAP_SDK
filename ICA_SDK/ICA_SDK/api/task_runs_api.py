@@ -112,6 +112,7 @@ class TaskRunsApi(object):
             settings={
                 'response_type': (TaskRunSummary,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/runs/{runId}:abort',
@@ -227,6 +228,7 @@ class TaskRunsApi(object):
             settings={
                 'response_type': (TaskRun,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/runs',
@@ -348,6 +350,7 @@ class TaskRunsApi(object):
             settings={
                 'response_type': (TaskRun,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/runs/{runId}',
@@ -468,6 +471,7 @@ class TaskRunsApi(object):
             settings={
                 'response_type': (TaskRunHeartbeat,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/runs/{runId}:heartbeat',
@@ -598,6 +602,7 @@ class TaskRunsApi(object):
             settings={
                 'response_type': (TaskRunSummaryPagedItems,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/runs',

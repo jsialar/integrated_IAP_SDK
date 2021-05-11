@@ -112,6 +112,7 @@ class WorkflowRunsApi(object):
             settings={
                 'response_type': (WorkflowRun,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/runs/{runId}:abort',
@@ -253,6 +254,7 @@ class WorkflowRunsApi(object):
             settings={
                 'response_type': (WorkflowRun,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/runs/{runId}',
@@ -388,6 +390,7 @@ class WorkflowRunsApi(object):
             settings={
                 'response_type': (WorkflowRunHistoryEventList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/runs/{runId}/history',
@@ -535,6 +538,7 @@ class WorkflowRunsApi(object):
             settings={
                 'response_type': (WorkflowRunList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/runs',

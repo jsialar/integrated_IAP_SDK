@@ -111,6 +111,7 @@ class WorkflowSignalsApi(object):
             settings={
                 'response_type': (WorkflowSignal,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/signals/{signalId}:fail',
@@ -239,6 +240,7 @@ class WorkflowSignalsApi(object):
             settings={
                 'response_type': (WorkflowSignal,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/signals/{signalId}',
@@ -358,6 +360,7 @@ class WorkflowSignalsApi(object):
             settings={
                 'response_type': (WorkflowSignalList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/signals',
@@ -502,6 +505,7 @@ class WorkflowSignalsApi(object):
             settings={
                 'response_type': (WorkflowSignal,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/signals/{signalId}:succeed',

@@ -19,6 +19,7 @@ Creates a new workflow and version (if provided).
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -38,6 +39,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -98,7 +105,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -127,6 +134,7 @@ Gets the details of a workflow with a given ID.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -145,6 +153,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -180,7 +194,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -209,6 +223,7 @@ Gets a list of workflows.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -227,6 +242,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -279,7 +300,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -307,6 +328,7 @@ Updates the workflow with a given ID.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -326,6 +348,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -382,7 +410,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

@@ -117,6 +117,7 @@ class FilesApi(object):
             settings={
                 'response_type': (FileResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files/{fileId}:archive',
@@ -247,6 +248,7 @@ class FilesApi(object):
             settings={
                 'response_type': (FileWriteableResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files',
@@ -372,6 +374,7 @@ class FilesApi(object):
             settings={
                 'response_type': None,
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files/{fileId}',
@@ -496,6 +499,7 @@ class FilesApi(object):
             settings={
                 'response_type': (FileResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files/{fileId}',
@@ -637,6 +641,7 @@ class FilesApi(object):
             settings={
                 'response_type': (FileListResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files',
@@ -822,6 +827,7 @@ class FilesApi(object):
             settings={
                 'response_type': (FileResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files/{fileId}:unarchive',
@@ -953,6 +959,7 @@ class FilesApi(object):
             settings={
                 'response_type': (FileWriteableResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/files/{fileId}',

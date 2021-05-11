@@ -19,6 +19,7 @@ Events can be delivered to AWS SQS, AWS SNS, or can be used to launch a WES work
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -38,6 +39,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -96,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -125,6 +132,7 @@ Given a subscription id, disables that subscription with the current JWT tokenâ
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -143,6 +151,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -178,7 +192,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -208,6 +222,7 @@ Given a subscription id, returns information about that subscription accessible 
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -226,6 +241,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -261,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -291,6 +312,7 @@ Get a list of subscriptions accessible by the current JWT tokenâ€™s tenant 
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -309,6 +331,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -349,7 +377,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

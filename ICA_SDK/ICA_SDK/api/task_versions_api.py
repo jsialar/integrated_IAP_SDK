@@ -113,6 +113,7 @@ class TaskVersionsApi(object):
             settings={
                 'response_type': (TaskVersion,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}/versions',
@@ -245,6 +246,7 @@ class TaskVersionsApi(object):
             settings={
                 'response_type': (TaskVersion,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}/versions/{versionId}',
@@ -375,6 +377,7 @@ class TaskVersionsApi(object):
             settings={
                 'response_type': (TaskRun,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}/versions/{versionId}:launch',
@@ -515,6 +518,7 @@ class TaskVersionsApi(object):
             settings={
                 'response_type': (TaskVersionSummaryPagedItems,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}/versions',
@@ -669,6 +673,7 @@ class TaskVersionsApi(object):
             settings={
                 'response_type': (TaskVersion,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}/versions/{versionId}',

@@ -26,6 +26,7 @@ Archives a folder to a lower storage cost tier.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -45,6 +46,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -84,7 +91,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -114,6 +121,7 @@ Complete a folder upload in GDS.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -133,6 +141,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -174,7 +188,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -205,6 +219,7 @@ Copy a folder into a target parent folder
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -224,6 +239,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -275,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -306,6 +327,7 @@ Create a folder entry in GDS. Returns temporary credentials for folder upload di
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -325,6 +347,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -380,7 +408,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -407,6 +435,7 @@ Deletes a folder by id
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -425,6 +454,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -460,7 +495,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -489,6 +524,7 @@ Get information for the specified folder ID.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -507,6 +543,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -557,7 +599,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -586,6 +628,7 @@ Get status of a folder job in GDS.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -604,6 +647,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -641,7 +690,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -671,6 +720,7 @@ Get status of a folder upload in GDS.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -689,6 +739,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -726,7 +782,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -756,6 +812,7 @@ Given a volumeId or volume name, get a list of folders accessible by the JWT. Th
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -774,6 +831,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -840,7 +903,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -868,6 +931,7 @@ Unarchive a folder from a lower storage cost tier.
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -887,6 +951,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -926,7 +996,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
@@ -957,6 +1027,7 @@ Update an existing folder in GDS and return upload credentials for that folder. 
 
 ### Example
 
+* Basic Authentication (Basic):
 * Api Key Authentication (Bearer):
 ```python
 import time
@@ -976,6 +1047,12 @@ configuration = ICA_SDK.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
 
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
@@ -1029,7 +1106,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Bearer](../README.md#Bearer)
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 

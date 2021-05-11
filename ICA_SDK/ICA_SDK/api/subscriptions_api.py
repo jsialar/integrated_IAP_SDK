@@ -105,6 +105,7 @@ class SubscriptionsApi(object):
             settings={
                 'response_type': (Subscription,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/subscriptions',
@@ -226,6 +227,7 @@ class SubscriptionsApi(object):
             settings={
                 'response_type': (Subscription,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/subscriptions/{subscriptionId}',
@@ -349,6 +351,7 @@ class SubscriptionsApi(object):
             settings={
                 'response_type': (Subscription,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/subscriptions/{subscriptionId}',
@@ -470,6 +473,7 @@ class SubscriptionsApi(object):
             settings={
                 'response_type': (SubscriptionList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/subscriptions',

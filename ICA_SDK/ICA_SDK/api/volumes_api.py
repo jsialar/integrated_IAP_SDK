@@ -111,6 +111,7 @@ class VolumesApi(object):
             settings={
                 'response_type': (CreateVolumeResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumes',
@@ -236,6 +237,7 @@ class VolumesApi(object):
             settings={
                 'response_type': (VolumeResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumes/{volumeId}',
@@ -362,6 +364,7 @@ class VolumesApi(object):
             settings={
                 'response_type': (VolumeResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumes/{volumeId}',
@@ -496,6 +499,7 @@ class VolumesApi(object):
             settings={
                 'response_type': (VolumeListResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumes',

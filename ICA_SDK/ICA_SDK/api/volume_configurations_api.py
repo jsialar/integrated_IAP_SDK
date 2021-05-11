@@ -110,6 +110,7 @@ class VolumeConfigurationsApi(object):
             settings={
                 'response_type': (VolumeConfigurationResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumeconfigurations',
@@ -229,6 +230,7 @@ class VolumeConfigurationsApi(object):
             settings={
                 'response_type': (VolumeResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumeconfigurations/{volumeConfigurationName}',
@@ -347,6 +349,7 @@ class VolumeConfigurationsApi(object):
             settings={
                 'response_type': (VolumeConfigurationResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumeconfigurations/{volumeConfigurationName}',
@@ -464,6 +467,7 @@ class VolumeConfigurationsApi(object):
             settings={
                 'response_type': (VolumeConfigurationListResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumeconfigurations',
@@ -602,6 +606,7 @@ class VolumeConfigurationsApi(object):
             settings={
                 'response_type': (VolumeConfigurationResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/volumeconfigurations/{volumeConfigurationName}:validate',

@@ -113,6 +113,7 @@ class WorkflowVersionsApi(object):
             settings={
                 'response_type': (WorkflowVersion,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}/versions',
@@ -242,6 +243,7 @@ class WorkflowVersionsApi(object):
             settings={
                 'response_type': (WorkflowVersion,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}/versions/{versionName}',
@@ -373,6 +375,7 @@ class WorkflowVersionsApi(object):
             settings={
                 'response_type': (WorkflowRun,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}/versions/{versionName}:launch',
@@ -516,6 +519,7 @@ class WorkflowVersionsApi(object):
             settings={
                 'response_type': (WorkflowVersionList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/versions',
@@ -663,6 +667,7 @@ class WorkflowVersionsApi(object):
             settings={
                 'response_type': (WorkflowVersionList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}/versions',
@@ -813,6 +818,7 @@ class WorkflowVersionsApi(object):
             settings={
                 'response_type': (WorkflowVersion,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}/versions/{versionName}',

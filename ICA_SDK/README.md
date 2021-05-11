@@ -49,15 +49,8 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import time
 import ICA_SDK
 from pprint import pprint
-from ICA_SDK.api import files_api
-from ICA_SDK.model.create_file_request import CreateFileRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.file_archive_request import FileArchiveRequest
-from ICA_SDK.model.file_list_response import FileListResponse
-from ICA_SDK.model.file_response import FileResponse
-from ICA_SDK.model.file_unarchive_request import FileUnarchiveRequest
-from ICA_SDK.model.file_writeable_response import FileWriteableResponse
-from ICA_SDK.model.update_file_request import UpdateFileRequest
+from ICA_SDK.api import accounts_api
+from ICA_SDK.model.account_response import AccountResponse
 # Defining the host is optional and defaults to https://use1.platform.illumina.com
 # See configuration.py for a list of all supported configuration parameters.
 configuration = ICA_SDK.Configuration(
@@ -69,6 +62,12 @@ configuration = ICA_SDK.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
+
 # Configure API key authorization: Bearer
 configuration.api_key['Bearer'] = 'YOUR_API_KEY'
 
@@ -79,18 +78,15 @@ configuration.api_key['Bearer'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = files_api.FilesApi(api_client)
-    file_id = "fileId_example" # str | Unique identifier for the file to be archived.
-body = FileArchiveRequest(
-        storage_tier=FileArchiveStorageTier("Archive"),
-    ) # FileArchiveRequest | 
+    api_instance = accounts_api.AccountsApi(api_client)
+    account_id = "accountId_example" # str | 
 
     try:
-        # Archive a file
-        api_response = api_instance.archive_file(file_id, body)
+        # Get requested account id info require authorization Bearer token
+        api_response = api_instance.get_account(account_id)
         pprint(api_response)
     except ICA_SDK.ApiException as e:
-        print("Exception when calling FilesApi->archive_file: %s\n" % e)
+        print("Exception when calling AccountsApi->get_account: %s\n" % e)
 ```
 
 ## Documentation for API Endpoints
@@ -99,6 +95,7 @@ All URIs are relative to *https://use1.platform.illumina.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccountsApi* | [**get_account**](docs/AccountsApi.md#get_account) | **GET** /v1/accounts/{accountId} | Get requested account id info require authorization Bearer token
 *FilesApi* | [**archive_file**](docs/FilesApi.md#archive_file) | **POST** /v1/files/{fileId}:archive | Archive a file
 *FilesApi* | [**create_file**](docs/FilesApi.md#create_file) | **POST** /v1/files | Create a file entry in GDS and get temporary credentials for upload
 *FilesApi* | [**delete_file**](docs/FilesApi.md#delete_file) | **DELETE** /v1/files/{fileId} | Permanently delete a file
@@ -117,6 +114,9 @@ Class | Method | HTTP request | Description
 *FoldersApi* | [**list_folders**](docs/FoldersApi.md#list_folders) | **GET** /v1/folders | Get a list of folders
 *FoldersApi* | [**unarchive_folder**](docs/FoldersApi.md#unarchive_folder) | **POST** /v1/folders/{folderId}:unarchive | Unarchive a folder
 *FoldersApi* | [**update_folder**](docs/FoldersApi.md#update_folder) | **PATCH** /v1/folders/{folderId} | Update a folder content or acl
+*HealthApi* | [**service_health**](docs/HealthApi.md#service_health) | **GET** /v1/health | Returns the health status for all services.
+*ProjectsApi* | [**list_projects**](docs/ProjectsApi.md#list_projects) | **GET** /v1/projects | Get a list of available projects. Requires user authorization Bearer token.
+*RegionsApi* | [**list_regions**](docs/RegionsApi.md#list_regions) | **GET** /v1/regions | Get a list of available regions
 *SubscriptionsApi* | [**create_subscription**](docs/SubscriptionsApi.md#create_subscription) | **POST** /v1/subscriptions | Creates a subscription to an event type and defines how those events get delivered.
 *SubscriptionsApi* | [**disable_subscription**](docs/SubscriptionsApi.md#disable_subscription) | **DELETE** /v1/subscriptions/{subscriptionId} | Given a subscription id, disables the specified subscription.
 *SubscriptionsApi* | [**get_subscription**](docs/SubscriptionsApi.md#get_subscription) | **GET** /v1/subscriptions/{subscriptionId} | Given a subscription id, returns information about that subscription.
@@ -135,6 +135,13 @@ Class | Method | HTTP request | Description
 *TasksApi* | [**get_task**](docs/TasksApi.md#get_task) | **GET** /v1/tasks/{taskId} | Get the details of a Task
 *TasksApi* | [**list_tasks**](docs/TasksApi.md#list_tasks) | **GET** /v1/tasks | Get a list of tasks
 *TasksApi* | [**update_task**](docs/TasksApi.md#update_task) | **PATCH** /v1/tasks/{taskId} | Update an existing task.
+*TokensApi* | [**create_token**](docs/TokensApi.md#create_token) | **POST** /v1/tokens | Creates a JWT token to call IAP services.
+*TokensApi* | [**get_token_details**](docs/TokensApi.md#get_token_details) | **GET** /v1/tokens/details | Get current tokens info require authorization Bearer token
+*TokensApi* | [**refresh_token**](docs/TokensApi.md#refresh_token) | **POST** /v1/tokens:refresh | Refresh session psToken.
+*TokensApi* | [**revoke_token**](docs/TokensApi.md#revoke_token) | **DELETE** /v1/tokens | Revokes an access token.
+*UsagesApi* | [**get_usage**](docs/UsagesApi.md#get_usage) | **GET** /v1/usages | Get current tenant&#39;s usage detail by period.  Default returns current period usage data. 
+*UsagesApi* | [**get_usage_details**](docs/UsagesApi.md#get_usage_details) | **GET** /v1/usages/details | Get current tenant&#39;s usage detail by period.  Default returns current period usage data. 
+*UsagesApi* | [**get_usage_periods**](docs/UsagesApi.md#get_usage_periods) | **GET** /v1/usages/periods | Get periods detail info 
 *VolumeConfigurationsApi* | [**create_volume_configuration**](docs/VolumeConfigurationsApi.md#create_volume_configuration) | **POST** /v1/volumeconfigurations | Create a volume configuration in GDS.
 *VolumeConfigurationsApi* | [**delete_volume_configuration**](docs/VolumeConfigurationsApi.md#delete_volume_configuration) | **DELETE** /v1/volumeconfigurations/{volumeConfigurationName} | Deletes a volume configuration by Id or name
 *VolumeConfigurationsApi* | [**get_volume_configuration**](docs/VolumeConfigurationsApi.md#get_volume_configuration) | **GET** /v1/volumeconfigurations/{volumeConfigurationName} | Get information for the specified volume configuration name or Id
@@ -162,12 +169,15 @@ Class | Method | HTTP request | Description
 *WorkflowsApi* | [**get_workflow**](docs/WorkflowsApi.md#get_workflow) | **GET** /v1/workflows/{workflowId} | Get the details of a workflow
 *WorkflowsApi* | [**list_workflows**](docs/WorkflowsApi.md#list_workflows) | **GET** /v1/workflows | Get a list of workflows
 *WorkflowsApi* | [**update_workflow**](docs/WorkflowsApi.md#update_workflow) | **PATCH** /v1/workflows/{workflowId} | Update an existing workflow
+*WorkgroupsApi* | [**list_workgroups**](docs/WorkgroupsApi.md#list_workgroups) | **GET** /v1/workgroups | Get a list of available workgroups. Requires session token (psToken) authorization Bearer token
 
 
 ## Documentation For Models
 
  - [AWSS3ObjectStoreSetting](docs/AWSS3ObjectStoreSetting.md)
  - [AbortWorkflowRunRequest](docs/AbortWorkflowRunRequest.md)
+ - [AccessTokenRequest](docs/AccessTokenRequest.md)
+ - [AccountResponse](docs/AccountResponse.md)
  - [ArchiveStatuses](docs/ArchiveStatuses.md)
  - [AwsS3TemporaryUploadCredentials](docs/AwsS3TemporaryUploadCredentials.md)
  - [BulkFileUpdateItem](docs/BulkFileUpdateItem.md)
@@ -198,6 +208,7 @@ Class | Method | HTTP request | Description
  - [DeliveryTargetAwsSnsTopic](docs/DeliveryTargetAwsSnsTopic.md)
  - [DeliveryTargetAwsSqsQueue](docs/DeliveryTargetAwsSqsQueue.md)
  - [DeliveryTargetWorkflowRunLaunch](docs/DeliveryTargetWorkflowRunLaunch.md)
+ - [Domain](docs/Domain.md)
  - [Environment](docs/Environment.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Execution](docs/Execution.md)
@@ -217,6 +228,7 @@ Class | Method | HTTP request | Description
  - [FolderUnarchiveRequest](docs/FolderUnarchiveRequest.md)
  - [FolderUpdateRequest](docs/FolderUpdateRequest.md)
  - [FolderWriteableResponse](docs/FolderWriteableResponse.md)
+ - [HealthCheckStatuses](docs/HealthCheckStatuses.md)
  - [HeartbeatTaskRunRequest](docs/HeartbeatTaskRunRequest.md)
  - [Image](docs/Image.md)
  - [InputMountMappingWithCreds](docs/InputMountMappingWithCreds.md)
@@ -231,7 +243,13 @@ Class | Method | HTTP request | Description
  - [MountMappingWithCreds](docs/MountMappingWithCreds.md)
  - [ObjectStoreAccess](docs/ObjectStoreAccess.md)
  - [ObjectStoreSettings](docs/ObjectStoreSettings.md)
+ - [PeriodUsageSummary](docs/PeriodUsageSummary.md)
+ - [ProductUsage](docs/ProductUsage.md)
+ - [Project](docs/Project.md)
+ - [ProjectPagedItems](docs/ProjectPagedItems.md)
+ - [Region](docs/Region.md)
  - [Resources](docs/Resources.md)
+ - [ServiceHealthResponse](docs/ServiceHealthResponse.md)
  - [SessionResponse](docs/SessionResponse.md)
  - [SessionStatus](docs/SessionStatus.md)
  - [SortDirection](docs/SortDirection.md)
@@ -241,6 +259,7 @@ Class | Method | HTTP request | Description
  - [SubscriptionListSortFields](docs/SubscriptionListSortFields.md)
  - [SucceedWorkflowSignalRequest](docs/SucceedWorkflowSignalRequest.md)
  - [SystemFiles](docs/SystemFiles.md)
+ - [SystemHealthResponse](docs/SystemHealthResponse.md)
  - [Task](docs/Task.md)
  - [TaskRun](docs/TaskRun.md)
  - [TaskRunHeartbeat](docs/TaskRunHeartbeat.md)
@@ -252,12 +271,17 @@ Class | Method | HTTP request | Description
  - [TaskVersion](docs/TaskVersion.md)
  - [TaskVersionSummary](docs/TaskVersionSummary.md)
  - [TaskVersionSummaryPagedItems](docs/TaskVersionSummaryPagedItems.md)
+ - [TokenDetailResponse](docs/TokenDetailResponse.md)
+ - [TokenResponse](docs/TokenResponse.md)
  - [UpdateFileRequest](docs/UpdateFileRequest.md)
  - [UpdateTaskRequest](docs/UpdateTaskRequest.md)
  - [UpdateTaskVersionRequest](docs/UpdateTaskVersionRequest.md)
  - [UpdateVolumeRequest](docs/UpdateVolumeRequest.md)
  - [UpdateWorkflowRequest](docs/UpdateWorkflowRequest.md)
  - [UpdateWorkflowVersionRequest](docs/UpdateWorkflowVersionRequest.md)
+ - [UsageResponse](docs/UsageResponse.md)
+ - [User](docs/User.md)
+ - [UserAggregatedUsage](docs/UserAggregatedUsage.md)
  - [VolumeConfigurationListResponse](docs/VolumeConfigurationListResponse.md)
  - [VolumeConfigurationOnlineStatus](docs/VolumeConfigurationOnlineStatus.md)
  - [VolumeConfigurationResponse](docs/VolumeConfigurationResponse.md)
@@ -280,9 +304,16 @@ Class | Method | HTTP request | Description
  - [WorkflowVersion](docs/WorkflowVersion.md)
  - [WorkflowVersionCompact](docs/WorkflowVersionCompact.md)
  - [WorkflowVersionList](docs/WorkflowVersionList.md)
+ - [Workgroup](docs/Workgroup.md)
+ - [WorkgroupResponse](docs/WorkgroupResponse.md)
 
 
 ## Documentation For Authorization
+
+
+## Basic
+
+- **Type**: HTTP basic authentication
 
 
 ## Bearer

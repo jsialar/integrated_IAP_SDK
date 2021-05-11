@@ -121,6 +121,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}:archive',
@@ -258,6 +259,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (SessionResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}/sessions/{sessionId}:complete',
@@ -395,6 +397,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (JobResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}:copy',
@@ -530,6 +533,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderWriteableResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders',
@@ -654,6 +658,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}',
@@ -776,6 +781,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}',
@@ -914,6 +920,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (JobResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}/jobs/{jobId}',
@@ -1043,6 +1050,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (SessionResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}/sessions/{sessionId}',
@@ -1175,6 +1183,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderListResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders',
@@ -1361,6 +1370,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}:unarchive',
@@ -1492,6 +1502,7 @@ class FoldersApi(object):
             settings={
                 'response_type': (FolderWriteableResponse,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/folders/{folderId}',

@@ -106,6 +106,7 @@ class WorkflowsApi(object):
             settings={
                 'response_type': (Workflow,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows',
@@ -224,6 +225,7 @@ class WorkflowsApi(object):
             settings={
                 'response_type': (Workflow,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}',
@@ -345,6 +347,7 @@ class WorkflowsApi(object):
             settings={
                 'response_type': (WorkflowList,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows',
@@ -500,6 +503,7 @@ class WorkflowsApi(object):
             settings={
                 'response_type': (Workflow,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/workflows/{workflowId}',

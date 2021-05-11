@@ -107,6 +107,7 @@ class TasksApi(object):
             settings={
                 'response_type': (Task,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks',
@@ -228,6 +229,7 @@ class TasksApi(object):
             settings={
                 'response_type': (TaskSummary,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}',
@@ -347,6 +349,7 @@ class TasksApi(object):
             settings={
                 'response_type': (TaskSummaryPagedItems,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks',
@@ -485,6 +488,7 @@ class TasksApi(object):
             settings={
                 'response_type': (Task,),
                 'auth': [
+                    'Basic',
                     'Bearer'
                 ],
                 'endpoint_path': '/v1/tasks/{taskId}',
