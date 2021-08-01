@@ -9,24 +9,15 @@ import json
 import os
 from glob import glob
 import functools
-os.chdir('c:/work/Code/integrated_IAP_SDK')
+os.chdir('c:/work/Code/integrated_IAP_SDK') #Your working directory
 
 #%%
 
-jsonfiles=glob('json/*.json')
+jsonfiles=glob('json/*.json') #Path to swagger definition files
 json_list=[]
 for i in jsonfiles:
     with open(i) as f:
         json_list.append(json.load(f))
-#%%
-
-with open(jsonfiles[0]) as f:
-    jsonload=json.load(f)
-    
-with open(jsonfiles[1]) as f:
-    jsonload2=json.load(f)
-    
-#%%
 
 def combine_dict(x, y):
     

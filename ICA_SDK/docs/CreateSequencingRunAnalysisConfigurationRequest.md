@@ -1,0 +1,15 @@
+# CreateSequencingRunAnalysisConfigurationRequest
+
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**analysis_version_definition_id** | **str** | The ID of the analysis version definition on which this analysis configuration is based | 
+**name** | **str** | Name of the analysis configuration | [optional] 
+**description** | **str** | Description of the analysis configuration | [optional] 
+**settings** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | User-provided analysis-level settings for this analysis configuration (validated against the analysis version definition) | [optional] 
+**sample_settings** | [**[SampleSettingEntry]**](SampleSettingEntry.md) | User provided per-sample settings for this analysis configuration  These must follow the schema described in the analysis version definition | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

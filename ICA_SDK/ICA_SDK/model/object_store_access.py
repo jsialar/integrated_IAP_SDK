@@ -28,7 +28,9 @@ from ICA_SDK.model_utils import (  # noqa: F401
 
 def lazy_import():
     from ICA_SDK.model.aws_s3_temporary_upload_credentials import AwsS3TemporaryUploadCredentials
+    from ICA_SDK.model.direct_upload_credentials import DirectUploadCredentials
     globals()['AwsS3TemporaryUploadCredentials'] = AwsS3TemporaryUploadCredentials
+    globals()['DirectUploadCredentials'] = DirectUploadCredentials
 
 
 class ObjectStoreAccess(ModelNormal):
@@ -77,8 +79,9 @@ class ObjectStoreAccess(ModelNormal):
         """
         lazy_import()
         return {
-            'session_id': (str,),  # noqa: E501
             'aws_s3_temporary_upload_credentials': (AwsS3TemporaryUploadCredentials,),  # noqa: E501
+            'direct_upload_credentials': (DirectUploadCredentials,),  # noqa: E501
+            'session_id': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -87,8 +90,9 @@ class ObjectStoreAccess(ModelNormal):
 
 
     attribute_map = {
-        'session_id': 'sessionId',  # noqa: E501
         'aws_s3_temporary_upload_credentials': 'awsS3TemporaryUploadCredentials',  # noqa: E501
+        'direct_upload_credentials': 'directUploadCredentials',  # noqa: E501
+        'session_id': 'sessionId',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -137,8 +141,9 @@ class ObjectStoreAccess(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            session_id (str): [optional]  # noqa: E501
             aws_s3_temporary_upload_credentials (AwsS3TemporaryUploadCredentials): [optional]  # noqa: E501
+            direct_upload_credentials (DirectUploadCredentials): [optional]  # noqa: E501
+            session_id (str): The id of the upload session. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

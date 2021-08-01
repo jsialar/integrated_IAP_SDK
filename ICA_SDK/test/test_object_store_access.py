@@ -13,7 +13,9 @@ import unittest
 
 import ICA_SDK
 from ICA_SDK.model.aws_s3_temporary_upload_credentials import AwsS3TemporaryUploadCredentials
+from ICA_SDK.model.direct_upload_credentials import DirectUploadCredentials
 globals()['AwsS3TemporaryUploadCredentials'] = AwsS3TemporaryUploadCredentials
+globals()['DirectUploadCredentials'] = DirectUploadCredentials
 from ICA_SDK.model.object_store_access import ObjectStoreAccess
 
 

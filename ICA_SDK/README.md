@@ -96,6 +96,23 @@ All URIs are relative to *https://use1.platform.illumina.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AccountsApi* | [**get_account**](docs/AccountsApi.md#get_account) | **GET** /v1/accounts/{accountId} | Get requested account id info require authorization Bearer token
+*AnalysisDatasetsApi* | [**list_analysis_datasets**](docs/AnalysisDatasetsApi.md#list_analysis_datasets) | **GET** /v1/sequencing/analysisDatasets | List analysis datasets.
+*AnalysisDefinitionsApi* | [**create_analysis_definition**](docs/AnalysisDefinitionsApi.md#create_analysis_definition) | **POST** /v1/sequencing/analysisdefinitions | Create an analysis definition.
+*AnalysisDefinitionsApi* | [**get_analysis_definition**](docs/AnalysisDefinitionsApi.md#get_analysis_definition) | **GET** /v1/sequencing/analysisdefinitions/{analysisDefinitionId} | Get analysis definition details.
+*AnalysisDefinitionsApi* | [**list_analysis_definitions**](docs/AnalysisDefinitionsApi.md#list_analysis_definitions) | **GET** /v1/sequencing/analysisdefinitions | Get a list of analysis definitions.
+*AnalysisDefinitionsApi* | [**merge_analysis_definition_acl**](docs/AnalysisDefinitionsApi.md#merge_analysis_definition_acl) | **PATCH** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/acl | Merge the access control list of an analysis definition with the input access control list.
+*AnalysisDefinitionsApi* | [**remove_analysis_definition_acl**](docs/AnalysisDefinitionsApi.md#remove_analysis_definition_acl) | **DELETE** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/acl | Remove the access control list of an analysis definition.
+*AnalysisDefinitionsApi* | [**replace_analysis_definition_acl**](docs/AnalysisDefinitionsApi.md#replace_analysis_definition_acl) | **PUT** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/acl | Replace the access control list of an analysis definition.
+*AnalysisDefinitionsApi* | [**update_analysis_definition**](docs/AnalysisDefinitionsApi.md#update_analysis_definition) | **PATCH** /v1/sequencing/analysisdefinitions/{analysisDefinitionId} | Update analysis definition details.
+*AnalysisVersionDefinitionsApi* | [**create_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#create_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions | Create an analysis version definition.
+*AnalysisVersionDefinitionsApi* | [**get_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#get_analysis_version_definition) | **GET** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName} | Get a specific analysis definition version by version name.
+*AnalysisVersionDefinitionsApi* | [**get_analysis_version_definition_by_id_or_urn**](docs/AnalysisVersionDefinitionsApi.md#get_analysis_version_definition_by_id_or_urn) | **GET** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId} | Get details of an analysis definition version by ID or URN.
+*AnalysisVersionDefinitionsApi* | [**list_analysis_version_definitions**](docs/AnalysisVersionDefinitionsApi.md#list_analysis_version_definitions) | **GET** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions | Get a list of analysis definition versions.
+*AnalysisVersionDefinitionsApi* | [**merge_analysis_version_definition_acl**](docs/AnalysisVersionDefinitionsApi.md#merge_analysis_version_definition_acl) | **PATCH** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Merge the access control list of an analysis version definition with the input access control list.
+*AnalysisVersionDefinitionsApi* | [**remove_analysis_version_definition_acl**](docs/AnalysisVersionDefinitionsApi.md#remove_analysis_version_definition_acl) | **DELETE** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Remove the access control list of an analysis version definition.
+*AnalysisVersionDefinitionsApi* | [**render_analysis_version_definition_by_id_or_urn**](docs/AnalysisVersionDefinitionsApi.md#render_analysis_version_definition_by_id_or_urn) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:render | Dynamically render an analysis definition version by ID or URN.
+*AnalysisVersionDefinitionsApi* | [**replace_analysis_version_definition_acl**](docs/AnalysisVersionDefinitionsApi.md#replace_analysis_version_definition_acl) | **PUT** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Replace the access control list of an analysis version definition with the input access control list.
+*AnalysisVersionDefinitionsApi* | [**update_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#update_analysis_version_definition) | **PATCH** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName} | Update an analysis version definition.
 *FilesApi* | [**archive_file**](docs/FilesApi.md#archive_file) | **POST** /v1/files/{fileId}:archive | Archive a file
 *FilesApi* | [**create_file**](docs/FilesApi.md#create_file) | **POST** /v1/files | Create a file entry in GDS and get temporary credentials for upload
 *FilesApi* | [**delete_file**](docs/FilesApi.md#delete_file) | **DELETE** /v1/files/{fileId} | Permanently delete a file
@@ -114,9 +131,97 @@ Class | Method | HTTP request | Description
 *FoldersApi* | [**list_folders**](docs/FoldersApi.md#list_folders) | **GET** /v1/folders | Get a list of folders
 *FoldersApi* | [**unarchive_folder**](docs/FoldersApi.md#unarchive_folder) | **POST** /v1/folders/{folderId}:unarchive | Unarchive a folder
 *FoldersApi* | [**update_folder**](docs/FoldersApi.md#update_folder) | **PATCH** /v1/folders/{folderId} | Update a folder content or acl
+*GenomesApi* | [**create_genome**](docs/GenomesApi.md#create_genome) | **POST** /v1/sequencing/genomes | Create a reference genome.
+*GenomesApi* | [**delete_genome**](docs/GenomesApi.md#delete_genome) | **DELETE** /v1/sequencing/genomes/{genomeId} | Delete genome.
+*GenomesApi* | [**get_genome**](docs/GenomesApi.md#get_genome) | **GET** /v1/sequencing/genomes/{genomeId} | Get genome details.
+*GenomesApi* | [**list_genomes**](docs/GenomesApi.md#list_genomes) | **GET** /v1/sequencing/genomes | Get a list of genomes.
+*GenomesApi* | [**merge_genome_acl**](docs/GenomesApi.md#merge_genome_acl) | **PATCH** /v1/sequencing/genomes/{genomeId}/acl | Merge the access control list of a genome with the input access control list.
+*GenomesApi* | [**remove_genome_acl**](docs/GenomesApi.md#remove_genome_acl) | **DELETE** /v1/sequencing/genomes/{genomeId}/acl | Remove the access control list of a genome.
+*GenomesApi* | [**replace_genome_acl**](docs/GenomesApi.md#replace_genome_acl) | **PUT** /v1/sequencing/genomes/{genomeId}/acl | Replace the access control list of a genome with the input access control list.
+*GenomesApi* | [**update_genome**](docs/GenomesApi.md#update_genome) | **PATCH** /v1/sequencing/genomes/{genomeId} | Update genome details.
 *HealthApi* | [**service_health**](docs/HealthApi.md#service_health) | **GET** /v1/health | Returns the health status for all services.
+*IndexAdapterKitsApi* | [**create_index_adapter_kit**](docs/IndexAdapterKitsApi.md#create_index_adapter_kit) | **POST** /v1/sequencing/indexadapterkits | Create an index adapter kit.
+*IndexAdapterKitsApi* | [**create_index_adapter_kit_by_definition**](docs/IndexAdapterKitsApi.md#create_index_adapter_kit_by_definition) | **POST** /v1/sequencing/indexadapterkits/definition | Create an index adapter kit using a definition string.
+*IndexAdapterKitsApi* | [**delete_index_adapter_kit**](docs/IndexAdapterKitsApi.md#delete_index_adapter_kit) | **DELETE** /v1/sequencing/indexadapterkits/{indexAdapterKitId} | Delete index adapter kit.
+*IndexAdapterKitsApi* | [**get_index_adapter_kit**](docs/IndexAdapterKitsApi.md#get_index_adapter_kit) | **GET** /v1/sequencing/indexadapterkits/{indexAdapterKitId} | Get index adapter kit details.
+*IndexAdapterKitsApi* | [**list_index_adapter_kits**](docs/IndexAdapterKitsApi.md#list_index_adapter_kits) | **GET** /v1/sequencing/indexadapterkits | Get a list of index adapter kits.
+*IndexAdapterKitsApi* | [**merge_index_adapter_kit_acl**](docs/IndexAdapterKitsApi.md#merge_index_adapter_kit_acl) | **PATCH** /v1/sequencing/indexadapterkits/{indexAdapterKitId}/acl | Merge the access control list of an index adapter kit with the input access control list.
+*IndexAdapterKitsApi* | [**remove_index_adapter_kit_acl**](docs/IndexAdapterKitsApi.md#remove_index_adapter_kit_acl) | **DELETE** /v1/sequencing/indexadapterkits/{indexAdapterKitId}/acl | Remove the access control list of an index adapter kit.
+*IndexAdapterKitsApi* | [**replace_index_adapter_kit_acl**](docs/IndexAdapterKitsApi.md#replace_index_adapter_kit_acl) | **PUT** /v1/sequencing/indexadapterkits/{indexAdapterKitId}/acl | Replace the access control list of an index adapter kit with the input access control list.
+*IndexAdapterKitsApi* | [**update_index_adapter_kit**](docs/IndexAdapterKitsApi.md#update_index_adapter_kit) | **PATCH** /v1/sequencing/indexadapterkits/{indexAdapterKitId} | Update an index adapter kit.
+*IndexAdapterKitsApi* | [**update_index_adapter_kit_by_definition**](docs/IndexAdapterKitsApi.md#update_index_adapter_kit_by_definition) | **PATCH** /v1/sequencing/indexadapterkits/{indexAdapterKitId}/definition | Update an index adapter kit using a definition string.
+*InstrumentTypesApi* | [**get_instrument_types**](docs/InstrumentTypesApi.md#get_instrument_types) | **GET** /v1/sequencing/instrumentTypes | Get instrument types and platforms.
+*LibrariesApi* | [**create_library**](docs/LibrariesApi.md#create_library) | **POST** /v1/sequencing/samples/{sampleId}/libraries | Create library.
+*LibrariesApi* | [**disassociate_library_prep_kit_from_library**](docs/LibrariesApi.md#disassociate_library_prep_kit_from_library) | **POST** /v1/sequencing/libraries/{libraryId}:disassociateLibraryPrepKit | Disassociate library prep kit and index adapter kit from library.
+*LibrariesApi* | [**get_library**](docs/LibrariesApi.md#get_library) | **GET** /v1/sequencing/libraries/{libraryId} | Get library details.
+*LibrariesApi* | [**list_libraries**](docs/LibrariesApi.md#list_libraries) | **GET** /v1/sequencing/libraries | Get a list of libraries.
+*LibrariesApi* | [**merge_library_acl**](docs/LibrariesApi.md#merge_library_acl) | **PATCH** /v1/sequencing/libraries/{libraryId}/acl | Merge the access control list of a library.
+*LibrariesApi* | [**remove_library_acl**](docs/LibrariesApi.md#remove_library_acl) | **DELETE** /v1/sequencing/libraries/{libraryId}/acl | Remove the access control list of a library.
+*LibrariesApi* | [**replace_library_acl**](docs/LibrariesApi.md#replace_library_acl) | **PUT** /v1/sequencing/libraries/{libraryId}/acl | Replace the access control list of a library.
+*LibrariesApi* | [**update_library**](docs/LibrariesApi.md#update_library) | **PATCH** /v1/sequencing/libraries/{libraryId} | Update library.
+*LibraryPoolsApi* | [**create_library_pool**](docs/LibraryPoolsApi.md#create_library_pool) | **POST** /v1/sequencing/librarypools | Create library pool.
+*LibraryPoolsApi* | [**get_library_pool**](docs/LibraryPoolsApi.md#get_library_pool) | **GET** /v1/sequencing/librarypools/{libraryPoolId} | Get library pool details.
+*LibraryPoolsApi* | [**list_library_pools**](docs/LibraryPoolsApi.md#list_library_pools) | **GET** /v1/sequencing/librarypools | Get a list of library pools.
+*LibraryPoolsApi* | [**merge_library_pool_acl**](docs/LibraryPoolsApi.md#merge_library_pool_acl) | **PATCH** /v1/sequencing/librarypools/{libraryPoolId}/acl | Merge the access control list of a library pool with the input access control list.
+*LibraryPoolsApi* | [**remove_library_pool_acl**](docs/LibraryPoolsApi.md#remove_library_pool_acl) | **DELETE** /v1/sequencing/librarypools/{libraryPoolId}/acl | Remove the input access control list from a library pool.
+*LibraryPoolsApi* | [**replace_library_pool_acl**](docs/LibraryPoolsApi.md#replace_library_pool_acl) | **PUT** /v1/sequencing/librarypools/{libraryPoolId}/acl | Replace the access control list of a library pool with the input access control list.
+*LibraryPoolsApi* | [**update_library_pool**](docs/LibraryPoolsApi.md#update_library_pool) | **PATCH** /v1/sequencing/librarypools/{libraryPoolId} | Update library pool.
+*LibraryPrepKitsApi* | [**create_library_prep_kit**](docs/LibraryPrepKitsApi.md#create_library_prep_kit) | **POST** /v1/sequencing/libraryPrepKits | Create a library prep kit.
+*LibraryPrepKitsApi* | [**delete_library_prep_kit**](docs/LibraryPrepKitsApi.md#delete_library_prep_kit) | **DELETE** /v1/sequencing/libraryPrepKits/{libraryPrepKitId} | Delete library prep kit.
+*LibraryPrepKitsApi* | [**get_library_prep_kit**](docs/LibraryPrepKitsApi.md#get_library_prep_kit) | **GET** /v1/sequencing/libraryPrepKits/{libraryPrepKitId} | Get library prep kit details.
+*LibraryPrepKitsApi* | [**list_library_prep_kits**](docs/LibraryPrepKitsApi.md#list_library_prep_kits) | **GET** /v1/sequencing/libraryPrepKits | Get a list of library prep kits.
+*LibraryPrepKitsApi* | [**merge_library_prep_kit_acl**](docs/LibraryPrepKitsApi.md#merge_library_prep_kit_acl) | **PATCH** /v1/sequencing/libraryPrepKits/{libraryPrepKitId}/acl | Merge the access control list of a library prep kit with the input access control list.
+*LibraryPrepKitsApi* | [**remove_library_prep_kit_acl**](docs/LibraryPrepKitsApi.md#remove_library_prep_kit_acl) | **DELETE** /v1/sequencing/libraryPrepKits/{libraryPrepKitId}/acl | Remove the access control list of a given library prep kit.
+*LibraryPrepKitsApi* | [**replace_library_prep_kit_acl**](docs/LibraryPrepKitsApi.md#replace_library_prep_kit_acl) | **PUT** /v1/sequencing/libraryPrepKits/{libraryPrepKitId}/acl | Replace the access control list of a library prep kit with the input access control list.
+*LibraryPrepKitsApi* | [**update_library_prep_kit**](docs/LibraryPrepKitsApi.md#update_library_prep_kit) | **PATCH** /v1/sequencing/libraryPrepKits/{libraryPrepKitId} | Update a library prep kit.
+*PlannedRunsApi* | [**create_planned_run**](docs/PlannedRunsApi.md#create_planned_run) | **POST** /v1/sequencing/runs:plan | Create sequencing run plan.
+*PlannedRunsApi* | [**lock_planned_run**](docs/PlannedRunsApi.md#lock_planned_run) | **POST** /v1/sequencing/runs/{runId}:lock | Lock a planned run.
+*PlannedRunsApi* | [**replace_planned_run**](docs/PlannedRunsApi.md#replace_planned_run) | **PUT** /v1/sequencing/runs/{runId}/plan | Replace planned run configuration, contents, and analysis configurations.
+*PlannedRunsApi* | [**start_planned_run**](docs/PlannedRunsApi.md#start_planned_run) | **POST** /v1/sequencing/runs/{runId}:start | Start a planned sequencing run.
+*PlannedRunsApi* | [**unlock_planned_run**](docs/PlannedRunsApi.md#unlock_planned_run) | **POST** /v1/sequencing/runs/{runId}:unlock | Unlock a planned run.
+*PlannedRunsApi* | [**update_planned_run_config**](docs/PlannedRunsApi.md#update_planned_run_config) | **PATCH** /v1/sequencing/runs/{runId}/config | Update planned run configuration.
 *ProjectsApi* | [**list_projects**](docs/ProjectsApi.md#list_projects) | **GET** /v1/projects | Get a list of available projects. Requires user authorization Bearer token.
 *RegionsApi* | [**list_regions**](docs/RegionsApi.md#list_regions) | **GET** /v1/regions | Get a list of available regions
+*SampleSheetsApi* | [**generate_sample_sheet**](docs/SampleSheetsApi.md#generate_sample_sheet) | **POST** /v1/sequencing:generateSampleSheet | Generate a sample sheet.
+*SampleSheetsApi* | [**parse_sample_sheet**](docs/SampleSheetsApi.md#parse_sample_sheet) | **POST** /v1/sequencing:parseSampleSheet | Parse a sample sheet.
+*SamplesApi* | [**create_sample**](docs/SamplesApi.md#create_sample) | **POST** /v1/sequencing/samples | Create a sample.
+*SamplesApi* | [**deliver_samples**](docs/SamplesApi.md#deliver_samples) | **POST** /v1/sequencing/samples:delivery | Deliver samples.
+*SamplesApi* | [**get_sample**](docs/SamplesApi.md#get_sample) | **GET** /v1/sequencing/samples/{sampleId} | Get sample details.
+*SamplesApi* | [**list_sample_analysis_datasets**](docs/SamplesApi.md#list_sample_analysis_datasets) | **GET** /v1/sequencing/samples/{sampleId}/analysisDatasets | List analysis datasets associated with the specified sample.
+*SamplesApi* | [**list_samples**](docs/SamplesApi.md#list_samples) | **GET** /v1/sequencing/samples | Get a list of samples.
+*SamplesApi* | [**merge_sample_acl**](docs/SamplesApi.md#merge_sample_acl) | **PATCH** /v1/sequencing/samples/{sampleId}/acl | Merge the access control list of a sample with the input access control list.
+*SamplesApi* | [**register_sample_data**](docs/SamplesApi.md#register_sample_data) | **POST** /v1/sequencing/samples:registerData | Register data for a sample.
+*SamplesApi* | [**remove_sample_acl**](docs/SamplesApi.md#remove_sample_acl) | **DELETE** /v1/sequencing/samples/{sampleId}/acl | Remove the access control list of a sample.
+*SamplesApi* | [**replace_sample_acl**](docs/SamplesApi.md#replace_sample_acl) | **PUT** /v1/sequencing/samples/{sampleId}/acl | Replace the access control list of a sample with the input access control list.
+*SamplesApi* | [**update_sample**](docs/SamplesApi.md#update_sample) | **PATCH** /v1/sequencing/samples/{sampleId} | Update sample information.
+*SequencingAnalysisRunsApi* | [**get_sequencing_analysis_run**](docs/SequencingAnalysisRunsApi.md#get_sequencing_analysis_run) | **GET** /v1/sequencing/analysisRuns/{analysisRunId} | Get SequencingAnalysisRun details.
+*SequencingAnalysisRunsApi* | [**list_sequencing_analysis_runs**](docs/SequencingAnalysisRunsApi.md#list_sequencing_analysis_runs) | **GET** /v1/sequencing/analysisRuns | Get a list of analysis runs.
+*SequencingAnalysisRunsApi* | [**sync_sequencing_analysis_run**](docs/SequencingAnalysisRunsApi.md#sync_sequencing_analysis_run) | **POST** /v1/sequencing/analysisRuns/{analysisRunId}:sync | Sync A SequencingAnalysisRun.
+*SequencingRunsApi* | [**abort_sequencing_run**](docs/SequencingRunsApi.md#abort_sequencing_run) | **POST** /v1/sequencing/runs/{runId}:abort | Abort a sequencing run.
+*SequencingRunsApi* | [**can_upload**](docs/SequencingRunsApi.md#can_upload) | **GET** /v1/sequencing/runs/{runId}:canUpload | Check whether the run is ready to upload.
+*SequencingRunsApi* | [**close_upload_session**](docs/SequencingRunsApi.md#close_upload_session) | **POST** /v1/sequencing/runs/{runId}:closeUploadSession | Close an upload session for a sequencing run
+*SequencingRunsApi* | [**complete_upload**](docs/SequencingRunsApi.md#complete_upload) | **POST** /v1/sequencing/runs/{runId}:completeUpload | Complete upload stage for a sequencing run.
+*SequencingRunsApi* | [**create_analysis_configuration**](docs/SequencingRunsApi.md#create_analysis_configuration) | **POST** /v1/sequencing/runs/{runId}/analyses | Create an analysis configuration for a sequencing run.
+*SequencingRunsApi* | [**delete_analysis_configuration**](docs/SequencingRunsApi.md#delete_analysis_configuration) | **DELETE** /v1/sequencing/runs/analyses/{id} | Delete an analysis configuration for a sequencing run.
+*SequencingRunsApi* | [**delete_sequencing_run**](docs/SequencingRunsApi.md#delete_sequencing_run) | **DELETE** /v1/sequencing/runs/{runId} | Delete sequencing run.
+*SequencingRunsApi* | [**generate_sample_sheet_for_sequencing_run**](docs/SequencingRunsApi.md#generate_sample_sheet_for_sequencing_run) | **POST** /v1/sequencing/runs/{runId}:generateSampleSheet | Generate sample sheet from a sequencing run.
+*SequencingRunsApi* | [**get_sequencing_run**](docs/SequencingRunsApi.md#get_sequencing_run) | **GET** /v1/sequencing/runs/{runId} | Get sequencing run details.
+*SequencingRunsApi* | [**get_sequencing_run_contents**](docs/SequencingRunsApi.md#get_sequencing_run_contents) | **GET** /v1/sequencing/runs/{runId}/contents |  Get the content of a sequencing run.
+*SequencingRunsApi* | [**get_sequencing_stats**](docs/SequencingRunsApi.md#get_sequencing_stats) | **GET** /v1/sequencing/runs/{runId}/sequencingStats | Get the sequencing stats of a sequencing run.
+*SequencingRunsApi* | [**list_analysis_configurations**](docs/SequencingRunsApi.md#list_analysis_configurations) | **GET** /v1/sequencing/runs/{runId}/analyses | List analysis configurations for a sequencing run.
+*SequencingRunsApi* | [**list_sequencing_runs**](docs/SequencingRunsApi.md#list_sequencing_runs) | **GET** /v1/sequencing/runs | Get a list of sequencing runs.
+*SequencingRunsApi* | [**merge_sequencing_run_acl**](docs/SequencingRunsApi.md#merge_sequencing_run_acl) | **PATCH** /v1/sequencing/runs/{runId}/acl | Merge the access control list of a sequencing run with the input access control list.
+*SequencingRunsApi* | [**prepare_requeue**](docs/SequencingRunsApi.md#prepare_requeue) | **POST** /v1/sequencing/runs/{runId}:prepareRequeue | Prepare requeue run.
+*SequencingRunsApi* | [**remove_sequencing_run_acl**](docs/SequencingRunsApi.md#remove_sequencing_run_acl) | **DELETE** /v1/sequencing/runs/{runId}/acl | Remove the access control list of a sequencing run.
+*SequencingRunsApi* | [**replace_sequencing_run_acl**](docs/SequencingRunsApi.md#replace_sequencing_run_acl) | **PUT** /v1/sequencing/runs/{runId}/acl |  Replace the access control list of a sequencing run with the input access control list.
+*SequencingRunsApi* | [**replace_sequencing_stats**](docs/SequencingRunsApi.md#replace_sequencing_stats) | **PUT** /v1/sequencing/runs/{runId}:replaceSequencingStats | Replace the sequencing stats of a sequencing run.
+*SequencingRunsApi* | [**run_direct_upload_info**](docs/SequencingRunsApi.md#run_direct_upload_info) | **POST** /v1/sequencing/runs/{runId}/directUploadInfo | Provide information about an uploaded file or set of files.
+*SequencingRunsApi* | [**start_requeue**](docs/SequencingRunsApi.md#start_requeue) | **POST** /v1/sequencing/runs/{runId}:startRequeue | Start prepared requeue run.
+*SequencingRunsApi* | [**start_run_verification**](docs/SequencingRunsApi.md#start_run_verification) | **POST** /v1/sequencing/runs/{runId}:startVerification | Start verification for a run and return information about that run
+*SequencingRunsApi* | [**update_analysis_configuration**](docs/SequencingRunsApi.md#update_analysis_configuration) | **PATCH** /v1/sequencing/runs/analyses/{id} | Update an analysis configuration.
+*SequencingRunsApi* | [**update_sequencing_run**](docs/SequencingRunsApi.md#update_sequencing_run) | **PATCH** /v1/sequencing/runs/{runId} | Update information for an existing sequencing run.
+*SequencingRunsApi* | [**update_sequencing_run_contents**](docs/SequencingRunsApi.md#update_sequencing_run_contents) | **PUT** /v1/sequencing/runs/{runId}/contents | Update the content of a sequencing run.
+*SequencingRunsApi* | [**update_sequencing_run_status**](docs/SequencingRunsApi.md#update_sequencing_run_status) | **POST** /v1/sequencing/runs/{runId}:updateStatus | Update status information for an existing sequencing run.
 *SubscriptionsApi* | [**create_subscription**](docs/SubscriptionsApi.md#create_subscription) | **POST** /v1/subscriptions | Creates a subscription to an event type and defines how those events get delivered.
 *SubscriptionsApi* | [**disable_subscription**](docs/SubscriptionsApi.md#disable_subscription) | **DELETE** /v1/subscriptions/{subscriptionId} | Given a subscription id, disables the specified subscription.
 *SubscriptionsApi* | [**get_subscription**](docs/SubscriptionsApi.md#get_subscription) | **GET** /v1/subscriptions/{subscriptionId} | Given a subscription id, returns information about that subscription.
@@ -175,23 +280,55 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AWSS3ObjectStoreSetting](docs/AWSS3ObjectStoreSetting.md)
+ - [AbortSequencingRunRequest](docs/AbortSequencingRunRequest.md)
  - [AbortWorkflowRunRequest](docs/AbortWorkflowRunRequest.md)
  - [AccessTokenRequest](docs/AccessTokenRequest.md)
  - [AccountResponse](docs/AccountResponse.md)
+ - [AnalysisDatasetCompact](docs/AnalysisDatasetCompact.md)
+ - [AnalysisDatasetCompactAnalysisDatasetSortFieldsPagedItems](docs/AnalysisDatasetCompactAnalysisDatasetSortFieldsPagedItems.md)
+ - [AnalysisDatasetTypeCompact](docs/AnalysisDatasetTypeCompact.md)
+ - [AnalysisDefinition](docs/AnalysisDefinition.md)
+ - [AnalysisDefinitionCompact](docs/AnalysisDefinitionCompact.md)
+ - [AnalysisDefinitionCompactAnalysisDefinitionSortFieldsPagedItems](docs/AnalysisDefinitionCompactAnalysisDefinitionSortFieldsPagedItems.md)
+ - [AnalysisVersionDefinition](docs/AnalysisVersionDefinition.md)
+ - [AnalysisVersionDefinitionCompact](docs/AnalysisVersionDefinitionCompact.md)
+ - [AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems](docs/AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems.md)
+ - [AnalysisVersionDefinitionCompactItemList](docs/AnalysisVersionDefinitionCompactItemList.md)
+ - [AnalysisVersionDefinitionSettings](docs/AnalysisVersionDefinitionSettings.md)
+ - [AnalysisVersionDefinitionSettingsSampleSheetConfiguration](docs/AnalysisVersionDefinitionSettingsSampleSheetConfiguration.md)
  - [ArchiveStatuses](docs/ArchiveStatuses.md)
+ - [AuxiliaryFileReferenceCompact](docs/AuxiliaryFileReferenceCompact.md)
  - [AwsS3TemporaryUploadCredentials](docs/AwsS3TemporaryUploadCredentials.md)
  - [BulkFileUpdateItem](docs/BulkFileUpdateItem.md)
  - [BulkFileUpdateRequest](docs/BulkFileUpdateRequest.md)
  - [BulkFolderUpdateItem](docs/BulkFolderUpdateItem.md)
  - [BulkFolderUpdateRequest](docs/BulkFolderUpdateRequest.md)
+ - [CanUploadResponse](docs/CanUploadResponse.md)
+ - [CloseRunUploadSessionRequest](docs/CloseRunUploadSessionRequest.md)
+ - [CloseUploadSessionResponse](docs/CloseUploadSessionResponse.md)
+ - [CompleteSequencingRunUploadRequest](docs/CompleteSequencingRunUploadRequest.md)
  - [CompleteSessionRequest](docs/CompleteSessionRequest.md)
+ - [ComponentVerificationResult](docs/ComponentVerificationResult.md)
  - [ContainerState](docs/ContainerState.md)
  - [ContainerStateRunning](docs/ContainerStateRunning.md)
  - [ContainerStateTerminated](docs/ContainerStateTerminated.md)
  - [ContainerStateWaiting](docs/ContainerStateWaiting.md)
  - [ContainerStatus](docs/ContainerStatus.md)
+ - [CreateAnalysisDatasetParameters](docs/CreateAnalysisDatasetParameters.md)
+ - [CreateAnalysisDefinitionRequest](docs/CreateAnalysisDefinitionRequest.md)
+ - [CreateAnalysisVersionDefinitionRequest](docs/CreateAnalysisVersionDefinitionRequest.md)
  - [CreateFileRequest](docs/CreateFileRequest.md)
  - [CreateFolderRequest](docs/CreateFolderRequest.md)
+ - [CreateGenomeRequest](docs/CreateGenomeRequest.md)
+ - [CreateIndexAdapterKitByDefinitionRequest](docs/CreateIndexAdapterKitByDefinitionRequest.md)
+ - [CreateIndexAdapterKitRequest](docs/CreateIndexAdapterKitRequest.md)
+ - [CreateLibraryPoolRequest](docs/CreateLibraryPoolRequest.md)
+ - [CreateLibraryPrepKitRequest](docs/CreateLibraryPrepKitRequest.md)
+ - [CreateLibraryRequest](docs/CreateLibraryRequest.md)
+ - [CreatePlannedRunRequest](docs/CreatePlannedRunRequest.md)
+ - [CreateSampleRequest](docs/CreateSampleRequest.md)
+ - [CreateSequencingRunAnalysisConfigurationRequest](docs/CreateSequencingRunAnalysisConfigurationRequest.md)
+ - [CreateSequencingRunConfigurationRequest](docs/CreateSequencingRunConfigurationRequest.md)
  - [CreateSessionRequest](docs/CreateSessionRequest.md)
  - [CreateSessionResponse](docs/CreateSessionResponse.md)
  - [CreateSubscriptionRequest](docs/CreateSubscriptionRequest.md)
@@ -208,6 +345,8 @@ Class | Method | HTTP request | Description
  - [DeliveryTargetAwsSnsTopic](docs/DeliveryTargetAwsSnsTopic.md)
  - [DeliveryTargetAwsSqsQueue](docs/DeliveryTargetAwsSqsQueue.md)
  - [DeliveryTargetWorkflowRunLaunch](docs/DeliveryTargetWorkflowRunLaunch.md)
+ - [DirectUploadCredentials](docs/DirectUploadCredentials.md)
+ - [DirectUploadFileInfo](docs/DirectUploadFileInfo.md)
  - [Domain](docs/Domain.md)
  - [Environment](docs/Environment.md)
  - [ErrorResponse](docs/ErrorResponse.md)
@@ -216,9 +355,11 @@ Class | Method | HTTP request | Description
  - [FileArchiveRequest](docs/FileArchiveRequest.md)
  - [FileArchiveStorageTier](docs/FileArchiveStorageTier.md)
  - [FileListResponse](docs/FileListResponse.md)
+ - [FileReferenceCompact](docs/FileReferenceCompact.md)
  - [FileResponse](docs/FileResponse.md)
  - [FileUnarchiveRequest](docs/FileUnarchiveRequest.md)
  - [FileWriteableResponse](docs/FileWriteableResponse.md)
+ - [FlowCellType](docs/FlowCellType.md)
  - [FolderArchiveRequest](docs/FolderArchiveRequest.md)
  - [FolderArchiveStorageTier](docs/FolderArchiveStorageTier.md)
  - [FolderCopyOperationParameters](docs/FolderCopyOperationParameters.md)
@@ -228,36 +369,120 @@ Class | Method | HTTP request | Description
  - [FolderUnarchiveRequest](docs/FolderUnarchiveRequest.md)
  - [FolderUpdateRequest](docs/FolderUpdateRequest.md)
  - [FolderWriteableResponse](docs/FolderWriteableResponse.md)
+ - [GenerateSampleSheetForSequencingRunRequest](docs/GenerateSampleSheetForSequencingRunRequest.md)
+ - [GenerateSampleSheetRequest](docs/GenerateSampleSheetRequest.md)
+ - [Genome](docs/Genome.md)
+ - [GenomeCompact](docs/GenomeCompact.md)
+ - [GenomeCompactGenomeSortFieldsPagedItems](docs/GenomeCompactGenomeSortFieldsPagedItems.md)
  - [HealthCheckStatuses](docs/HealthCheckStatuses.md)
  - [HeartbeatTaskRunRequest](docs/HeartbeatTaskRunRequest.md)
  - [Image](docs/Image.md)
+ - [IndexAdapterKit](docs/IndexAdapterKit.md)
+ - [IndexAdapterKitCompact](docs/IndexAdapterKitCompact.md)
+ - [IndexAdapterKitCompactIndexAdapterKitSortFieldPagedItems](docs/IndexAdapterKitCompactIndexAdapterKitSortFieldPagedItems.md)
+ - [IndexAdapterKitSettings](docs/IndexAdapterKitSettings.md)
+ - [IndexAdapterKitSettingsResponse](docs/IndexAdapterKitSettingsResponse.md)
+ - [IndexSequence](docs/IndexSequence.md)
  - [InputMountMappingWithCreds](docs/InputMountMappingWithCreds.md)
  - [InputStreamSettings](docs/InputStreamSettings.md)
+ - [Instrument](docs/Instrument.md)
+ - [InstrumentPlatformAndTypesResponse](docs/InstrumentPlatformAndTypesResponse.md)
+ - [InstrumentPlatformInfo](docs/InstrumentPlatformInfo.md)
+ - [InstrumentTypeInfo](docs/InstrumentTypeInfo.md)
  - [JobOperationParameters](docs/JobOperationParameters.md)
  - [JobOperationType](docs/JobOperationType.md)
  - [JobProgressStatus](docs/JobProgressStatus.md)
  - [JobResponse](docs/JobResponse.md)
  - [JobStatus](docs/JobStatus.md)
+ - [LaneByReadSequencingStats](docs/LaneByReadSequencingStats.md)
+ - [LaneByReadSequencingStatsResponse](docs/LaneByReadSequencingStatsResponse.md)
+ - [LaneContent](docs/LaneContent.md)
+ - [LaneContentResponse](docs/LaneContentResponse.md)
+ - [LaneLibrary](docs/LaneLibrary.md)
+ - [LaneLibraryResponse](docs/LaneLibraryResponse.md)
+ - [LanePrepKitInfo](docs/LanePrepKitInfo.md)
+ - [LaneSequencingStats](docs/LaneSequencingStats.md)
+ - [LaneSequencingStatsResponse](docs/LaneSequencingStatsResponse.md)
  - [LaunchTaskRequest](docs/LaunchTaskRequest.md)
  - [LaunchWorkflowVersionRequest](docs/LaunchWorkflowVersionRequest.md)
+ - [Library](docs/Library.md)
+ - [LibraryCompact](docs/LibraryCompact.md)
+ - [LibraryCompactLibrarySortFieldsPagedItems](docs/LibraryCompactLibrarySortFieldsPagedItems.md)
+ - [LibraryPool](docs/LibraryPool.md)
+ - [LibraryPoolCompact](docs/LibraryPoolCompact.md)
+ - [LibraryPoolCompactLibraryPoolSortFieldsPagedItems](docs/LibraryPoolCompactLibraryPoolSortFieldsPagedItems.md)
+ - [LibraryPrepKit](docs/LibraryPrepKit.md)
+ - [LibraryPrepKitAndIndexAdapterKitName](docs/LibraryPrepKitAndIndexAdapterKitName.md)
+ - [LibraryPrepKitCompact](docs/LibraryPrepKitCompact.md)
+ - [LibraryPrepKitCompactLibraryPrepKitSortFieldsPagedItems](docs/LibraryPrepKitCompactLibraryPrepKitSortFieldsPagedItems.md)
+ - [LibraryPrepKitSettings](docs/LibraryPrepKitSettings.md)
+ - [LibraryPrepKitSettingsResponse](docs/LibraryPrepKitSettingsResponse.md)
  - [MountMappingWithCreds](docs/MountMappingWithCreds.md)
+ - [NoContentResult](docs/NoContentResult.md)
  - [ObjectStoreAccess](docs/ObjectStoreAccess.md)
  - [ObjectStoreSettings](docs/ObjectStoreSettings.md)
+ - [ParseSampleSheetRequest](docs/ParseSampleSheetRequest.md)
+ - [ParseSampleSheetResponse](docs/ParseSampleSheetResponse.md)
+ - [ParsedSequencingRun](docs/ParsedSequencingRun.md)
  - [PeriodUsageSummary](docs/PeriodUsageSummary.md)
  - [ProductUsage](docs/ProductUsage.md)
  - [Project](docs/Project.md)
  - [ProjectPagedItems](docs/ProjectPagedItems.md)
+ - [ReadSequencingStats](docs/ReadSequencingStats.md)
+ - [ReadSequencingStatsResponse](docs/ReadSequencingStatsResponse.md)
  - [Region](docs/Region.md)
+ - [RegisterSampleDataRequest](docs/RegisterSampleDataRequest.md)
+ - [RenderAnalysisVersionDefinitionRequest](docs/RenderAnalysisVersionDefinitionRequest.md)
+ - [RenderAnalysisVersionDefinitionResponse](docs/RenderAnalysisVersionDefinitionResponse.md)
+ - [RenderMessage](docs/RenderMessage.md)
+ - [ReplacePlannedRunRequest](docs/ReplacePlannedRunRequest.md)
+ - [ReplaceSequencingStatsRequest](docs/ReplaceSequencingStatsRequest.md)
+ - [RequeueSequencingRunAnalysisRequest](docs/RequeueSequencingRunAnalysisRequest.md)
  - [Resources](docs/Resources.md)
+ - [RunDirectUploadInfoRequest](docs/RunDirectUploadInfoRequest.md)
+ - [RunSequencingStats](docs/RunSequencingStats.md)
+ - [RunSequencingStatsResponse](docs/RunSequencingStatsResponse.md)
+ - [RunSetupValidation](docs/RunSetupValidation.md)
+ - [RuntVerificationResult](docs/RuntVerificationResult.md)
+ - [Sample](docs/Sample.md)
+ - [SampleCompact](docs/SampleCompact.md)
+ - [SampleCompactSampleSortFieldsPagedItems](docs/SampleCompactSampleSortFieldsPagedItems.md)
+ - [SampleSettingEntry](docs/SampleSettingEntry.md)
+ - [SampleSheet](docs/SampleSheet.md)
+ - [SampleSheetParsingWarning](docs/SampleSheetParsingWarning.md)
+ - [SamplesDeliveryRequest](docs/SamplesDeliveryRequest.md)
+ - [SamplesDeliveryResponse](docs/SamplesDeliveryResponse.md)
+ - [SequencingAnalysisRun](docs/SequencingAnalysisRun.md)
+ - [SequencingAnalysisRunCompact](docs/SequencingAnalysisRunCompact.md)
+ - [SequencingAnalysisRunCompactSequencingAnalysisRunSortFieldsPagedItems](docs/SequencingAnalysisRunCompactSequencingAnalysisRunSortFieldsPagedItems.md)
+ - [SequencingAnalysisRunResults](docs/SequencingAnalysisRunResults.md)
+ - [SequencingRun](docs/SequencingRun.md)
+ - [SequencingRunAnalysisConfiguration](docs/SequencingRunAnalysisConfiguration.md)
+ - [SequencingRunAnalysisConfigurationSequencingRunAnalysisConfigurationSortFieldsPagedItems](docs/SequencingRunAnalysisConfigurationSequencingRunAnalysisConfigurationSortFieldsPagedItems.md)
+ - [SequencingRunAnalysisSampleConfigurationCompact](docs/SequencingRunAnalysisSampleConfigurationCompact.md)
+ - [SequencingRunAnalysisSummary](docs/SequencingRunAnalysisSummary.md)
+ - [SequencingRunCompact](docs/SequencingRunCompact.md)
+ - [SequencingRunCompactSequencingRunSortFieldsPagedItems](docs/SequencingRunCompactSequencingRunSortFieldsPagedItems.md)
+ - [SequencingRunConfiguration](docs/SequencingRunConfiguration.md)
+ - [SequencingRunContentsResponse](docs/SequencingRunContentsResponse.md)
+ - [SequencingRunGenome](docs/SequencingRunGenome.md)
+ - [SequencingRunGenomeInfo](docs/SequencingRunGenomeInfo.md)
+ - [SequencingRunPrepKitInfo](docs/SequencingRunPrepKitInfo.md)
+ - [SequencingRunUpload](docs/SequencingRunUpload.md)
+ - [SequencingStatsResponse](docs/SequencingStatsResponse.md)
  - [ServiceHealthResponse](docs/ServiceHealthResponse.md)
  - [SessionResponse](docs/SessionResponse.md)
  - [SessionStatus](docs/SessionStatus.md)
  - [SortDirection](docs/SortDirection.md)
+ - [StartPlannedRunRequest](docs/StartPlannedRunRequest.md)
+ - [StartVerificationRequest](docs/StartVerificationRequest.md)
  - [StorageTier](docs/StorageTier.md)
  - [Subscription](docs/Subscription.md)
  - [SubscriptionList](docs/SubscriptionList.md)
  - [SubscriptionListSortFields](docs/SubscriptionListSortFields.md)
  - [SucceedWorkflowSignalRequest](docs/SucceedWorkflowSignalRequest.md)
+ - [SupportedInstrumentPlatformAndTypes](docs/SupportedInstrumentPlatformAndTypes.md)
+ - [SupportedInstrumentTypes](docs/SupportedInstrumentTypes.md)
  - [SystemFiles](docs/SystemFiles.md)
  - [SystemHealthResponse](docs/SystemHealthResponse.md)
  - [Task](docs/Task.md)
@@ -273,7 +498,22 @@ Class | Method | HTTP request | Description
  - [TaskVersionSummaryPagedItems](docs/TaskVersionSummaryPagedItems.md)
  - [TokenDetailResponse](docs/TokenDetailResponse.md)
  - [TokenResponse](docs/TokenResponse.md)
+ - [UpdateAclRequest](docs/UpdateAclRequest.md)
+ - [UpdateAnalysisDefinitionRequest](docs/UpdateAnalysisDefinitionRequest.md)
+ - [UpdateAnalysisVersionDefinitionRequest](docs/UpdateAnalysisVersionDefinitionRequest.md)
  - [UpdateFileRequest](docs/UpdateFileRequest.md)
+ - [UpdateGenomeRequest](docs/UpdateGenomeRequest.md)
+ - [UpdateIndexAdapterKitByDefinitionRequest](docs/UpdateIndexAdapterKitByDefinitionRequest.md)
+ - [UpdateIndexAdapterKitRequest](docs/UpdateIndexAdapterKitRequest.md)
+ - [UpdateLibraryPoolRequest](docs/UpdateLibraryPoolRequest.md)
+ - [UpdateLibraryPrepKitRequest](docs/UpdateLibraryPrepKitRequest.md)
+ - [UpdateLibraryRequest](docs/UpdateLibraryRequest.md)
+ - [UpdateSampleRequest](docs/UpdateSampleRequest.md)
+ - [UpdateSequencingRunAnalysisConfigurationRequest](docs/UpdateSequencingRunAnalysisConfigurationRequest.md)
+ - [UpdateSequencingRunConfigurationRequest](docs/UpdateSequencingRunConfigurationRequest.md)
+ - [UpdateSequencingRunContentsRequest](docs/UpdateSequencingRunContentsRequest.md)
+ - [UpdateSequencingRunRequest](docs/UpdateSequencingRunRequest.md)
+ - [UpdateSequencingRunStatusRequest](docs/UpdateSequencingRunStatusRequest.md)
  - [UpdateTaskRequest](docs/UpdateTaskRequest.md)
  - [UpdateTaskVersionRequest](docs/UpdateTaskVersionRequest.md)
  - [UpdateVolumeRequest](docs/UpdateVolumeRequest.md)
@@ -293,6 +533,7 @@ Class | Method | HTTP request | Description
  - [WorkflowConnection](docs/WorkflowConnection.md)
  - [WorkflowLanguage](docs/WorkflowLanguage.md)
  - [WorkflowList](docs/WorkflowList.md)
+ - [WorkflowMetadataDto](docs/WorkflowMetadataDto.md)
  - [WorkflowRun](docs/WorkflowRun.md)
  - [WorkflowRunCompact](docs/WorkflowRunCompact.md)
  - [WorkflowRunHistoryEvent](docs/WorkflowRunHistoryEvent.md)

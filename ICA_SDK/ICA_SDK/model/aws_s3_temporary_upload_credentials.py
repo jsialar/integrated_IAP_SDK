@@ -79,7 +79,6 @@ class AwsS3TemporaryUploadCredentials(ModelNormal):
             'bucket_name': (str,),  # noqa: E501
             'key_prefix': (str,),  # noqa: E501
             'expiration_date': (datetime,),  # noqa: E501
-            'service_url': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -95,7 +94,6 @@ class AwsS3TemporaryUploadCredentials(ModelNormal):
         'bucket_name': 'bucketName',  # noqa: E501
         'key_prefix': 'keyPrefix',  # noqa: E501
         'expiration_date': 'expirationDate',  # noqa: E501
-        'service_url': 'serviceUrl',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -151,7 +149,6 @@ class AwsS3TemporaryUploadCredentials(ModelNormal):
             bucket_name (str): AWS bucket the folder will/does reside in. [optional]  # noqa: E501
             key_prefix (str): AWS upload location for this folder. [optional]  # noqa: E501
             expiration_date (datetime): expiration for temporary credentials. [optional]  # noqa: E501
-            service_url (str): Service endpoint for accessing S3.  This is optional for AWS S3, but mandatory for other services like Taiwan Computing Cloud.. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

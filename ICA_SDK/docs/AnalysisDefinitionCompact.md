@@ -1,0 +1,31 @@
+# AnalysisDefinitionCompact
+
+Defines the data contract for an analysis definition
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **str** | Unique object ID | [optional] 
+**urn** | **str** | URN of the object | [optional] 
+**href** | **str** | HREF to the object | [optional] 
+**name** | **str** | Name of the analysis definition | [optional] 
+**organization** | **str** | Organization owning the analysis definition | [optional] 
+**is_illumina** | **bool** | Indicates whether or not the current analysis definition is from Illumina | [optional] 
+**description** | **str** | Description of the analysis definition | [optional] 
+**status** | **str** | Status of the analysis definition | [optional] 
+**illumina_kit_support_mode** | **str** | Illumina Kit Support Mode | [optional] 
+**regulatory_mode** | **str** | Regulatory mode of the analysis definition | [optional] 
+**display_name** | **str** | User-friendly name of the analysis definition | [optional] 
+**analysis_versions** | [**AnalysisVersionDefinitionCompactItemList**](AnalysisVersionDefinitionCompactItemList.md) |  | [optional] 
+**tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
+**sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
+**acl** | **[str]** | Access control list of the object | [optional] 
+**created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 
+**created_by** | **str** | User that created the resource | [optional] 
+**modified_by** | **str** | User that last modified the resource | [optional] 
+**time_created** | **datetime** | Time (in UTC) the resource was created | [optional] 
+**time_modified** | **datetime** | Time (in UTC) the resource was modified | [optional] 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
