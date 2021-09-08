@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **adapter_sequence_read1** | **str** | Optional read 1 adapter sequence | [optional] 
 **adapter_sequence_read2** | **str** | Optional read 2 adapter sequence | [optional] 
 **settings** | [**IndexAdapterKitSettings**](IndexAdapterKitSettings.md) |  | [optional] 
+**checksum** | **str** | Stores the checksum of IndexAdapterKit | [optional] 
 **index_sequences** | [**[IndexSequence]**](IndexSequence.md) | Index sequence mappings | [optional] 
 **skip_index_diversity_validation** | **bool** | Flag to skip index diversity validation | [optional] 
 **acl** | **[str]** |  | [optional] 

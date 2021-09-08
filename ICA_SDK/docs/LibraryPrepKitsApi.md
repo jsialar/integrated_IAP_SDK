@@ -74,6 +74,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         settings=LibraryPrepKitSettings(
             default_read_type="Single",
         ),
+        checksum="checksum_example",
         index_adapter_kit_ids=[
             "index_adapter_kit_ids_example",
         ],
@@ -808,6 +809,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         settings=LibraryPrepKitSettings(
             default_read_type="Single",
         ),
+        checksum="checksum_example",
         is_application_specific=True,
         index_adapter_kit_ids=[
             "index_adapter_kit_ids_example",

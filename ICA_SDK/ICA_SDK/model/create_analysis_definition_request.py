@@ -85,6 +85,10 @@ class CreateAnalysisDefinitionRequest(ModelNormal):
             'max_length': 8192,
             'min_length': 0,
         },
+        ('checksum',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
     }
 
     additional_properties_type = None
@@ -110,6 +114,7 @@ class CreateAnalysisDefinitionRequest(ModelNormal):
             'library_prep_kit_ids': ([str],),  # noqa: E501
             'illumina_kit_support_mode': (str,),  # noqa: E501
             'regulatory_mode': (str,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
         }
 
@@ -127,6 +132,7 @@ class CreateAnalysisDefinitionRequest(ModelNormal):
         'library_prep_kit_ids': 'libraryPrepKitIds',  # noqa: E501
         'illumina_kit_support_mode': 'illuminaKitSupportMode',  # noqa: E501
         'regulatory_mode': 'regulatoryMode',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'acl': 'acl',  # noqa: E501
     }
 
@@ -186,6 +192,7 @@ class CreateAnalysisDefinitionRequest(ModelNormal):
             library_prep_kit_ids ([str]): Array of library prep kit IDs that are compatible with this analysis definition. [optional]  # noqa: E501
             illumina_kit_support_mode (str): Illumina Kits Support Mode of analysis definition. [optional]  # noqa: E501
             regulatory_mode (str): Regulatory mode of the analysis definition  Default regulatory mode is RUO. [optional]  # noqa: E501
+            checksum (str): Checksum of AnalysisDefinition. [optional]  # noqa: E501
             acl ([str]): [optional]  # noqa: E501
         """
 

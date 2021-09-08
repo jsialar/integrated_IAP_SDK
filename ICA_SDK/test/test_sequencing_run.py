@@ -13,12 +13,18 @@ import unittest
 
 import ICA_SDK
 from ICA_SDK.model.instrument import Instrument
+from ICA_SDK.model.run_sequencing_stats_response import RunSequencingStatsResponse
+from ICA_SDK.model.run_verification_result import RunVerificationResult
+from ICA_SDK.model.sequencing_analysis_run_compact import SequencingAnalysisRunCompact
 from ICA_SDK.model.sequencing_run_analysis_summary import SequencingRunAnalysisSummary
 from ICA_SDK.model.sequencing_run_compact import SequencingRunCompact
 from ICA_SDK.model.sequencing_run_configuration import SequencingRunConfiguration
 from ICA_SDK.model.sequencing_run_genome_info import SequencingRunGenomeInfo
 from ICA_SDK.model.sequencing_run_prep_kit_info import SequencingRunPrepKitInfo
 globals()['Instrument'] = Instrument
+globals()['RunSequencingStatsResponse'] = RunSequencingStatsResponse
+globals()['RunVerificationResult'] = RunVerificationResult
+globals()['SequencingAnalysisRunCompact'] = SequencingAnalysisRunCompact
 globals()['SequencingRunAnalysisSummary'] = SequencingRunAnalysisSummary
 globals()['SequencingRunCompact'] = SequencingRunCompact
 globals()['SequencingRunConfiguration'] = SequencingRunConfiguration

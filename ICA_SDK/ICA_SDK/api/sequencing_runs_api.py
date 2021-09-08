@@ -33,7 +33,7 @@ from ICA_SDK.model.no_content_result import NoContentResult
 from ICA_SDK.model.replace_sequencing_stats_request import ReplaceSequencingStatsRequest
 from ICA_SDK.model.requeue_sequencing_run_analysis_request import RequeueSequencingRunAnalysisRequest
 from ICA_SDK.model.run_direct_upload_info_request import RunDirectUploadInfoRequest
-from ICA_SDK.model.runt_verification_result import RuntVerificationResult
+from ICA_SDK.model.run_verification_result import RunVerificationResult
 from ICA_SDK.model.sample_sheet import SampleSheet
 from ICA_SDK.model.sequencing_run import SequencingRun
 from ICA_SDK.model.sequencing_run_analysis_configuration import SequencingRunAnalysisConfiguration
@@ -1625,6 +1625,11 @@ class SequencingRunsApi(object):
                 flow_cell_barcode (str): Filter by flowcell barcode. [optional]
                 input_container_identifier (str): Filter by Input container identifier. [optional]
                 regulatory_mode ([str]): Filter by regulatory modes using comma separated values, e.g <example>RUO,IVD,IUO</example>. [optional]
+                requeued_from_run_id (str): Filter By Requeued Run Id. [optional]
+                run_name ([str]): Filter by name of the sequencing run. [optional]
+                is_completed (bool): Optional parameter. Set to true to filter the run list and only include completed (failed, aborted, successfully completed) runs.. [optional]
+                include_completed_after_date (datetime): Optional parameter. Show runs that were completed after the provided Date as well as runs that are not completed. [optional]
+                include_completed_before_date (datetime): Optional parameter. Show runs that were completed before the provided Date as well as runs that are not completed. [optional]
                 tenant_ids ([str]): Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids. [optional]
                 page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
                 page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
@@ -1699,6 +1704,11 @@ class SequencingRunsApi(object):
                     'flow_cell_barcode',
                     'input_container_identifier',
                     'regulatory_mode',
+                    'requeued_from_run_id',
+                    'run_name',
+                    'is_completed',
+                    'include_completed_after_date',
+                    'include_completed_before_date',
                     'tenant_ids',
                     'page_size',
                     'page_token',
@@ -1716,6 +1726,7 @@ class SequencingRunsApi(object):
                 'validation': [
                     'flow_cell_barcode',
                     'input_container_identifier',
+                    'requeued_from_run_id',
                 ]
             },
             root_map={
@@ -1726,6 +1737,10 @@ class SequencingRunsApi(object):
                     },
                     ('input_container_identifier',): {
                         'max_length': 255,
+                        'min_length': 0,
+                    },
+                    ('requeued_from_run_id',): {
+                        'max_length': 50,
                         'min_length': 0,
                     },
                 },
@@ -1739,6 +1754,7 @@ class SequencingRunsApi(object):
                     ('aggregate_run_status',): {
 
                         "ABORTED": "Aborted",
+                        "ANALYSISFAILED": "AnalysisFailed",
                         "COMPLETE": "Complete",
                         "DELETED": "Deleted",
                         "FAILED": "Failed",
@@ -1746,6 +1762,7 @@ class SequencingRunsApi(object):
                         "NEEDSATTENTION": "NeedsAttention",
                         "PENDINGANALYSIS": "PendingAnalysis",
                         "PLANNED": "Planned",
+                        "PREPAREDFORREQUEUE": "PreparedForRequeue",
                         "READYFORSEQUENCING": "ReadyForSequencing",
                         "REHYBING": "Rehybing",
                         "RUNNING": "Running",
@@ -1763,7 +1780,9 @@ class SequencingRunsApi(object):
                     },
                     ('include',): {
 
-                        "TOTALITEMCOUNT": "TotalItemCount"
+                        "TOTALITEMCOUNT": "TotalItemCount",
+                        "RUNSEQUENCINGSTATS": "RunSequencingStats",
+                        "ANALYSISRUNS": "AnalysisRuns"
                     },
                     ('regulatory_mode',): {
 
@@ -1793,6 +1812,16 @@ class SequencingRunsApi(object):
                         (str,),
                     'regulatory_mode':
                         ([str],),
+                    'requeued_from_run_id':
+                        (str,),
+                    'run_name':
+                        ([str],),
+                    'is_completed':
+                        (bool,),
+                    'include_completed_after_date':
+                        (datetime,),
+                    'include_completed_before_date':
+                        (datetime,),
                     'tenant_ids':
                         ([str],),
                     'page_size':
@@ -1813,6 +1842,11 @@ class SequencingRunsApi(object):
                     'flow_cell_barcode': 'flowCellBarcode',
                     'input_container_identifier': 'inputContainerIdentifier',
                     'regulatory_mode': 'regulatoryMode',
+                    'requeued_from_run_id': 'requeuedFromRunId',
+                    'run_name': 'runName',
+                    'is_completed': 'isCompleted',
+                    'include_completed_after_date': 'includeCompletedAfterDate',
+                    'include_completed_before_date': 'includeCompletedBeforeDate',
                     'tenant_ids': 'tenantIds',
                     'page_size': 'pageSize',
                     'page_token': 'pageToken',
@@ -1829,6 +1863,11 @@ class SequencingRunsApi(object):
                     'flow_cell_barcode': 'query',
                     'input_container_identifier': 'query',
                     'regulatory_mode': 'query',
+                    'requeued_from_run_id': 'query',
+                    'run_name': 'query',
+                    'is_completed': 'query',
+                    'include_completed_after_date': 'query',
+                    'include_completed_before_date': 'query',
                     'tenant_ids': 'query',
                     'page_size': 'query',
                     'page_token': 'query',
@@ -1839,6 +1878,7 @@ class SequencingRunsApi(object):
                     'aggregate_run_status': 'csv',
                     'include': 'csv',
                     'regulatory_mode': 'csv',
+                    'run_name': 'csv',
                     'tenant_ids': 'csv',
                 }
             },
@@ -2777,7 +2817,7 @@ class SequencingRunsApi(object):
                 async_req (bool): execute request asynchronously
 
             Returns:
-                RuntVerificationResult
+                RunVerificationResult
                     If the method is called asynchronously, returns the request
                     thread.
             """
@@ -2806,7 +2846,7 @@ class SequencingRunsApi(object):
 
         self.start_run_verification = _Endpoint(
             settings={
-                'response_type': (RuntVerificationResult,),
+                'response_type': (RunVerificationResult,),
                 'auth': [
                     'Basic',
                     'Bearer'

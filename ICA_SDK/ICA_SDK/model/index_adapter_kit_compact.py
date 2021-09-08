@@ -89,9 +89,11 @@ class IndexAdapterKitCompact(ModelNormal):
             'adapter_sequence_read1': (str,),  # noqa: E501
             'adapter_sequence_read2': (str,),  # noqa: E501
             'settings': (IndexAdapterKitSettingsResponse,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -117,9 +119,11 @@ class IndexAdapterKitCompact(ModelNormal):
         'adapter_sequence_read1': 'adapterSequenceRead1',  # noqa: E501
         'adapter_sequence_read2': 'adapterSequenceRead2',  # noqa: E501
         'settings': 'settings',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -185,9 +189,11 @@ class IndexAdapterKitCompact(ModelNormal):
             adapter_sequence_read1 (str): Read 1 adapter sequence. [optional]  # noqa: E501
             adapter_sequence_read2 (str): Read 2 adapter sequence. [optional]  # noqa: E501
             settings (IndexAdapterKitSettingsResponse): [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            checksum (str): Stores the checksum of IndexAdapterKit. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

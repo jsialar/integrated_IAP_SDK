@@ -61,6 +61,10 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         volume_configuration_name="volume_configuration_name_example",
         root_key_prefix="kR,rZ#UM/?R,Fp^l6$ARjbhJk C>i H'qT\{<?'es#)#iK.YM{Rag2/!KB!k@5oXh.:/",
         metadata={},
+        life_cycle=VolumeLifeCycleSettings(
+            grace_period_days=1,
+            grace_period_end_action=GracePeriodEndAction("None"),
+        ),
     ) # CreateVolumeRequest | 
     include = "include_example" # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
 

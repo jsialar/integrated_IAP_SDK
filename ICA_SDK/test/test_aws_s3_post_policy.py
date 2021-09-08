@@ -12,13 +12,11 @@ import sys
 import unittest
 
 import ICA_SDK
-from ICA_SDK.model.component_verification_result import ComponentVerificationResult
-globals()['ComponentVerificationResult'] = ComponentVerificationResult
-from ICA_SDK.model.runt_verification_result import RuntVerificationResult
+from ICA_SDK.model.aws_s3_post_policy import AwsS3PostPolicy
 
 
-class TestRuntVerificationResult(unittest.TestCase):
-    """RuntVerificationResult unit test stubs"""
+class TestAwsS3PostPolicy(unittest.TestCase):
+    """AwsS3PostPolicy unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,10 +24,10 @@ class TestRuntVerificationResult(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testRuntVerificationResult(self):
-        """Test RuntVerificationResult"""
+    def testAwsS3PostPolicy(self):
+        """Test AwsS3PostPolicy"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = RuntVerificationResult()  # noqa: E501
+        # model = AwsS3PostPolicy()  # noqa: E501
         pass
 
 

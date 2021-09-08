@@ -82,7 +82,6 @@ class AnalysisDefinition(ModelNormal):
             'id': (str,),  # noqa: E501
             'urn': (str,),  # noqa: E501
             'href': (str,),  # noqa: E501
-            'compatible_library_prep_kits': ([LibraryPrepKitCompact],),  # noqa: E501
             'name': (str,),  # noqa: E501
             'organization': (str,),  # noqa: E501
             'is_illumina': (bool,),  # noqa: E501
@@ -92,9 +91,12 @@ class AnalysisDefinition(ModelNormal):
             'regulatory_mode': (str,),  # noqa: E501
             'display_name': (str,),  # noqa: E501
             'analysis_versions': (AnalysisVersionDefinitionCompactItemList,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'compatible_library_prep_kits': ([LibraryPrepKitCompact],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -111,7 +113,6 @@ class AnalysisDefinition(ModelNormal):
         'id': 'id',  # noqa: E501
         'urn': 'urn',  # noqa: E501
         'href': 'href',  # noqa: E501
-        'compatible_library_prep_kits': 'compatibleLibraryPrepKits',  # noqa: E501
         'name': 'name',  # noqa: E501
         'organization': 'organization',  # noqa: E501
         'is_illumina': 'isIllumina',  # noqa: E501
@@ -121,9 +122,12 @@ class AnalysisDefinition(ModelNormal):
         'regulatory_mode': 'regulatoryMode',  # noqa: E501
         'display_name': 'displayName',  # noqa: E501
         'analysis_versions': 'analysisVersions',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'compatible_library_prep_kits': 'compatibleLibraryPrepKits',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -180,7 +184,6 @@ class AnalysisDefinition(ModelNormal):
             id (str): Unique object ID. [optional]  # noqa: E501
             urn (str): URN of the object. [optional]  # noqa: E501
             href (str): HREF to the object. [optional]  # noqa: E501
-            compatible_library_prep_kits ([LibraryPrepKitCompact]): The library preparation kits that are compatible with this analysis definition. [optional]  # noqa: E501
             name (str): Name of the analysis definition. [optional]  # noqa: E501
             organization (str): Organization owning the analysis definition. [optional]  # noqa: E501
             is_illumina (bool): Indicates whether or not the current analysis definition is from Illumina. [optional]  # noqa: E501
@@ -190,9 +193,12 @@ class AnalysisDefinition(ModelNormal):
             regulatory_mode (str): Regulatory mode of the analysis definition. [optional]  # noqa: E501
             display_name (str): User-friendly name of the analysis definition. [optional]  # noqa: E501
             analysis_versions (AnalysisVersionDefinitionCompactItemList): [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            checksum (str): Stores the checksum of AnalysisDefinition. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            compatible_library_prep_kits ([LibraryPrepKitCompact]): The library preparation kits that are compatible with this analysis definition. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

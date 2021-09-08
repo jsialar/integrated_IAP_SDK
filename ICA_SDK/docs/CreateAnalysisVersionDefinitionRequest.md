@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **on_render_function** | **str** | Logic for dynamically rendering AVD settings and AVD setting configurations | [optional] 
 **on_render_require_run_contents** | **bool** | Defines whether the analysis fields should be changed based on input of run contents  This is to avoid unnecessary huge input from UI that is not really needed during rendering | [optional] 
 **settings** | [**AnalysisVersionDefinitionSettings**](AnalysisVersionDefinitionSettings.md) |  | [optional] 
+**checksum** | **str** | Checksum of AnalysisVersionDefinition | [optional] 
 **acl** | **[str]** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

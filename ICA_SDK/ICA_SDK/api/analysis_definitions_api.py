@@ -258,7 +258,8 @@ class AnalysisDefinitionsApi(object):
                     ('include',): {
 
                         "COMPATIBLELIBRARYPREPKITS": "CompatibleLibraryPrepKits",
-                        "ANALYSISVERSIONS": "AnalysisVersions"
+                        "ANALYSISVERSIONS": "AnalysisVersions",
+                        "ARCHIVED": "Archived"
                     },
                 },
                 'openapi_types': {
@@ -413,7 +414,8 @@ class AnalysisDefinitionsApi(object):
                     ('include',): {
 
                         "TOTALITEMCOUNT": "TotalItemCount",
-                        "ANALYSISVERSIONS": "AnalysisVersions"
+                        "ANALYSISVERSIONS": "AnalysisVersions",
+                        "ARCHIVED": "Archived"
                     },
                 },
                 'openapi_types': {

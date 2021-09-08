@@ -29,8 +29,10 @@ from ICA_SDK.model_utils import (  # noqa: F401
 def lazy_import():
     from ICA_SDK.model.job_status import JobStatus
     from ICA_SDK.model.object_store_access import ObjectStoreAccess
+    from ICA_SDK.model.volume_life_cycle_settings import VolumeLifeCycleSettings
     globals()['JobStatus'] = JobStatus
     globals()['ObjectStoreAccess'] = ObjectStoreAccess
+    globals()['VolumeLifeCycleSettings'] = VolumeLifeCycleSettings
 
 
 class CreateVolumeResponse(ModelNormal):
@@ -79,8 +81,6 @@ class CreateVolumeResponse(ModelNormal):
         """
         lazy_import()
         return {
-            'import_session_id': (str,),  # noqa: E501
-            'object_store_access': (ObjectStoreAccess,),  # noqa: E501
             'id': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'tenant_id': (str,),  # noqa: E501
@@ -96,6 +96,9 @@ class CreateVolumeResponse(ModelNormal):
             'modified_by': (str,),  # noqa: E501
             'job_status': (JobStatus,),  # noqa: E501
             'metadata': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
+            'life_cycle': (VolumeLifeCycleSettings,),  # noqa: E501
+            'import_session_id': (str,),  # noqa: E501
+            'object_store_access': (ObjectStoreAccess,),  # noqa: E501
         }
 
     @cached_property
@@ -104,8 +107,6 @@ class CreateVolumeResponse(ModelNormal):
 
 
     attribute_map = {
-        'import_session_id': 'importSessionId',  # noqa: E501
-        'object_store_access': 'objectStoreAccess',  # noqa: E501
         'id': 'id',  # noqa: E501
         'name': 'name',  # noqa: E501
         'tenant_id': 'tenantId',  # noqa: E501
@@ -121,6 +122,9 @@ class CreateVolumeResponse(ModelNormal):
         'modified_by': 'modifiedBy',  # noqa: E501
         'job_status': 'jobStatus',  # noqa: E501
         'metadata': 'metadata',  # noqa: E501
+        'life_cycle': 'lifeCycle',  # noqa: E501
+        'import_session_id': 'importSessionId',  # noqa: E501
+        'object_store_access': 'objectStoreAccess',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -169,8 +173,6 @@ class CreateVolumeResponse(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            import_session_id (str): Unique identifier of the import Session for this Volume. This only applies to Volumes created from custom  Volume configurations.. [optional]  # noqa: E501
-            object_store_access (ObjectStoreAccess): [optional]  # noqa: E501
             id (str): A unique identifier for this Volume. [optional]  # noqa: E501
             name (str): The name of this Volume. [optional]  # noqa: E501
             tenant_id (str): The unique identifier for this Volume's Tenant. [optional]  # noqa: E501
@@ -186,6 +188,9 @@ class CreateVolumeResponse(ModelNormal):
             modified_by (str): The updator of this Volume. [optional]  # noqa: E501
             job_status (JobStatus): [optional]  # noqa: E501
             metadata ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Metadata about this Volume. [optional]  # noqa: E501
+            life_cycle (VolumeLifeCycleSettings): [optional]  # noqa: E501
+            import_session_id (str): Unique identifier of the import Session for this Volume. This only applies to Volumes created from custom  Volume configurations.. [optional]  # noqa: E501
+            object_store_access (ObjectStoreAccess): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

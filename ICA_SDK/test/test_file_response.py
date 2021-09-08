@@ -13,8 +13,12 @@ import unittest
 
 import ICA_SDK
 from ICA_SDK.model.archive_statuses import ArchiveStatuses
+from ICA_SDK.model.file_life_cycle_settings import FileLifeCycleSettings
+from ICA_SDK.model.file_status import FileStatus
 from ICA_SDK.model.storage_tier import StorageTier
 globals()['ArchiveStatuses'] = ArchiveStatuses
+globals()['FileLifeCycleSettings'] = FileLifeCycleSettings
+globals()['FileStatus'] = FileStatus
 globals()['StorageTier'] = StorageTier
 from ICA_SDK.model.file_response import FileResponse
 

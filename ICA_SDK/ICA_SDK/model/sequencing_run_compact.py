@@ -28,11 +28,17 @@ from ICA_SDK.model_utils import (  # noqa: F401
 
 def lazy_import():
     from ICA_SDK.model.instrument import Instrument
+    from ICA_SDK.model.run_sequencing_stats_response import RunSequencingStatsResponse
+    from ICA_SDK.model.run_verification_result import RunVerificationResult
+    from ICA_SDK.model.sequencing_analysis_run_compact import SequencingAnalysisRunCompact
     from ICA_SDK.model.sequencing_run_analysis_summary import SequencingRunAnalysisSummary
     from ICA_SDK.model.sequencing_run_configuration import SequencingRunConfiguration
     from ICA_SDK.model.sequencing_run_genome_info import SequencingRunGenomeInfo
     from ICA_SDK.model.sequencing_run_prep_kit_info import SequencingRunPrepKitInfo
     globals()['Instrument'] = Instrument
+    globals()['RunSequencingStatsResponse'] = RunSequencingStatsResponse
+    globals()['RunVerificationResult'] = RunVerificationResult
+    globals()['SequencingAnalysisRunCompact'] = SequencingAnalysisRunCompact
     globals()['SequencingRunAnalysisSummary'] = SequencingRunAnalysisSummary
     globals()['SequencingRunConfiguration'] = SequencingRunConfiguration
     globals()['SequencingRunGenomeInfo'] = SequencingRunGenomeInfo
@@ -123,6 +129,7 @@ class SequencingRunCompact(ModelNormal):
             'run_upload_completed': (bool,),  # noqa: E501
             'run_upload_time_started': (datetime,),  # noqa: E501
             'run_upload_time_completed': (datetime,),  # noqa: E501
+            'is_completed': (bool,),  # noqa: E501
             'is_failed': (bool,),  # noqa: E501
             'run_failure_type': (str,),  # noqa: E501
             'run_failure_reason': (str,),  # noqa: E501
@@ -158,9 +165,19 @@ class SequencingRunCompact(ModelNormal):
             'checksum_of_manifest': (str,),  # noqa: E501
             'requeued_from_run': (SequencingRunCompact,),  # noqa: E501
             'requeue_reason': (str,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'verification_results': (RunVerificationResult,),  # noqa: E501
+            'can_edit_run': (bool,),  # noqa: E501
+            'can_requeue_run': (bool,),  # noqa: E501
+            'can_delete': (bool,),  # noqa: E501
+            'analysis_time_started': (datetime,),  # noqa: E501
+            'analysis_time_completed': (datetime,),  # noqa: E501
+            'run_time_completed': (datetime,),  # noqa: E501
+            'run_sequencing_stats': (RunSequencingStatsResponse,),  # noqa: E501
+            'analysis_runs': ([SequencingAnalysisRunCompact],),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -212,6 +229,7 @@ class SequencingRunCompact(ModelNormal):
         'run_upload_completed': 'runUploadCompleted',  # noqa: E501
         'run_upload_time_started': 'runUploadTimeStarted',  # noqa: E501
         'run_upload_time_completed': 'runUploadTimeCompleted',  # noqa: E501
+        'is_completed': 'isCompleted',  # noqa: E501
         'is_failed': 'isFailed',  # noqa: E501
         'run_failure_type': 'runFailureType',  # noqa: E501
         'run_failure_reason': 'runFailureReason',  # noqa: E501
@@ -247,9 +265,19 @@ class SequencingRunCompact(ModelNormal):
         'checksum_of_manifest': 'checksumOfManifest',  # noqa: E501
         'requeued_from_run': 'requeuedFromRun',  # noqa: E501
         'requeue_reason': 'requeueReason',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'verification_results': 'verificationResults',  # noqa: E501
+        'can_edit_run': 'canEditRun',  # noqa: E501
+        'can_requeue_run': 'canRequeueRun',  # noqa: E501
+        'can_delete': 'canDelete',  # noqa: E501
+        'analysis_time_started': 'analysisTimeStarted',  # noqa: E501
+        'analysis_time_completed': 'analysisTimeCompleted',  # noqa: E501
+        'run_time_completed': 'runTimeCompleted',  # noqa: E501
+        'run_sequencing_stats': 'runSequencingStats',  # noqa: E501
+        'analysis_runs': 'analysisRuns',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -341,8 +369,9 @@ class SequencingRunCompact(ModelNormal):
             run_upload_completed (bool): Indicates with value 'true' when the run upload sub-stage completes. [optional]  # noqa: E501
             run_upload_time_started (datetime): Time when the data upload starts (marks the start of upload sub-stage). [optional]  # noqa: E501
             run_upload_time_completed (datetime): Time when the run upload sub-stage completed. [optional]  # noqa: E501
+            is_completed (bool): Indicates whether the run is in terminal state. [optional]  # noqa: E501
             is_failed (bool): Indicates whether the run failed. [optional]  # noqa: E501
-            run_failure_type (str): Indicates with value 'true' if the run failed during active processing by the instrument. [optional]  # noqa: E501
+            run_failure_type (str): Indicates the FailureType of the run (e.g None, InstrumentFailure, InstrumentSequencingFailure etc.). [optional]  # noqa: E501
             run_failure_reason (str): Specifies the reason why the run failure occurred. [optional]  # noqa: E501
             needs_attention (bool): Indicates with value 'true' if the run needs attention. [optional]  # noqa: E501
             needs_attention_reason (str): Reason why the run needs attention. [optional]  # noqa: E501
@@ -376,9 +405,19 @@ class SequencingRunCompact(ModelNormal):
             checksum_of_manifest (str): Stores the checksum of manifest  Used to verify run contents copied from external location. [optional]  # noqa: E501
             requeued_from_run (SequencingRunCompact): [optional]  # noqa: E501
             requeue_reason (str): Reason for Requeue Analysis of a sequencing run. [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            verification_results (RunVerificationResult): [optional]  # noqa: E501
+            can_edit_run (bool): Indicates whether the sequencing run can be edited or not. [optional]  # noqa: E501
+            can_requeue_run (bool): Indicates whether the sequencing run can be requeued or not. [optional]  # noqa: E501
+            can_delete (bool): Indicates whether the sequencing run can be deleted or not. [optional]  # noqa: E501
+            analysis_time_started (datetime): Indicates the DateTime when the analysis is started (typically for off-instrument analysis). [optional]  # noqa: E501
+            analysis_time_completed (datetime): Indicates the DateTime when the analysis is completed (typically for off-instrument analysis). [optional]  # noqa: E501
+            run_time_completed (datetime): Indicates the DateTime of the overall run which have been fully completed (including post-upload cloud processing). [optional]  # noqa: E501
+            run_sequencing_stats (RunSequencingStatsResponse): [optional]  # noqa: E501
+            analysis_runs ([SequencingAnalysisRunCompact]): Consists of the sequencing analysis runs related to the sequencing run. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

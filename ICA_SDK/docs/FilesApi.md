@@ -159,6 +159,8 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         folder_path="folder_path_example",
         type="type_example",
         volume_name="volume_name_example",
+        format="format_example",
+        format_edam="format_edam_example",
     ) # CreateFileRequest | 
     include = "include_example" # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
 
@@ -348,6 +350,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     api_instance = files_api.FilesApi(api_client)
     file_id = "fileId_example" # str | Unique identifier for the file to retrieve.
     tenant_id = "tenantId_example" # str | Optional parameter to see shared data in another tenant (optional)
+    presigned_url_mode = "presignedUrlMode_example" # str | Optional parameter to specify presigned url's content-disposition. If not specified, the browser will determine the default behavior.              Possible values: Attachment, Inline, Browser (optional)
     metadata_include = "metadata.include_example" # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
     metadata_exclude = "metadata.exclude_example" # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
 
@@ -363,7 +366,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get details about a file, including a pre-signed URL for download
-        api_response = api_instance.get_file(file_id, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
+        api_response = api_instance.get_file(file_id, tenant_id=tenant_id, presigned_url_mode=presigned_url_mode, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
         pprint(api_response)
     except ICA_SDK.ApiException as e:
         print("Exception when calling FilesApi->get_file: %s\n" % e)
@@ -376,6 +379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **file_id** | **str**| Unique identifier for the file to retrieve. |
  **tenant_id** | **str**| Optional parameter to see shared data in another tenant | [optional]
+ **presigned_url_mode** | **str**| Optional parameter to specify presigned url&#39;s content-disposition. If not specified, the browser will determine the default behavior.              Possible values: Attachment, Inline, Browser | [optional]
  **metadata_include** | **str**| Optional parameter to specify comma separated patterns to include metadata by their field names. | [optional]
  **metadata_exclude** | **str**| Optional parameter to specify comma separated patterns to exclude metadata by their field names. | [optional]
 
@@ -462,6 +466,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     is_uploaded = True # bool | Optional field to filter by Uploaded files (optional)
     archive_status = "archiveStatus_example" # str | Optional field that specifies comma-separated Archive Statuses to include in the list (optional)
     recursive = True # bool | Optional field to specify if files should be returned recursively in and under the specified paths, or only directly in the specified paths (optional)
+    presigned_url_mode = "presignedUrlMode_example" # str | Optional parameter to specify presigned url's content-disposition. If not specified, the browser will determine the default behavior.  Possible values: Attachment, Inline, Browser (optional)
     include = "include_example" # str | Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, PresignedUrl, InheritedAcl (optional)
     page_size = 0 # int | START_DESC END_DESC (optional)
     page_token = "pageToken_example" # str | START_DESC END_DESC (optional)
@@ -473,7 +478,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get a list of files
-        api_response = api_instance.list_files(volume_id=volume_id, volume_name=volume_name, path=path, is_uploaded=is_uploaded, archive_status=archive_status, recursive=recursive, include=include, page_size=page_size, page_token=page_token, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
+        api_response = api_instance.list_files(volume_id=volume_id, volume_name=volume_name, path=path, is_uploaded=is_uploaded, archive_status=archive_status, recursive=recursive, presigned_url_mode=presigned_url_mode, include=include, page_size=page_size, page_token=page_token, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
         pprint(api_response)
     except ICA_SDK.ApiException as e:
         print("Exception when calling FilesApi->list_files: %s\n" % e)
@@ -490,6 +495,7 @@ Name | Type | Description  | Notes
  **is_uploaded** | **bool**| Optional field to filter by Uploaded files | [optional]
  **archive_status** | **str**| Optional field that specifies comma-separated Archive Statuses to include in the list | [optional]
  **recursive** | **bool**| Optional field to specify if files should be returned recursively in and under the specified paths, or only directly in the specified paths | [optional]
+ **presigned_url_mode** | **str**| Optional parameter to specify presigned url&#39;s content-disposition. If not specified, the browser will determine the default behavior.  Possible values: Attachment, Inline, Browser | [optional]
  **include** | **str**| Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, PresignedUrl, InheritedAcl | [optional]
  **page_size** | **int**| START_DESC END_DESC | [optional]
  **page_token** | **str**| START_DESC END_DESC | [optional]
@@ -667,6 +673,14 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     include = "include_example" # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
     body = UpdateFileRequest(
         type="type_example",
+        format="format_example",
+        format_edam="format_edam_example",
+        life_cycle=FileLifeCycleSettings(
+            time_grace_period_ends=dateutil_parser('1970-01-01T00:00:00.00Z'),
+            time_to_be_archived=dateutil_parser('1970-01-01T00:00:00.00Z'),
+            time_to_be_deleted=dateutil_parser('1970-01-01T00:00:00.00Z'),
+            archive_storage_tier=FileArchiveStorageTier("Archive"),
+        ),
     ) # UpdateFileRequest |  (optional)
 
     # example passing only required values which don't have defaults set

@@ -445,6 +445,7 @@ class FilesApi(object):
 
             Keyword Args:
                 tenant_id (str): Optional parameter to see shared data in another tenant. [optional]
+                presigned_url_mode (str): Optional parameter to specify presigned url's content-disposition. If not specified, the browser will determine the default behavior.              Possible values: Attachment, Inline, Browser. [optional]
                 metadata_include (str): Optional parameter to specify comma separated patterns to include metadata by their field names.. [optional]
                 metadata_exclude (str): Optional parameter to specify comma separated patterns to exclude metadata by their field names.. [optional]
                 _return_http_data_only (bool): response data without head status
@@ -511,6 +512,7 @@ class FilesApi(object):
                 'all': [
                     'file_id',
                     'tenant_id',
+                    'presigned_url_mode',
                     'metadata_include',
                     'metadata_exclude',
                 ],
@@ -534,6 +536,8 @@ class FilesApi(object):
                         (str,),
                     'tenant_id':
                         (str,),
+                    'presigned_url_mode':
+                        (str,),
                     'metadata_include':
                         (str,),
                     'metadata_exclude':
@@ -542,12 +546,14 @@ class FilesApi(object):
                 'attribute_map': {
                     'file_id': 'fileId',
                     'tenant_id': 'tenantId',
+                    'presigned_url_mode': 'presignedUrlMode',
                     'metadata_include': 'metadata.include',
                     'metadata_exclude': 'metadata.exclude',
                 },
                 'location_map': {
                     'file_id': 'path',
                     'tenant_id': 'query',
+                    'presigned_url_mode': 'query',
                     'metadata_include': 'query',
                     'metadata_exclude': 'query',
                 },
@@ -585,6 +591,7 @@ class FilesApi(object):
                 is_uploaded (bool): Optional field to filter by Uploaded files. [optional]
                 archive_status (str): Optional field that specifies comma-separated Archive Statuses to include in the list. [optional]
                 recursive (bool): Optional field to specify if files should be returned recursively in and under the specified paths, or only directly in the specified paths. [optional]
+                presigned_url_mode (str): Optional parameter to specify presigned url's content-disposition. If not specified, the browser will determine the default behavior.  Possible values: Attachment, Inline, Browser. [optional]
                 include (str): Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, PresignedUrl, InheritedAcl. [optional]
                 page_size (int): START_DESC END_DESC. [optional]
                 page_token (str): START_DESC END_DESC. [optional]
@@ -657,6 +664,7 @@ class FilesApi(object):
                     'is_uploaded',
                     'archive_status',
                     'recursive',
+                    'presigned_url_mode',
                     'include',
                     'page_size',
                     'page_token',
@@ -696,6 +704,8 @@ class FilesApi(object):
                         (str,),
                     'recursive':
                         (bool,),
+                    'presigned_url_mode':
+                        (str,),
                     'include':
                         (str,),
                     'page_size':
@@ -716,6 +726,7 @@ class FilesApi(object):
                     'is_uploaded': 'isUploaded',
                     'archive_status': 'archiveStatus',
                     'recursive': 'recursive',
+                    'presigned_url_mode': 'presignedUrlMode',
                     'include': 'include',
                     'page_size': 'pageSize',
                     'page_token': 'pageToken',
@@ -730,6 +741,7 @@ class FilesApi(object):
                     'is_uploaded': 'query',
                     'archive_status': 'query',
                     'recursive': 'query',
+                    'presigned_url_mode': 'query',
                     'include': 'query',
                     'page_size': 'query',
                     'page_token': 'query',

@@ -287,6 +287,7 @@ class SequencingAnalysisRunsApi(object):
                         "LAUNCHED": "Launched",
                         "LAUNCHING": "Launching",
                         "NEW": "New",
+                        "READYTOLAUNCH": "ReadyToLaunch",
                         "RUNNING": "Running",
                         "STARTING": "Starting",
                         "SUCCEEDED": "Succeeded",

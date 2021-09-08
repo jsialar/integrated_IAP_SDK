@@ -4,6 +4,7 @@ All URIs are relative to *https://use1.platform.illumina.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**archive_analysis_version_definition**](AnalysisVersionDefinitionsApi.md#archive_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:archive | Archives the given Analysis Version Definition.
 [**create_analysis_version_definition**](AnalysisVersionDefinitionsApi.md#create_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions | Create an analysis version definition.
 [**get_analysis_version_definition**](AnalysisVersionDefinitionsApi.md#get_analysis_version_definition) | **GET** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName} | Get a specific analysis definition version by version name.
 [**get_analysis_version_definition_by_id_or_urn**](AnalysisVersionDefinitionsApi.md#get_analysis_version_definition_by_id_or_urn) | **GET** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId} | Get details of an analysis definition version by ID or URN.
@@ -12,8 +13,100 @@ Method | HTTP request | Description
 [**remove_analysis_version_definition_acl**](AnalysisVersionDefinitionsApi.md#remove_analysis_version_definition_acl) | **DELETE** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Remove the access control list of an analysis version definition.
 [**render_analysis_version_definition_by_id_or_urn**](AnalysisVersionDefinitionsApi.md#render_analysis_version_definition_by_id_or_urn) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:render | Dynamically render an analysis definition version by ID or URN.
 [**replace_analysis_version_definition_acl**](AnalysisVersionDefinitionsApi.md#replace_analysis_version_definition_acl) | **PUT** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Replace the access control list of an analysis version definition with the input access control list.
+[**unarchive_analysis_version_definition**](AnalysisVersionDefinitionsApi.md#unarchive_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:unarchive | Unarchive the given Analysis Version Definition.
 [**update_analysis_version_definition**](AnalysisVersionDefinitionsApi.md#update_analysis_version_definition) | **PATCH** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName} | Update an analysis version definition.
 
+
+# **archive_analysis_version_definition**
+> AnalysisVersionDefinition archive_analysis_version_definition(analysis_version_definition_id)
+
+Archives the given Analysis Version Definition.
+
+For the given Id, Status of Analysis Version Definition is set to archived.
+
+### Example
+
+* Basic Authentication (Basic):
+* Api Key Authentication (Bearer):
+```python
+import time
+import ICA_SDK
+from ICA_SDK.api import analysis_version_definitions_api
+from ICA_SDK.model.analysis_version_definition import AnalysisVersionDefinition
+from ICA_SDK.model.error_response import ErrorResponse
+from pprint import pprint
+# Defining the host is optional and defaults to https://use1.platform.illumina.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ICA_SDK.Configuration(
+    host = "https://use1.platform.illumina.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
+
+# Configure API key authorization: Bearer
+configuration.api_key['Bearer'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Bearer'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = analysis_version_definitions_api.AnalysisVersionDefinitionsApi(api_client)
+    analysis_version_definition_id = "analysisVersionDefinitionId_example" # str | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Archives the given Analysis Version Definition.
+        api_response = api_instance.archive_analysis_version_definition(analysis_version_definition_id)
+        pprint(api_response)
+    except ICA_SDK.ApiException as e:
+        print("Exception when calling AnalysisVersionDefinitionsApi->archive_analysis_version_definition: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **analysis_version_definition_id** | **str**|  |
+
+### Return type
+
+[**AnalysisVersionDefinition**](AnalysisVersionDefinition.md)
+
+### Authorization
+
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Analysis version definition is archived successfully. |  -  |
+**400** | Bad request. |  -  |
+**401** | Unauthorized. |  -  |
+**403** | Forbidden. |  -  |
+**404** | No analysis version definition found for given Id. |  -  |
+**409** | Analysis version definition cannot be archived due to conflict. |  -  |
+**410** | Analysis version definition already deleted. |  -  |
+**0** | Unexpected issue. Try your request again. If problem persists, contact the system administrator. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_analysis_version_definition**
 > AnalysisVersionDefinition create_analysis_version_definition(analysis_definition_id)
@@ -131,6 +224,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
                 workflow_resources_folder="workflow_resources_folder_example",
             ),
         ),
+        checksum="checksum_example",
         acl=[
             "acl_example",
         ],
@@ -993,6 +1087,97 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **unarchive_analysis_version_definition**
+> AnalysisVersionDefinition unarchive_analysis_version_definition(analysis_version_definition_id)
+
+Unarchive the given Analysis Version Definition.
+
+For the given Id, Status of Analysis Version Definition is set to active.
+
+### Example
+
+* Basic Authentication (Basic):
+* Api Key Authentication (Bearer):
+```python
+import time
+import ICA_SDK
+from ICA_SDK.api import analysis_version_definitions_api
+from ICA_SDK.model.analysis_version_definition import AnalysisVersionDefinition
+from ICA_SDK.model.error_response import ErrorResponse
+from pprint import pprint
+# Defining the host is optional and defaults to https://use1.platform.illumina.com
+# See configuration.py for a list of all supported configuration parameters.
+configuration = ICA_SDK.Configuration(
+    host = "https://use1.platform.illumina.com"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: Basic
+configuration = ICA_SDK.Configuration(
+    username = 'YOUR_USERNAME',
+    password = 'YOUR_PASSWORD'
+)
+
+# Configure API key authorization: Bearer
+configuration.api_key['Bearer'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Bearer'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = analysis_version_definitions_api.AnalysisVersionDefinitionsApi(api_client)
+    analysis_version_definition_id = "analysisVersionDefinitionId_example" # str | 
+
+    # example passing only required values which don't have defaults set
+    try:
+        # Unarchive the given Analysis Version Definition.
+        api_response = api_instance.unarchive_analysis_version_definition(analysis_version_definition_id)
+        pprint(api_response)
+    except ICA_SDK.ApiException as e:
+        print("Exception when calling AnalysisVersionDefinitionsApi->unarchive_analysis_version_definition: %s\n" % e)
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **analysis_version_definition_id** | **str**|  |
+
+### Return type
+
+[**AnalysisVersionDefinition**](AnalysisVersionDefinition.md)
+
+### Authorization
+
+[Basic](../README.md#Basic), [Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Analysis version definition is unarchived successfully. |  -  |
+**400** | Bad request. |  -  |
+**401** | Unauthorized. |  -  |
+**403** | Forbidden. |  -  |
+**404** | No analysis version definition found for given Id. |  -  |
+**409** | Analysis version definition cannot be unarchived due to conflict. |  -  |
+**410** | Analysis version definition already deleted. |  -  |
+**0** | Unexpected issue. Try your request again. If problem persists, contact the system administrator. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **update_analysis_version_definition**
 > AnalysisVersionDefinition update_analysis_version_definition(analysis_definition_id, version_name)
 
@@ -1110,6 +1295,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
                 workflow_resources_folder="workflow_resources_folder_example",
             ),
         ),
+        checksum="checksum_example",
         acl=[
             "acl_example",
         ],

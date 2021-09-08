@@ -12,6 +12,8 @@ import sys
 import unittest
 
 import ICA_SDK
+from ICA_SDK.model.default_kit import DefaultKit
+globals()['DefaultKit'] = DefaultKit
 from ICA_SDK.model.parse_sample_sheet_request import ParseSampleSheetRequest
 
 

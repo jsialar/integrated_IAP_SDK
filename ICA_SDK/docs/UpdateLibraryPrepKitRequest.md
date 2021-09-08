@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **default_read1_length** | **int** | Default read 1 length | [optional] 
 **default_read2_length** | **int** | Default read 2 length | [optional] 
 **settings** | [**LibraryPrepKitSettings**](LibraryPrepKitSettings.md) |  | [optional] 
+**checksum** | **str** | Checksum of LibraryPrepKit | [optional] 
 **is_application_specific** | **bool** | Whether the library prep kit is application specific | [optional] 
 **index_adapter_kit_ids** | **[str]** | Array of index adapter kit IDs that are compatible with the library prep kit | [optional] 
 **force** | **bool** | Set to true to force update even when the kit is in use | [optional] 

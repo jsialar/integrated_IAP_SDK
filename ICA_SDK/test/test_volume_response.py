@@ -13,7 +13,9 @@ import unittest
 
 import ICA_SDK
 from ICA_SDK.model.job_status import JobStatus
+from ICA_SDK.model.volume_life_cycle_settings import VolumeLifeCycleSettings
 globals()['JobStatus'] = JobStatus
+globals()['VolumeLifeCycleSettings'] = VolumeLifeCycleSettings
 from ICA_SDK.model.volume_response import VolumeResponse
 
 

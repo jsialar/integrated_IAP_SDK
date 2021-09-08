@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **source_file_metadata** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Key-value pairs that indicate the source files for the specific genome | [optional] 
 **acl** | **[str]** |  | [optional] 
 **fasta_file_urn** | **str** | Urn of the Fasta file being used by the genome | [optional] 
+**checksum** | **str** | Checksum of Genome | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

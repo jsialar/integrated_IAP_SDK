@@ -81,9 +81,10 @@ class AnalysisDatasetTypeCompact(ModelNormal):
             'documentation_uri': (str,),  # noqa: E501
             'description_markdown': (str,),  # noqa: E501
             'attribute_schema': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -106,9 +107,10 @@ class AnalysisDatasetTypeCompact(ModelNormal):
         'documentation_uri': 'documentationUri',  # noqa: E501
         'description_markdown': 'descriptionMarkdown',  # noqa: E501
         'attribute_schema': 'attributeSchema',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -171,9 +173,10 @@ class AnalysisDatasetTypeCompact(ModelNormal):
             documentation_uri (str): Documentation uri of the analysis dataset type. [optional]  # noqa: E501
             description_markdown (str): Description markdown of the analysis dataset type. [optional]  # noqa: E501
             attribute_schema ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Attribute schema of the analysis dataset type. [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

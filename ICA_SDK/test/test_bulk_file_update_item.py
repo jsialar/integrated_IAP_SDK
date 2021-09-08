@@ -12,6 +12,8 @@ import sys
 import unittest
 
 import ICA_SDK
+from ICA_SDK.model.file_life_cycle_settings import FileLifeCycleSettings
+globals()['FileLifeCycleSettings'] = FileLifeCycleSettings
 from ICA_SDK.model.bulk_file_update_item import BulkFileUpdateItem
 
 

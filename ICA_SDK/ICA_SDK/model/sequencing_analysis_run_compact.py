@@ -82,6 +82,7 @@ class SequencingAnalysisRunCompact(ModelNormal):
             'href': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'status': (str,),  # noqa: E501
+            'status_summary': (str,),  # noqa: E501
             'workflow_run_id': (str,),  # noqa: E501
             'workflow_version_name': (str,),  # noqa: E501
             'workflow_version_id': (str,),  # noqa: E501
@@ -92,9 +93,12 @@ class SequencingAnalysisRunCompact(ModelNormal):
             'sequencing_run': (SequencingRunCompact,),  # noqa: E501
             'needs_attention': (bool,),  # noqa: E501
             'needs_attention_reason': (str,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'can_abort': (bool,),  # noqa: E501
+            'is_active': (bool,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -113,6 +117,7 @@ class SequencingAnalysisRunCompact(ModelNormal):
         'href': 'href',  # noqa: E501
         'name': 'name',  # noqa: E501
         'status': 'status',  # noqa: E501
+        'status_summary': 'statusSummary',  # noqa: E501
         'workflow_run_id': 'workflowRunId',  # noqa: E501
         'workflow_version_name': 'workflowVersionName',  # noqa: E501
         'workflow_version_id': 'workflowVersionId',  # noqa: E501
@@ -123,9 +128,12 @@ class SequencingAnalysisRunCompact(ModelNormal):
         'sequencing_run': 'sequencingRun',  # noqa: E501
         'needs_attention': 'needsAttention',  # noqa: E501
         'needs_attention_reason': 'needsAttentionReason',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'can_abort': 'canAbort',  # noqa: E501
+        'is_active': 'isActive',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -184,6 +192,7 @@ class SequencingAnalysisRunCompact(ModelNormal):
             href (str): HREF to the object. [optional]  # noqa: E501
             name (str): Name of the sequencing analysis run. [optional]  # noqa: E501
             status (str): Status of the sequencing analysis run. [optional]  # noqa: E501
+            status_summary (str): Summary of the status associated with the analysis run. [optional]  # noqa: E501
             workflow_run_id (str): Id of the associated WorkflowRun of the sequencing analysis run on WES. [optional]  # noqa: E501
             workflow_version_name (str): The name of the associated WorkflowVersion of the sequencing analysis run on WES. [optional]  # noqa: E501
             workflow_version_id (str): The id of the associated WorkflowVersion of the sequencing analysis run on WES. [optional]  # noqa: E501
@@ -194,9 +203,12 @@ class SequencingAnalysisRunCompact(ModelNormal):
             sequencing_run (SequencingRunCompact): [optional]  # noqa: E501
             needs_attention (bool): Indicates with value 'true' if the analysis run needs attention. [optional]  # noqa: E501
             needs_attention_reason (str): Detail reason why the analysis run needs attention. [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            can_abort (bool): Indicates whether the analysis run can be aborted or not. [optional]  # noqa: E501
+            is_active (bool): Indicates whether the analysis run is active or not. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

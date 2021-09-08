@@ -13,7 +13,9 @@ import unittest
 
 import ICA_SDK
 from ICA_SDK.model.flow_cell_type import FlowCellType
+from ICA_SDK.model.multi_analysis_configuration import MultiAnalysisConfiguration
 globals()['FlowCellType'] = FlowCellType
+globals()['MultiAnalysisConfiguration'] = MultiAnalysisConfiguration
 from ICA_SDK.model.instrument_platform_info import InstrumentPlatformInfo
 
 

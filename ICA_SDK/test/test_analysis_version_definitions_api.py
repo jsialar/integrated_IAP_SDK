@@ -23,6 +23,13 @@ class TestAnalysisVersionDefinitionsApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_archive_analysis_version_definition(self):
+        """Test case for archive_analysis_version_definition
+
+        Archives the given Analysis Version Definition.  # noqa: E501
+        """
+        pass
+
     def test_create_analysis_version_definition(self):
         """Test case for create_analysis_version_definition
 
@@ -76,6 +83,13 @@ class TestAnalysisVersionDefinitionsApi(unittest.TestCase):
         """Test case for replace_analysis_version_definition_acl
 
         Replace the access control list of an analysis version definition with the input access control list.  # noqa: E501
+        """
+        pass
+
+    def test_unarchive_analysis_version_definition(self):
+        """Test case for unarchive_analysis_version_definition
+
+        Unarchive the given Analysis Version Definition.  # noqa: E501
         """
         pass
 

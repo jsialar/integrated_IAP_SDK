@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **status** | **str** |  | [optional]  if omitted the server will use the default value of "Pending"
 **status_details** | **str** |  | [optional] 
+**type_of_resource** | **str** |  | [optional] 
+**size_of_resource** | **str** |  | [optional] 
+**tier_of_resource** | **str** |  | [optional] 
 **task_version_summary** | [**TaskVersionSummary**](TaskVersionSummary.md) |  | [optional] 
 **acl** | **[str]** | Access Control List | [optional] 
 **tenant_id** | **str** |  | [optional] 

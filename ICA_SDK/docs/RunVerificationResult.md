@@ -1,10 +1,11 @@
-# RuntVerificationResult
+# RunVerificationResult
 
+Dto of run verification result
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**overall_status** | **bool** |  | [optional] 
+**overall_status** | **bool** | True if all checks passed | [optional] 
 **run_valid** | [**ComponentVerificationResult**](ComponentVerificationResult.md) |  | [optional] 
 **can_activate_dragen** | [**ComponentVerificationResult**](ComponentVerificationResult.md) |  | [optional] 
 **disk_space_available** | [**ComponentVerificationResult**](ComponentVerificationResult.md) |  | [optional] 

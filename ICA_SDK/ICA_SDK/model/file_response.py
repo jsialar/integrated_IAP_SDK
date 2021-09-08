@@ -28,8 +28,12 @@ from ICA_SDK.model_utils import (  # noqa: F401
 
 def lazy_import():
     from ICA_SDK.model.archive_statuses import ArchiveStatuses
+    from ICA_SDK.model.file_life_cycle_settings import FileLifeCycleSettings
+    from ICA_SDK.model.file_status import FileStatus
     from ICA_SDK.model.storage_tier import StorageTier
     globals()['ArchiveStatuses'] = ArchiveStatuses
+    globals()['FileLifeCycleSettings'] = FileLifeCycleSettings
+    globals()['FileStatus'] = FileStatus
     globals()['StorageTier'] = StorageTier
 
 
@@ -83,6 +87,7 @@ class FileResponse(ModelNormal):
             'id': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'volume_id': (str,),  # noqa: E501
+            'parent_folder_id': (str,),  # noqa: E501
             'volume_name': (str,),  # noqa: E501
             'volume_configuration_name': (str,),  # noqa: E501
             'type': (str,),  # noqa: E501
@@ -102,6 +107,10 @@ class FileResponse(ModelNormal):
             'time_archived': (datetime,),  # noqa: E501
             'storage_tier': (StorageTier,),  # noqa: E501
             'e_tag': (str,),  # noqa: E501
+            'format': (str,),  # noqa: E501
+            'format_edam': (str,),  # noqa: E501
+            'status': (FileStatus,),  # noqa: E501
+            'life_cycle': (FileLifeCycleSettings,),  # noqa: E501
             'presigned_url': (str,),  # noqa: E501
         }
 
@@ -115,6 +124,7 @@ class FileResponse(ModelNormal):
         'id': 'id',  # noqa: E501
         'name': 'name',  # noqa: E501
         'volume_id': 'volumeId',  # noqa: E501
+        'parent_folder_id': 'parentFolderId',  # noqa: E501
         'volume_name': 'volumeName',  # noqa: E501
         'volume_configuration_name': 'volumeConfigurationName',  # noqa: E501
         'type': 'type',  # noqa: E501
@@ -134,6 +144,10 @@ class FileResponse(ModelNormal):
         'time_archived': 'timeArchived',  # noqa: E501
         'storage_tier': 'storageTier',  # noqa: E501
         'e_tag': 'eTag',  # noqa: E501
+        'format': 'format',  # noqa: E501
+        'format_edam': 'formatEdam',  # noqa: E501
+        'status': 'status',  # noqa: E501
+        'life_cycle': 'lifeCycle',  # noqa: E501
         'presigned_url': 'presignedUrl',  # noqa: E501
     }
 
@@ -187,6 +201,7 @@ class FileResponse(ModelNormal):
             id (str): A unique identifier for this File. [optional]  # noqa: E501
             name (str): The name of this File. [optional]  # noqa: E501
             volume_id (str): The unique identifier of the volume where the file resides. [optional]  # noqa: E501
+            parent_folder_id (str): The unique identifier of the folder where the file resides. [optional]  # noqa: E501
             volume_name (str): The name of the volume where the file resides. [optional]  # noqa: E501
             volume_configuration_name (str): The name of the volume configuration (BYOB only). [optional]  # noqa: E501
             type (str): The type of the File. [optional]  # noqa: E501
@@ -206,6 +221,10 @@ class FileResponse(ModelNormal):
             time_archived (datetime): The date & time this File was archived. [optional]  # noqa: E501
             storage_tier (StorageTier): [optional]  # noqa: E501
             e_tag (str): The File's ETag. [optional]  # noqa: E501
+            format (str): The File's Format. [optional]  # noqa: E501
+            format_edam (str): [optional]  # noqa: E501
+            status (FileStatus): [optional]  # noqa: E501
+            life_cycle (FileLifeCycleSettings): [optional]  # noqa: E501
             presigned_url (str): The presigned Url allowing access to this File. [optional]  # noqa: E501
         """
 

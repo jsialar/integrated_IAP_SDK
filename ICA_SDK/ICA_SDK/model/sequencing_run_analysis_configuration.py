@@ -84,18 +84,21 @@ class SequencingRunAnalysisConfiguration(ModelNormal):
             'id': (str,),  # noqa: E501
             'urn': (str,),  # noqa: E501
             'href': (str,),  # noqa: E501
-            'sequencing_run': (SequencingRunCompact,),  # noqa: E501
-            'sample_settings': ([SequencingRunAnalysisSampleConfigurationCompact],),  # noqa: E501
             'name': (str,),  # noqa: E501
             'description': (str,),  # noqa: E501
             'settings': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'sample_settings_snapshot': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
+            'analysis_version_definition_settings_snapshot': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'original_settings': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'original_sample_settings_snapshot': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'analysis_version': (AnalysisVersionDefinitionCompact,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'physical_configuration_checksum': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'sequencing_run': (SequencingRunCompact,),  # noqa: E501
+            'sample_settings': ([SequencingRunAnalysisSampleConfigurationCompact],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -112,18 +115,21 @@ class SequencingRunAnalysisConfiguration(ModelNormal):
         'id': 'id',  # noqa: E501
         'urn': 'urn',  # noqa: E501
         'href': 'href',  # noqa: E501
-        'sequencing_run': 'sequencingRun',  # noqa: E501
-        'sample_settings': 'sampleSettings',  # noqa: E501
         'name': 'name',  # noqa: E501
         'description': 'description',  # noqa: E501
         'settings': 'settings',  # noqa: E501
         'sample_settings_snapshot': 'sampleSettingsSnapshot',  # noqa: E501
+        'analysis_version_definition_settings_snapshot': 'analysisVersionDefinitionSettingsSnapshot',  # noqa: E501
         'original_settings': 'originalSettings',  # noqa: E501
         'original_sample_settings_snapshot': 'originalSampleSettingsSnapshot',  # noqa: E501
         'analysis_version': 'analysisVersion',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'physical_configuration_checksum': 'physicalConfigurationChecksum',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'sequencing_run': 'sequencingRun',  # noqa: E501
+        'sample_settings': 'sampleSettings',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -180,18 +186,21 @@ class SequencingRunAnalysisConfiguration(ModelNormal):
             id (str): Unique object ID. [optional]  # noqa: E501
             urn (str): URN of the object. [optional]  # noqa: E501
             href (str): HREF to the object. [optional]  # noqa: E501
-            sequencing_run (SequencingRunCompact): [optional]  # noqa: E501
-            sample_settings ([SequencingRunAnalysisSampleConfigurationCompact]): User provided per-sample settings for this analysis configuration.. [optional]  # noqa: E501
             name (str): Name of the analysis configuration. [optional]  # noqa: E501
             description (str): Description of the analysis configuration. [optional]  # noqa: E501
             settings ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): User-provided analysis-level settings for this analysis configuration. [optional]  # noqa: E501
             sample_settings_snapshot ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Snapshot of user provided per-sample settings for this analysis configuration.. [optional]  # noqa: E501
+            analysis_version_definition_settings_snapshot ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Snapshot of the AVD Settings. [optional]  # noqa: E501
             original_settings ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Original User-provided analysis-level settings for this analysis configuration. [optional]  # noqa: E501
             original_sample_settings_snapshot ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Original Snapshot of user provided per-sample settings for this analysis configuration.. [optional]  # noqa: E501
             analysis_version (AnalysisVersionDefinitionCompact): [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            physical_configuration_checksum (str): Checksum of physical configuration. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            sequencing_run (SequencingRunCompact): [optional]  # noqa: E501
+            sample_settings ([SequencingRunAnalysisSampleConfigurationCompact]): User provided per-sample settings for this analysis configuration.. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

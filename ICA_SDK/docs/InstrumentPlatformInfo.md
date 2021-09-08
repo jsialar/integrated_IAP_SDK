@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **read1_length_max** | **int** | Maximum Read 1 Length | [optional] 
 **read2_length_min** | **int** | Minimum Read 2 Length | [optional] 
 **read2_length_max** | **int** | Maximum Read 2 Length | [optional] 
+**multi_analysis_configuration** | [**MultiAnalysisConfiguration**](MultiAnalysisConfiguration.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

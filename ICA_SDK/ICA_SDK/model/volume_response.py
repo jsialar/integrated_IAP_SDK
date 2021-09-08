@@ -28,7 +28,9 @@ from ICA_SDK.model_utils import (  # noqa: F401
 
 def lazy_import():
     from ICA_SDK.model.job_status import JobStatus
+    from ICA_SDK.model.volume_life_cycle_settings import VolumeLifeCycleSettings
     globals()['JobStatus'] = JobStatus
+    globals()['VolumeLifeCycleSettings'] = VolumeLifeCycleSettings
 
 
 class VolumeResponse(ModelNormal):
@@ -92,6 +94,7 @@ class VolumeResponse(ModelNormal):
             'modified_by': (str,),  # noqa: E501
             'job_status': (JobStatus,),  # noqa: E501
             'metadata': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
+            'life_cycle': (VolumeLifeCycleSettings,),  # noqa: E501
         }
 
     @cached_property
@@ -115,6 +118,7 @@ class VolumeResponse(ModelNormal):
         'modified_by': 'modifiedBy',  # noqa: E501
         'job_status': 'jobStatus',  # noqa: E501
         'metadata': 'metadata',  # noqa: E501
+        'life_cycle': 'lifeCycle',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -178,6 +182,7 @@ class VolumeResponse(ModelNormal):
             modified_by (str): The updator of this Volume. [optional]  # noqa: E501
             job_status (JobStatus): [optional]  # noqa: E501
             metadata ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Metadata about this Volume. [optional]  # noqa: E501
+            life_cycle (VolumeLifeCycleSettings): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

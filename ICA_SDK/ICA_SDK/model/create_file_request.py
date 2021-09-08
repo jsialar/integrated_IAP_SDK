@@ -82,6 +82,8 @@ class CreateFileRequest(ModelNormal):
             'folder_path': (str,),  # noqa: E501
             'type': (str,),  # noqa: E501
             'volume_name': (str,),  # noqa: E501
+            'format': (str,),  # noqa: E501
+            'format_edam': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -95,6 +97,8 @@ class CreateFileRequest(ModelNormal):
         'folder_path': 'folderPath',  # noqa: E501
         'type': 'type',  # noqa: E501
         'volume_name': 'volumeName',  # noqa: E501
+        'format': 'format',  # noqa: E501
+        'format_edam': 'formatEdam',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -150,6 +154,8 @@ class CreateFileRequest(ModelNormal):
             folder_path (str): Optional folder path where the file will be uploaded to. [optional]  # noqa: E501
             type (str): Optional file content type, e.g. text/plain, application/json. [optional]  # noqa: E501
             volume_name (str): Name of the Volume. [optional]  # noqa: E501
+            format (str): The File's Format. [optional]  # noqa: E501
+            format_edam (str): The File's Edam Format. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

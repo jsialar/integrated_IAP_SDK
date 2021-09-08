@@ -82,6 +82,7 @@ class FolderResponse(ModelNormal):
             'id': (str,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'volume_id': (str,),  # noqa: E501
+            'parent_folder_id': (str,),  # noqa: E501
             'volume_name': (str,),  # noqa: E501
             'tenant_id': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
@@ -108,6 +109,7 @@ class FolderResponse(ModelNormal):
         'id': 'id',  # noqa: E501
         'name': 'name',  # noqa: E501
         'volume_id': 'volumeId',  # noqa: E501
+        'parent_folder_id': 'parentFolderId',  # noqa: E501
         'volume_name': 'volumeName',  # noqa: E501
         'tenant_id': 'tenantId',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
@@ -174,6 +176,7 @@ class FolderResponse(ModelNormal):
             id (str): A unique identifier for this Folder. [optional]  # noqa: E501
             name (str): The name of this Folder. [optional]  # noqa: E501
             volume_id (str): The unique identifier for this Folder's Volume. [optional]  # noqa: E501
+            parent_folder_id (str): The unique identifier for this folder's parent folder. [optional]  # noqa: E501
             volume_name (str): The name of this Folder's Volume. [optional]  # noqa: E501
             tenant_id (str): The unique identifier for this Folders's Tenant. [optional]  # noqa: E501
             sub_tenant_id (str): The unique identifier for this Folder's Sub Tenant. [optional]  # noqa: E501

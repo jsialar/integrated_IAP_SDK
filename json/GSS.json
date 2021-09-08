@@ -135,7 +135,8 @@
             "items": {
               "enum": [
                 "CompatibleLibraryPrepKits",
-                "AnalysisVersions"
+                "AnalysisVersions",
+                "Archived"
               ],
               "type": "string"
             }
@@ -385,7 +386,8 @@
             "items": {
               "enum": [
                 "TotalItemCount",
-                "AnalysisVersions"
+                "AnalysisVersions",
+                "Archived"
               ],
               "type": "string"
             }
@@ -781,7 +783,8 @@
             "type": "array",
             "items": {
               "enum": [
-                "TotalItemCount"
+                "TotalItemCount",
+                "Archived"
               ],
               "type": "string"
             }
@@ -1157,6 +1160,148 @@
           },
           "409": {
             "description": "Analysis definition version cannot be rendered due to conflict with input parameters.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected issue. Try your request again. If problem persists, contact the system administrator.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:archive": {
+      "post": {
+        "tags": [
+          "AnalysisVersionDefinitions"
+        ],
+        "summary": "Archives the given Analysis Version Definition.",
+        "description": "For the given Id, Status of Analysis Version Definition is set to archived.",
+        "operationId": "archiveAnalysisVersionDefinition",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysisVersionDefinitionId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analysis version definition is archived successfully.",
+            "schema": {
+              "$ref": "#/definitions/AnalysisVersionDefinition"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "No analysis version definition found for given Id.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Analysis version definition cannot be archived due to conflict.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "410": {
+            "description": "Analysis version definition already deleted.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected issue. Try your request again. If problem persists, contact the system administrator.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:unarchive": {
+      "post": {
+        "tags": [
+          "AnalysisVersionDefinitions"
+        ],
+        "summary": "Unarchive the given Analysis Version Definition.",
+        "description": "For the given Id, Status of Analysis Version Definition is set to active.",
+        "operationId": "unarchiveAnalysisVersionDefinition",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysisVersionDefinitionId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analysis version definition is unarchived successfully.",
+            "schema": {
+              "$ref": "#/definitions/AnalysisVersionDefinition"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "No analysis version definition found for given Id.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Analysis version definition cannot be unarchived due to conflict.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "410": {
+            "description": "Analysis version definition already deleted.",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -5384,6 +5529,7 @@
                 "Launched",
                 "Launching",
                 "New",
+                "ReadyToLaunch",
                 "Running",
                 "Starting",
                 "Succeeded",
@@ -6149,6 +6295,7 @@
             "items": {
               "enum": [
                 "Aborted",
+                "AnalysisFailed",
                 "Complete",
                 "Deleted",
                 "Failed",
@@ -6156,6 +6303,7 @@
                 "NeedsAttention",
                 "PendingAnalysis",
                 "Planned",
+                "PreparedForRequeue",
                 "ReadyForSequencing",
                 "Rehybing",
                 "Running",
@@ -6181,7 +6329,9 @@
             "type": "array",
             "items": {
               "enum": [
-                "TotalItemCount"
+                "TotalItemCount",
+                "RunSequencingStats",
+                "AnalysisRuns"
               ],
               "type": "string"
             }
@@ -6216,6 +6366,43 @@
               ],
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "requeuedFromRunId",
+            "description": "Filter By Requeued Run Id",
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 0
+          },
+          {
+            "in": "query",
+            "name": "runName",
+            "description": "Filter by name of the sequencing run",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "isCompleted",
+            "description": "Optional parameter. Set to true to filter the run list and only include completed (failed, aborted, successfully completed) runs.",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "includeCompletedAfterDate",
+            "description": "Optional parameter. Show runs that were completed after the provided Date as well as runs that are not completed",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "in": "query",
+            "name": "includeCompletedBeforeDate",
+            "description": "Optional parameter. Show runs that were completed before the provided Date as well as runs that are not completed",
+            "type": "string",
+            "format": "date-time"
           },
           {
             "in": "query",
@@ -7364,6 +7551,69 @@
         }
       }
     },
+    "/v1/sequencing/runs:import": {
+      "post": {
+        "tags": [
+          "PlannedRuns"
+        ],
+        "summary": "Import a planned run from sample sheet.",
+        "description": "Import a planned run based on sample sheet, return information of the import result.",
+        "operationId": "importPlannedRun",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ImportPlannedRunRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Planned run imported successfully.",
+            "schema": {
+              "$ref": "#/definitions/ImportPlannedRunResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected issue. Try your request again. If problem persists, contact the system administrator.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v1/sequencing/runs/{runId}/config": {
       "patch": {
         "tags": [
@@ -7692,7 +7942,7 @@
           "200": {
             "description": "Verification is started successfully",
             "schema": {
-              "$ref": "#/definitions/RuntVerificationResult"
+              "$ref": "#/definitions/RunVerificationResult"
             }
           },
           "400": {
@@ -8159,10 +8409,6 @@
             "$ref": "#/definitions/SampleCompact"
           }
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -8173,6 +8419,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -8296,10 +8550,6 @@
         "attributeSchema": {
           "description": "Attribute schema of the analysis dataset type"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -8310,6 +8560,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -8352,13 +8610,6 @@
           "description": "HREF to the object",
           "type": "string"
         },
-        "compatibleLibraryPrepKits": {
-          "description": "The library preparation kits that are compatible with this analysis definition",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/LibraryPrepKitCompact"
-          }
-        },
         "name": {
           "description": "Name of the analysis definition",
           "type": "string"
@@ -8394,8 +8645,8 @@
         "analysisVersions": {
           "$ref": "#/definitions/AnalysisVersionDefinitionCompactItemList"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of AnalysisDefinition",
           "type": "string"
         },
         "subTenantId": {
@@ -8408,6 +8659,21 @@
           "items": {
             "type": "string"
           }
+        },
+        "compatibleLibraryPrepKits": {
+          "description": "The library preparation kits that are compatible with this analysis definition",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryPrepKitCompact"
+          }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -8485,8 +8751,8 @@
         "analysisVersions": {
           "$ref": "#/definitions/AnalysisVersionDefinitionCompactItemList"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of AnalysisDefinition",
           "type": "string"
         },
         "subTenantId": {
@@ -8499,6 +8765,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -8649,8 +8923,8 @@
         "analysisDefinition": {
           "$ref": "#/definitions/AnalysisDefinitionCompact"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of AnalysisVersionDefinition",
           "type": "string"
         },
         "subTenantId": {
@@ -8698,6 +8972,14 @@
         },
         "onRenderFunction": {
           "description": "Logic for dynamically rendering AVD settings and AVD setting configurations",
+          "type": "string"
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
           "type": "string"
         },
         "createdByClientId": {
@@ -8788,8 +9070,8 @@
         "analysisDefinition": {
           "$ref": "#/definitions/AnalysisDefinitionCompact"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of AnalysisVersionDefinition",
           "type": "string"
         },
         "subTenantId": {
@@ -8802,6 +9084,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -9237,6 +9527,12 @@
           ],
           "type": "string"
         },
+        "checksum": {
+          "description": "Checksum of AnalysisDefinition",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
         "acl": {
           "type": "array",
           "items": {
@@ -9276,7 +9572,7 @@
           "description": "Status of the analysis version definition",
           "enum": [
             "Active",
-            "Inactive"
+            "Archived"
           ],
           "type": "string"
         },
@@ -9344,6 +9640,12 @@
         },
         "settings": {
           "$ref": "#/definitions/AnalysisVersionDefinitionSettings"
+        },
+        "checksum": {
+          "description": "Checksum of AnalysisVersionDefinition",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         },
         "acl": {
           "type": "array",
@@ -9459,6 +9761,12 @@
           "maxLength": 1152,
           "minLength": 0,
           "type": "string"
+        },
+        "checksum": {
+          "description": "Checksum of Genome",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         }
       }
     },
@@ -9547,6 +9855,12 @@
         },
         "settings": {
           "$ref": "#/definitions/IndexAdapterKitSettings"
+        },
+        "checksum": {
+          "description": "Stores the checksum of IndexAdapterKit",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         },
         "indexSequences": {
           "description": "Index sequence mappings",
@@ -9677,6 +9991,12 @@
         },
         "settings": {
           "$ref": "#/definitions/LibraryPrepKitSettings"
+        },
+        "checksum": {
+          "description": "Checksum of LibraryPrepKit",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         },
         "indexAdapterKitIds": {
           "description": "Array of index adapter kit IDs that are compatible with the library prep kit",
@@ -10003,6 +10323,29 @@
         }
       }
     },
+    "DefaultKit": {
+      "description": "DTO for specifying default kit during sample sheet parsing",
+      "type": "object",
+      "properties": {
+        "laneNumber": {
+          "format": "int32",
+          "description": "Lane number. If not specified, it's the default for all lanes unless overriden for a specific lane via a separate entry.",
+          "type": "integer"
+        },
+        "libraryPrepKitId": {
+          "description": "Default LibraryPrepKit Id in the given lane",
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indexAdapterKitId": {
+          "description": "Default IndexAdapterKit Id in the given lane",
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
     "DirectUploadCredentials": {
       "description": "Defines the credentials for uploading to GDS directly",
       "type": "object",
@@ -10271,8 +10614,8 @@
           "description": "Whether the genome is belonging to Illumina",
           "type": "boolean"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of Genome",
           "type": "string"
         },
         "subTenantId": {
@@ -10285,6 +10628,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -10394,8 +10745,8 @@
           "description": "Whether the genome is belonging to Illumina",
           "type": "boolean"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of Genome",
           "type": "string"
         },
         "subTenantId": {
@@ -10408,6 +10759,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -10496,6 +10855,82 @@
         }
       }
     },
+    "ImportPlannedRunRequest": {
+      "description": "Request to import a sample sheet into planned run",
+      "required": [
+        "sampleSheetContent"
+      ],
+      "type": "object",
+      "properties": {
+        "sampleSheetContent": {
+          "description": "The csv string of the sample sheet",
+          "maxLength": 10485760,
+          "minLength": 0,
+          "type": "string"
+        },
+        "resolvePrepKits": {
+          "description": "If true, resolve prep kit information from sample sheet if possible",
+          "type": "boolean"
+        },
+        "resolvePrepKitsByName": {
+          "description": "If true, attempt to resolve prep kits by name if they cannot be resolved using URN column",
+          "type": "boolean"
+        },
+        "resolveIndexSequenceInfo": {
+          "description": "If true, attempt to resolve index sequence info like Index Name and Position based on the index sequences",
+          "type": "boolean"
+        },
+        "enableWarningsForMissingCloudSections": {
+          "description": "Enable warnings if cloud sections are not provided",
+          "type": "boolean"
+        },
+        "defaultKits": {
+          "description": "Default kits to be used during sample sheet parsing",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DefaultKit"
+          }
+        }
+      }
+    },
+    "ImportPlannedRunResponse": {
+      "description": "Response to import planned run from a sample sheet",
+      "type": "object",
+      "properties": {
+        "plannedRun": {
+          "$ref": "#/definitions/SequencingRun"
+        },
+        "warnings": {
+          "description": "The warnings during importing planned run from sample sheet",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ImportPlannedRunWarning"
+          }
+        }
+      }
+    },
+    "ImportPlannedRunWarning": {
+      "description": "Warning of importing planned run",
+      "type": "object",
+      "properties": {
+        "section": {
+          "description": "Section name",
+          "type": "string"
+        },
+        "field": {
+          "description": "Field name",
+          "type": "string"
+        },
+        "message": {
+          "description": "error message",
+          "type": "string"
+        },
+        "severity": {
+          "description": "Severity of the message",
+          "type": "string"
+        }
+      }
+    },
     "IndexAdapterKit": {
       "description": "Data contract for the full index adapter kit",
       "type": "object",
@@ -10555,8 +10990,8 @@
         "settings": {
           "$ref": "#/definitions/IndexAdapterKitSettingsResponse"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of IndexAdapterKit",
           "type": "string"
         },
         "subTenantId": {
@@ -10587,14 +11022,20 @@
         "numCyclesIndex1": {
           "format": "int32",
           "description": "Number of cycles in index 1",
-          "type": "integer",
-          "readOnly": true
+          "type": "integer"
         },
         "numCyclesIndex2": {
           "format": "int32",
           "description": "Number of cycles in index 2",
-          "type": "integer",
-          "readOnly": true
+          "type": "integer"
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -10675,8 +11116,8 @@
         "settings": {
           "$ref": "#/definitions/IndexAdapterKitSettingsResponse"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of IndexAdapterKit",
           "type": "string"
         },
         "subTenantId": {
@@ -10689,6 +11130,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -11042,6 +11491,9 @@
           "format": "int32",
           "description": "Maximum Read 2 Length",
           "type": "integer"
+        },
+        "multiAnalysisConfiguration": {
+          "$ref": "#/definitions/MultiAnalysisConfiguration"
         }
       }
     },
@@ -11111,6 +11563,9 @@
           "format": "int32",
           "description": "Maximum Read 2 Length",
           "type": "integer"
+        },
+        "multiAnalysisConfiguration": {
+          "$ref": "#/definitions/MultiAnalysisConfiguration"
         }
       }
     },
@@ -12099,10 +12554,6 @@
         "indexAdapterKit": {
           "$ref": "#/definitions/IndexAdapterKitCompact"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -12113,6 +12564,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -12204,10 +12663,6 @@
         "indexAdapterKit": {
           "$ref": "#/definitions/IndexAdapterKitCompact"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -12218,6 +12673,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -12339,10 +12802,6 @@
           "description": "Status of the library pool",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -12353,6 +12812,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -12407,10 +12874,6 @@
           "description": "Status of the library pool",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -12421,6 +12884,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -12571,8 +13042,8 @@
         "settings": {
           "$ref": "#/definitions/LibraryPrepKitSettingsResponse"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of LibraryPrepKit",
           "type": "string"
         },
         "subTenantId": {
@@ -12592,6 +13063,14 @@
           "items": {
             "$ref": "#/definitions/IndexAdapterKitCompact"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -12692,8 +13171,8 @@
         "settings": {
           "$ref": "#/definitions/LibraryPrepKitSettingsResponse"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "checksum": {
+          "description": "Stores the checksum of LibraryPrepKit",
           "type": "string"
         },
         "subTenantId": {
@@ -12706,6 +13185,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -12816,6 +13303,52 @@
         }
       }
     },
+    "MultiAnalysisConfiguration": {
+      "description": "Information about multi-analysis configuration",
+      "type": "object",
+      "properties": {
+        "maxCloudAnalyses": {
+          "format": "int32",
+          "description": "Maximum number of distinct analysis+version for COCA",
+          "type": "integer"
+        },
+        "maxCloudTotalPhysicalConfigurations": {
+          "format": "int32",
+          "description": "Maximum total number of physical configurations",
+          "type": "integer"
+        },
+        "maxCloudTotalLogicalConfigurations": {
+          "format": "int32",
+          "description": "Maximum total number of logical configurations",
+          "type": "integer"
+        },
+        "maxCloudLogicalConfigurationsPerPhysical": {
+          "format": "int32",
+          "description": "Maximum total number of logical configurations within a physical configuration",
+          "type": "integer"
+        },
+        "maxLocalAnalyses": {
+          "format": "int32",
+          "description": "Maximum number of distinct analysis+version for COCA",
+          "type": "integer"
+        },
+        "maxLocalTotalPhysicalConfigurations": {
+          "format": "int32",
+          "description": "Maximum total number of physical configurations",
+          "type": "integer"
+        },
+        "maxLocalTotalLogicalConfigurations": {
+          "format": "int32",
+          "description": "Maximum total number of logical configurations",
+          "type": "integer"
+        },
+        "maxLocalLogicalConfigurationsPerPhysical": {
+          "format": "int32",
+          "description": "Maximum total number of logical configurations within a physical configuration",
+          "type": "integer"
+        }
+      }
+    },
     "NoContentResult": {
       "type": "object",
       "properties": {
@@ -12903,6 +13436,13 @@
         "enableWarningsForMissingCloudSections": {
           "description": "Enable warnings if cloud sections are not provided",
           "type": "boolean"
+        },
+        "defaultKits": {
+          "description": "Default kits to be used during sample sheet parsing",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DefaultKit"
+          }
         }
       }
     },
@@ -13780,10 +14320,12 @@
         }
       }
     },
-    "RuntVerificationResult": {
+    "RunVerificationResult": {
+      "description": "Dto of run verification result",
       "type": "object",
       "properties": {
         "overallStatus": {
+          "description": "True if all checks passed",
           "type": "boolean"
         },
         "runValid": {
@@ -13852,10 +14394,6 @@
           "description": "Optional external ID associated with the sample",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -13866,6 +14404,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -13936,10 +14482,6 @@
           "description": "Optional external ID associated with the sample",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
-        },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
           "type": "string"
@@ -13950,6 +14492,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -14155,6 +14705,10 @@
           "description": "Status of the sequencing analysis run",
           "type": "string"
         },
+        "statusSummary": {
+          "description": "Summary of the status associated with the analysis run",
+          "type": "string"
+        },
         "workflowRunId": {
           "description": "Id of the associated WorkflowRun of the sequencing analysis run on WES",
           "type": "string"
@@ -14194,9 +14748,13 @@
           "description": "Detail reason why the analysis run needs attention",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
+        "canAbort": {
+          "description": "Indicates whether the analysis run can be aborted or not",
+          "type": "boolean"
+        },
+        "isActive": {
+          "description": "Indicates whether the analysis run is active or not",
+          "type": "boolean"
         },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
@@ -14208,6 +14766,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -14258,6 +14824,10 @@
           "description": "Status of the sequencing analysis run",
           "type": "string"
         },
+        "statusSummary": {
+          "description": "Summary of the status associated with the analysis run",
+          "type": "string"
+        },
         "workflowRunId": {
           "description": "Id of the associated WorkflowRun of the sequencing analysis run on WES",
           "type": "string"
@@ -14297,9 +14867,13 @@
           "description": "Detail reason why the analysis run needs attention",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
-          "type": "string"
+        "canAbort": {
+          "description": "Indicates whether the analysis run can be aborted or not",
+          "type": "boolean"
+        },
+        "isActive": {
+          "description": "Indicates whether the analysis run is active or not",
+          "type": "boolean"
         },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
@@ -14311,6 +14885,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -14606,12 +15188,16 @@
           "description": "Time when the run upload sub-stage completed",
           "type": "string"
         },
+        "isCompleted": {
+          "description": "Indicates whether the run is in terminal state",
+          "type": "boolean"
+        },
         "isFailed": {
           "description": "Indicates whether the run failed",
           "type": "boolean"
         },
         "runFailureType": {
-          "description": "Indicates with value 'true' if the run failed during active processing by the instrument",
+          "description": "Indicates the FailureType of the run (e.g None, InstrumentFailure, InstrumentSequencingFailure etc.)",
           "type": "string"
         },
         "runFailureReason": {
@@ -14745,9 +15331,45 @@
           "description": "Reason for Requeue Analysis of a sequencing run",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "verificationResults": {
+          "$ref": "#/definitions/RunVerificationResult"
+        },
+        "canEditRun": {
+          "description": "Indicates whether the sequencing run can be edited or not",
+          "type": "boolean"
+        },
+        "canRequeueRun": {
+          "description": "Indicates whether the sequencing run can be requeued or not",
+          "type": "boolean"
+        },
+        "canDelete": {
+          "description": "Indicates whether the sequencing run can be deleted or not",
+          "type": "boolean"
+        },
+        "analysisTimeStarted": {
+          "format": "date-time",
+          "description": "Indicates the DateTime when the analysis is started (typically for off-instrument analysis)",
           "type": "string"
+        },
+        "analysisTimeCompleted": {
+          "format": "date-time",
+          "description": "Indicates the DateTime when the analysis is completed (typically for off-instrument analysis)",
+          "type": "string"
+        },
+        "runTimeCompleted": {
+          "format": "date-time",
+          "description": "Indicates the DateTime of the overall run which have been fully completed (including post-upload cloud processing)",
+          "type": "string"
+        },
+        "runSequencingStats": {
+          "$ref": "#/definitions/RunSequencingStatsResponse"
+        },
+        "analysisRuns": {
+          "description": "Consists of the sequencing analysis runs related to the sequencing run",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SequencingAnalysisRunCompact"
+          }
         },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
@@ -14766,6 +15388,14 @@
         },
         "runInfoXml": {
           "description": "Content of the instrument RunInfo.xml file, generated in XML format when sequencing run starts",
+          "type": "string"
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
           "type": "string"
         },
         "createdByClientId": {
@@ -14809,16 +15439,6 @@
           "description": "HREF to the object",
           "type": "string"
         },
-        "sequencingRun": {
-          "$ref": "#/definitions/SequencingRunCompact"
-        },
-        "sampleSettings": {
-          "description": "User provided per-sample settings for this analysis configuration.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SequencingRunAnalysisSampleConfigurationCompact"
-          }
-        },
         "name": {
           "description": "Name of the analysis configuration",
           "type": "string"
@@ -14833,6 +15453,9 @@
         "sampleSettingsSnapshot": {
           "description": "Snapshot of user provided per-sample settings for this analysis configuration."
         },
+        "analysisVersionDefinitionSettingsSnapshot": {
+          "description": "Snapshot of the AVD Settings"
+        },
         "originalSettings": {
           "description": "Original User-provided analysis-level settings for this analysis configuration"
         },
@@ -14842,8 +15465,8 @@
         "analysisVersion": {
           "$ref": "#/definitions/AnalysisVersionDefinitionCompact"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "physicalConfigurationChecksum": {
+          "description": "Checksum of physical configuration",
           "type": "string"
         },
         "subTenantId": {
@@ -14856,6 +15479,24 @@
           "items": {
             "type": "string"
           }
+        },
+        "sequencingRun": {
+          "$ref": "#/definitions/SequencingRunCompact"
+        },
+        "sampleSettings": {
+          "description": "User provided per-sample settings for this analysis configuration.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SequencingRunAnalysisSampleConfigurationCompact"
+          }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -15156,12 +15797,16 @@
           "description": "Time when the run upload sub-stage completed",
           "type": "string"
         },
+        "isCompleted": {
+          "description": "Indicates whether the run is in terminal state",
+          "type": "boolean"
+        },
         "isFailed": {
           "description": "Indicates whether the run failed",
           "type": "boolean"
         },
         "runFailureType": {
-          "description": "Indicates with value 'true' if the run failed during active processing by the instrument",
+          "description": "Indicates the FailureType of the run (e.g None, InstrumentFailure, InstrumentSequencingFailure etc.)",
           "type": "string"
         },
         "runFailureReason": {
@@ -15295,9 +15940,45 @@
           "description": "Reason for Requeue Analysis of a sequencing run",
           "type": "string"
         },
-        "tenantId": {
-          "description": "Unique identifier for the resource tenant",
+        "verificationResults": {
+          "$ref": "#/definitions/RunVerificationResult"
+        },
+        "canEditRun": {
+          "description": "Indicates whether the sequencing run can be edited or not",
+          "type": "boolean"
+        },
+        "canRequeueRun": {
+          "description": "Indicates whether the sequencing run can be requeued or not",
+          "type": "boolean"
+        },
+        "canDelete": {
+          "description": "Indicates whether the sequencing run can be deleted or not",
+          "type": "boolean"
+        },
+        "analysisTimeStarted": {
+          "format": "date-time",
+          "description": "Indicates the DateTime when the analysis is started (typically for off-instrument analysis)",
           "type": "string"
+        },
+        "analysisTimeCompleted": {
+          "format": "date-time",
+          "description": "Indicates the DateTime when the analysis is completed (typically for off-instrument analysis)",
+          "type": "string"
+        },
+        "runTimeCompleted": {
+          "format": "date-time",
+          "description": "Indicates the DateTime of the overall run which have been fully completed (including post-upload cloud processing)",
+          "type": "string"
+        },
+        "runSequencingStats": {
+          "$ref": "#/definitions/RunSequencingStatsResponse"
+        },
+        "analysisRuns": {
+          "description": "Consists of the sequencing analysis runs related to the sequencing run",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SequencingAnalysisRunCompact"
+          }
         },
         "subTenantId": {
           "description": "Organizational or Workgroup ID. If neither are present, User ID.",
@@ -15309,6 +15990,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tenantId": {
+          "description": "Unique identifier for the resource tenant",
+          "type": "string"
+        },
+        "tenantName": {
+          "description": "Unique tenant name for the resource tenant",
+          "type": "string"
         },
         "createdByClientId": {
           "description": "ClientId that created the resource (bssh, stratus...)",
@@ -15807,6 +16496,12 @@
           ],
           "type": "string"
         },
+        "checksum": {
+          "description": "Checksum of AnalysisDefinition",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
+        },
         "acl": {
           "type": "array",
           "items": {
@@ -15842,7 +16537,7 @@
           "description": "Status of the analysis version definition",
           "enum": [
             "Active",
-            "Inactive"
+            "Archived"
           ],
           "type": "string"
         },
@@ -15910,6 +16605,12 @@
         },
         "settings": {
           "$ref": "#/definitions/AnalysisVersionDefinitionSettings"
+        },
+        "checksum": {
+          "description": "Checksum of AnalysisVersionDefinition",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         },
         "acl": {
           "type": "array",
@@ -16021,6 +16722,12 @@
           "maxLength": 1152,
           "minLength": 0,
           "type": "string"
+        },
+        "checksum": {
+          "description": "Checksum of Genome",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         }
       }
     },
@@ -16108,6 +16815,12 @@
         },
         "settings": {
           "$ref": "#/definitions/IndexAdapterKitSettings"
+        },
+        "checksum": {
+          "description": "Stores the checksum of IndexAdapterKit",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         },
         "indexSequences": {
           "description": "Index sequence mappings",
@@ -16230,6 +16943,12 @@
         },
         "settings": {
           "$ref": "#/definitions/LibraryPrepKitSettings"
+        },
+        "checksum": {
+          "description": "Checksum of LibraryPrepKit",
+          "maxLength": 255,
+          "minLength": 0,
+          "type": "string"
         },
         "isApplicationSpecific": {
           "description": "Whether the library prep kit is application specific",

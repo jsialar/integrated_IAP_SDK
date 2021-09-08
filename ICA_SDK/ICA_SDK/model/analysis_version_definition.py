@@ -100,7 +100,7 @@ class AnalysisVersionDefinition(ModelNormal):
             'analysis_sample_settings': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'on_render_require_run_contents': (bool,),  # noqa: E501
             'analysis_definition': (AnalysisDefinitionCompact,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
             'compatible_library_prep_kits': ([LibraryPrepKitCompact],),  # noqa: E501
@@ -109,6 +109,8 @@ class AnalysisVersionDefinition(ModelNormal):
             'excluded_genomes': ([GenomeCompact],),  # noqa: E501
             'on_submit_function': (str,),  # noqa: E501
             'on_render_function': (str,),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -137,7 +139,7 @@ class AnalysisVersionDefinition(ModelNormal):
         'analysis_sample_settings': 'analysisSampleSettings',  # noqa: E501
         'on_render_require_run_contents': 'onRenderRequireRunContents',  # noqa: E501
         'analysis_definition': 'analysisDefinition',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
         'compatible_library_prep_kits': 'compatibleLibraryPrepKits',  # noqa: E501
@@ -146,6 +148,8 @@ class AnalysisVersionDefinition(ModelNormal):
         'excluded_genomes': 'excludedGenomes',  # noqa: E501
         'on_submit_function': 'onSubmitFunction',  # noqa: E501
         'on_render_function': 'onRenderFunction',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -214,7 +218,7 @@ class AnalysisVersionDefinition(ModelNormal):
             analysis_sample_settings ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Per-sample settings for the analysis (at the per-sample level). [optional]  # noqa: E501
             on_render_require_run_contents (bool): Whether the OnRenderFunction depends on RunContents or not. [optional]  # noqa: E501
             analysis_definition (AnalysisDefinitionCompact): [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            checksum (str): Stores the checksum of AnalysisVersionDefinition. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
             compatible_library_prep_kits ([LibraryPrepKitCompact]): The library preparation kits that are compatible with this version of analysis definition  (possibly inherited from parent analysis definition if there is no compatible kits defined in analysis definition version level). [optional]  # noqa: E501
@@ -223,6 +227,8 @@ class AnalysisVersionDefinition(ModelNormal):
             excluded_genomes ([GenomeCompact]): The optional list of genomes that are excluded by this analysis definition version. [optional]  # noqa: E501
             on_submit_function (str): Logic for validating and transforming AnalysisSettings and AnalysisSampleSettings. [optional]  # noqa: E501
             on_render_function (str): Logic for dynamically rendering AVD settings and AVD setting configurations. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

@@ -80,6 +80,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         settings={},
         source_file_metadata={},
         fasta_file_urn="fasta_file_urn_example",
+        checksum="checksum_example",
     ) # CreateGenomeRequest |  (optional)
 
     # example passing only required values which don't have defaults set
@@ -810,6 +811,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
             "acl_example",
         ],
         fasta_file_urn="fasta_file_urn_example",
+        checksum="checksum_example",
     ) # UpdateGenomeRequest |  (optional)
 
     # example passing only required values which don't have defaults set

@@ -107,6 +107,10 @@ class CreateGenomeRequest(ModelNormal):
             'max_length': 1152,
             'min_length': 0,
         },
+        ('checksum',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
     }
 
     additional_properties_type = None
@@ -141,6 +145,7 @@ class CreateGenomeRequest(ModelNormal):
             'settings': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'source_file_metadata': ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},),  # noqa: E501
             'fasta_file_urn': (str,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -166,6 +171,7 @@ class CreateGenomeRequest(ModelNormal):
         'settings': 'settings',  # noqa: E501
         'source_file_metadata': 'sourceFileMetadata',  # noqa: E501
         'fasta_file_urn': 'fastaFileUrn',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -233,6 +239,7 @@ class CreateGenomeRequest(ModelNormal):
             settings ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Custom settings for the genome. [optional]  # noqa: E501
             source_file_metadata ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}): Key-value pairs that indicate the source files for the specific genome. [optional]  # noqa: E501
             fasta_file_urn (str): Urn of the Fasta file being used by the genome. [optional]  # noqa: E501
+            checksum (str): Checksum of Genome. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

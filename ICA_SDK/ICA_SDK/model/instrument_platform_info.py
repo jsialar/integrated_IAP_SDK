@@ -28,7 +28,9 @@ from ICA_SDK.model_utils import (  # noqa: F401
 
 def lazy_import():
     from ICA_SDK.model.flow_cell_type import FlowCellType
+    from ICA_SDK.model.multi_analysis_configuration import MultiAnalysisConfiguration
     globals()['FlowCellType'] = FlowCellType
+    globals()['MultiAnalysisConfiguration'] = MultiAnalysisConfiguration
 
 
 class InstrumentPlatformInfo(ModelNormal):
@@ -90,6 +92,7 @@ class InstrumentPlatformInfo(ModelNormal):
             'read1_length_max': (int,),  # noqa: E501
             'read2_length_min': (int,),  # noqa: E501
             'read2_length_max': (int,),  # noqa: E501
+            'multi_analysis_configuration': (MultiAnalysisConfiguration,),  # noqa: E501
         }
 
     @cached_property
@@ -111,6 +114,7 @@ class InstrumentPlatformInfo(ModelNormal):
         'read1_length_max': 'read1LengthMax',  # noqa: E501
         'read2_length_min': 'read2LengthMin',  # noqa: E501
         'read2_length_max': 'read2LengthMax',  # noqa: E501
+        'multi_analysis_configuration': 'multiAnalysisConfiguration',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -172,6 +176,7 @@ class InstrumentPlatformInfo(ModelNormal):
             read1_length_max (int): Maximum Read 1 Length. [optional]  # noqa: E501
             read2_length_min (int): Minimum Read 2 Length. [optional]  # noqa: E501
             read2_length_max (int): Maximum Read 2 Length. [optional]  # noqa: E501
+            multi_analysis_configuration (MultiAnalysisConfiguration): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

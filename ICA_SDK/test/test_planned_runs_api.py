@@ -30,6 +30,13 @@ class TestPlannedRunsApi(unittest.TestCase):
         """
         pass
 
+    def test_import_planned_run(self):
+        """Test case for import_planned_run
+
+        Import a planned run from sample sheet.  # noqa: E501
+        """
+        pass
+
     def test_lock_planned_run(self):
         """Test case for lock_planned_run
 

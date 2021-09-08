@@ -100,9 +100,10 @@ class AnalysisDatasetCompact(ModelNormal):
             'file_urns': ([str],),  # noqa: E501
             'external_id': (str,),  # noqa: E501
             'input_samples': ([SampleCompact],),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -135,9 +136,10 @@ class AnalysisDatasetCompact(ModelNormal):
         'file_urns': 'fileUrns',  # noqa: E501
         'external_id': 'externalId',  # noqa: E501
         'input_samples': 'inputSamples',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -210,9 +212,10 @@ class AnalysisDatasetCompact(ModelNormal):
             file_urns ([str]): FileUrns of the AnalysisDataset resource. [optional]  # noqa: E501
             external_id (str): External ID of the dataset. [optional]  # noqa: E501
             input_samples ([SampleCompact]): Input samples of the analysis dataset. [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

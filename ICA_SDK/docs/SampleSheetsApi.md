@@ -219,6 +219,13 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         resolve_prep_kits_by_name=True,
         resolve_index_sequence_info=True,
         enable_warnings_for_missing_cloud_sections=True,
+        default_kits=[
+            DefaultKit(
+                lane_number=1,
+                library_prep_kit_id="library_prep_kit_id_example",
+                index_adapter_kit_id="index_adapter_kit_id_example",
+            ),
+        ],
     ) # ParseSampleSheetRequest |  (optional)
 
     # example passing only required values which don't have defaults set

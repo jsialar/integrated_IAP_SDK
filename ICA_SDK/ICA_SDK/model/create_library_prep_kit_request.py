@@ -87,6 +87,10 @@ class CreateLibraryPrepKitRequest(ModelNormal):
             'inclusive_maximum': 2147483647,
             'inclusive_minimum': 0,
         },
+        ('checksum',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
     }
 
     additional_properties_type = None
@@ -114,6 +118,7 @@ class CreateLibraryPrepKitRequest(ModelNormal):
             'default_read2_length': (int,),  # noqa: E501
             'is_application_specific': (bool,),  # noqa: E501
             'settings': (LibraryPrepKitSettings,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'index_adapter_kit_ids': ([str],),  # noqa: E501
             'acl': ([str],),  # noqa: E501
         }
@@ -133,6 +138,7 @@ class CreateLibraryPrepKitRequest(ModelNormal):
         'default_read2_length': 'defaultRead2Length',  # noqa: E501
         'is_application_specific': 'isApplicationSpecific',  # noqa: E501
         'settings': 'settings',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'index_adapter_kit_ids': 'indexAdapterKitIds',  # noqa: E501
         'acl': 'acl',  # noqa: E501
     }
@@ -194,6 +200,7 @@ class CreateLibraryPrepKitRequest(ModelNormal):
             default_read2_length (int): Default read 2 length. [optional]  # noqa: E501
             is_application_specific (bool): Whether the library prep kit is application specific. [optional]  # noqa: E501
             settings (LibraryPrepKitSettings): [optional]  # noqa: E501
+            checksum (str): Checksum of LibraryPrepKit. [optional]  # noqa: E501
             index_adapter_kit_ids ([str]): Array of index adapter kit IDs that are compatible with the library prep kit. [optional]  # noqa: E501
             acl ([str]): [optional]  # noqa: E501
         """

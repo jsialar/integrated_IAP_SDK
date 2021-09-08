@@ -63,8 +63,11 @@ with ICA_SDK.ApiClient(configuration) as api_client:
             aws_s3=AWSS3ObjectStoreSetting(
                 bucket_name="bucket_name_example",
                 key_prefix="oUR,rZ#UM/?R,Fp^l6$ARjbhJk C>",
+                server_side_encryption_algorithm="server_side_encryption_algorithm_example",
+                server_side_encryption_key="server_side_encryption_key_example",
             ),
             secret_name="secret_name_example",
+            secret_id="secret_id_example",
         ),
     ) # CreateVolumeConfigurationRequest | 
 

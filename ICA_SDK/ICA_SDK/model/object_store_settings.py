@@ -79,6 +79,7 @@ class ObjectStoreSettings(ModelNormal):
         return {
             'aws_s3': (AWSS3ObjectStoreSetting,),  # noqa: E501
             'secret_name': (str,),  # noqa: E501
+            'secret_id': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -89,6 +90,7 @@ class ObjectStoreSettings(ModelNormal):
     attribute_map = {
         'aws_s3': 'awsS3',  # noqa: E501
         'secret_name': 'secretName',  # noqa: E501
+        'secret_id': 'secretId',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -103,12 +105,11 @@ class ObjectStoreSettings(ModelNormal):
     ])
 
     @convert_js_args_to_python_args
-    def __init__(self, aws_s3, secret_name, *args, **kwargs):  # noqa: E501
+    def __init__(self, aws_s3, *args, **kwargs):  # noqa: E501
         """ObjectStoreSettings - a model defined in OpenAPI
 
         Args:
             aws_s3 (AWSS3ObjectStoreSetting):
-            secret_name (str): Platform credentials Name
 
         Keyword Args:
             _check_type (bool): if True, values for parameters in openapi_types
@@ -141,6 +142,8 @@ class ObjectStoreSettings(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
+            secret_name (str): Platform credentials Name  Must provide either SecretId or SecretName. [optional]  # noqa: E501
+            secret_id (str): Platform credentials Id  Must provide either SecretId or SecretName. [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)
@@ -167,7 +170,6 @@ class ObjectStoreSettings(ModelNormal):
         self._visited_composed_classes = _visited_composed_classes + (self.__class__,)
 
         self.aws_s3 = aws_s3
-        self.secret_name = secret_name
         for var_name, var_value in kwargs.items():
             if var_name not in self.attribute_map and \
                         self._configuration is not None and \

@@ -89,9 +89,11 @@ class AnalysisDefinitionCompact(ModelNormal):
             'regulatory_mode': (str,),  # noqa: E501
             'display_name': (str,),  # noqa: E501
             'analysis_versions': (AnalysisVersionDefinitionCompactItemList,),  # noqa: E501
-            'tenant_id': (str,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'sub_tenant_id': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
+            'tenant_id': (str,),  # noqa: E501
+            'tenant_name': (str,),  # noqa: E501
             'created_by_client_id': (str,),  # noqa: E501
             'created_by': (str,),  # noqa: E501
             'modified_by': (str,),  # noqa: E501
@@ -117,9 +119,11 @@ class AnalysisDefinitionCompact(ModelNormal):
         'regulatory_mode': 'regulatoryMode',  # noqa: E501
         'display_name': 'displayName',  # noqa: E501
         'analysis_versions': 'analysisVersions',  # noqa: E501
-        'tenant_id': 'tenantId',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'sub_tenant_id': 'subTenantId',  # noqa: E501
         'acl': 'acl',  # noqa: E501
+        'tenant_id': 'tenantId',  # noqa: E501
+        'tenant_name': 'tenantName',  # noqa: E501
         'created_by_client_id': 'createdByClientId',  # noqa: E501
         'created_by': 'createdBy',  # noqa: E501
         'modified_by': 'modifiedBy',  # noqa: E501
@@ -185,9 +189,11 @@ class AnalysisDefinitionCompact(ModelNormal):
             regulatory_mode (str): Regulatory mode of the analysis definition. [optional]  # noqa: E501
             display_name (str): User-friendly name of the analysis definition. [optional]  # noqa: E501
             analysis_versions (AnalysisVersionDefinitionCompactItemList): [optional]  # noqa: E501
-            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            checksum (str): Stores the checksum of AnalysisDefinition. [optional]  # noqa: E501
             sub_tenant_id (str): Organizational or Workgroup ID. If neither are present, User ID.. [optional]  # noqa: E501
             acl ([str]): Access control list of the object. [optional]  # noqa: E501
+            tenant_id (str): Unique identifier for the resource tenant. [optional]  # noqa: E501
+            tenant_name (str): Unique tenant name for the resource tenant. [optional]  # noqa: E501
             created_by_client_id (str): ClientId that created the resource (bssh, stratus...). [optional]  # noqa: E501
             created_by (str): User that created the resource. [optional]  # noqa: E501
             modified_by (str): User that last modified the resource. [optional]  # noqa: E501

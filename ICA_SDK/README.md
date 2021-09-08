@@ -104,6 +104,7 @@ Class | Method | HTTP request | Description
 *AnalysisDefinitionsApi* | [**remove_analysis_definition_acl**](docs/AnalysisDefinitionsApi.md#remove_analysis_definition_acl) | **DELETE** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/acl | Remove the access control list of an analysis definition.
 *AnalysisDefinitionsApi* | [**replace_analysis_definition_acl**](docs/AnalysisDefinitionsApi.md#replace_analysis_definition_acl) | **PUT** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/acl | Replace the access control list of an analysis definition.
 *AnalysisDefinitionsApi* | [**update_analysis_definition**](docs/AnalysisDefinitionsApi.md#update_analysis_definition) | **PATCH** /v1/sequencing/analysisdefinitions/{analysisDefinitionId} | Update analysis definition details.
+*AnalysisVersionDefinitionsApi* | [**archive_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#archive_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:archive | Archives the given Analysis Version Definition.
 *AnalysisVersionDefinitionsApi* | [**create_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#create_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions | Create an analysis version definition.
 *AnalysisVersionDefinitionsApi* | [**get_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#get_analysis_version_definition) | **GET** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName} | Get a specific analysis definition version by version name.
 *AnalysisVersionDefinitionsApi* | [**get_analysis_version_definition_by_id_or_urn**](docs/AnalysisVersionDefinitionsApi.md#get_analysis_version_definition_by_id_or_urn) | **GET** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId} | Get details of an analysis definition version by ID or URN.
@@ -112,6 +113,7 @@ Class | Method | HTTP request | Description
 *AnalysisVersionDefinitionsApi* | [**remove_analysis_version_definition_acl**](docs/AnalysisVersionDefinitionsApi.md#remove_analysis_version_definition_acl) | **DELETE** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Remove the access control list of an analysis version definition.
 *AnalysisVersionDefinitionsApi* | [**render_analysis_version_definition_by_id_or_urn**](docs/AnalysisVersionDefinitionsApi.md#render_analysis_version_definition_by_id_or_urn) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:render | Dynamically render an analysis definition version by ID or URN.
 *AnalysisVersionDefinitionsApi* | [**replace_analysis_version_definition_acl**](docs/AnalysisVersionDefinitionsApi.md#replace_analysis_version_definition_acl) | **PUT** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl | Replace the access control list of an analysis version definition with the input access control list.
+*AnalysisVersionDefinitionsApi* | [**unarchive_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#unarchive_analysis_version_definition) | **POST** /v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:unarchive | Unarchive the given Analysis Version Definition.
 *AnalysisVersionDefinitionsApi* | [**update_analysis_version_definition**](docs/AnalysisVersionDefinitionsApi.md#update_analysis_version_definition) | **PATCH** /v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName} | Update an analysis version definition.
 *FilesApi* | [**archive_file**](docs/FilesApi.md#archive_file) | **POST** /v1/files/{fileId}:archive | Archive a file
 *FilesApi* | [**create_file**](docs/FilesApi.md#create_file) | **POST** /v1/files | Create a file entry in GDS and get temporary credentials for upload
@@ -175,6 +177,7 @@ Class | Method | HTTP request | Description
 *LibraryPrepKitsApi* | [**replace_library_prep_kit_acl**](docs/LibraryPrepKitsApi.md#replace_library_prep_kit_acl) | **PUT** /v1/sequencing/libraryPrepKits/{libraryPrepKitId}/acl | Replace the access control list of a library prep kit with the input access control list.
 *LibraryPrepKitsApi* | [**update_library_prep_kit**](docs/LibraryPrepKitsApi.md#update_library_prep_kit) | **PATCH** /v1/sequencing/libraryPrepKits/{libraryPrepKitId} | Update a library prep kit.
 *PlannedRunsApi* | [**create_planned_run**](docs/PlannedRunsApi.md#create_planned_run) | **POST** /v1/sequencing/runs:plan | Create sequencing run plan.
+*PlannedRunsApi* | [**import_planned_run**](docs/PlannedRunsApi.md#import_planned_run) | **POST** /v1/sequencing/runs:import | Import a planned run from sample sheet.
 *PlannedRunsApi* | [**lock_planned_run**](docs/PlannedRunsApi.md#lock_planned_run) | **POST** /v1/sequencing/runs/{runId}:lock | Lock a planned run.
 *PlannedRunsApi* | [**replace_planned_run**](docs/PlannedRunsApi.md#replace_planned_run) | **PUT** /v1/sequencing/runs/{runId}/plan | Replace planned run configuration, contents, and analysis configurations.
 *PlannedRunsApi* | [**start_planned_run**](docs/PlannedRunsApi.md#start_planned_run) | **POST** /v1/sequencing/runs/{runId}:start | Start a planned sequencing run.
@@ -298,11 +301,14 @@ Class | Method | HTTP request | Description
  - [AnalysisVersionDefinitionSettingsSampleSheetConfiguration](docs/AnalysisVersionDefinitionSettingsSampleSheetConfiguration.md)
  - [ArchiveStatuses](docs/ArchiveStatuses.md)
  - [AuxiliaryFileReferenceCompact](docs/AuxiliaryFileReferenceCompact.md)
+ - [AwsS3PostPolicy](docs/AwsS3PostPolicy.md)
  - [AwsS3TemporaryUploadCredentials](docs/AwsS3TemporaryUploadCredentials.md)
  - [BulkFileUpdateItem](docs/BulkFileUpdateItem.md)
  - [BulkFileUpdateRequest](docs/BulkFileUpdateRequest.md)
+ - [BulkFileUpdateResponse](docs/BulkFileUpdateResponse.md)
  - [BulkFolderUpdateItem](docs/BulkFolderUpdateItem.md)
  - [BulkFolderUpdateRequest](docs/BulkFolderUpdateRequest.md)
+ - [BulkUpdateFailedItem](docs/BulkUpdateFailedItem.md)
  - [CanUploadResponse](docs/CanUploadResponse.md)
  - [CloseRunUploadSessionRequest](docs/CloseRunUploadSessionRequest.md)
  - [CloseUploadSessionResponse](docs/CloseUploadSessionResponse.md)
@@ -341,6 +347,7 @@ Class | Method | HTTP request | Description
  - [CreateWorkflowRequest](docs/CreateWorkflowRequest.md)
  - [CreateWorkflowVersionRequest](docs/CreateWorkflowVersionRequest.md)
  - [Credentials](docs/Credentials.md)
+ - [DefaultKit](docs/DefaultKit.md)
  - [DeliveryTarget](docs/DeliveryTarget.md)
  - [DeliveryTargetAwsSnsTopic](docs/DeliveryTargetAwsSnsTopic.md)
  - [DeliveryTargetAwsSqsQueue](docs/DeliveryTargetAwsSqsQueue.md)
@@ -354,9 +361,11 @@ Class | Method | HTTP request | Description
  - [FailWorkflowSignalRequest](docs/FailWorkflowSignalRequest.md)
  - [FileArchiveRequest](docs/FileArchiveRequest.md)
  - [FileArchiveStorageTier](docs/FileArchiveStorageTier.md)
+ - [FileLifeCycleSettings](docs/FileLifeCycleSettings.md)
  - [FileListResponse](docs/FileListResponse.md)
  - [FileReferenceCompact](docs/FileReferenceCompact.md)
  - [FileResponse](docs/FileResponse.md)
+ - [FileStatus](docs/FileStatus.md)
  - [FileUnarchiveRequest](docs/FileUnarchiveRequest.md)
  - [FileWriteableResponse](docs/FileWriteableResponse.md)
  - [FlowCellType](docs/FlowCellType.md)
@@ -374,9 +383,13 @@ Class | Method | HTTP request | Description
  - [Genome](docs/Genome.md)
  - [GenomeCompact](docs/GenomeCompact.md)
  - [GenomeCompactGenomeSortFieldsPagedItems](docs/GenomeCompactGenomeSortFieldsPagedItems.md)
+ - [GracePeriodEndAction](docs/GracePeriodEndAction.md)
  - [HealthCheckStatuses](docs/HealthCheckStatuses.md)
  - [HeartbeatTaskRunRequest](docs/HeartbeatTaskRunRequest.md)
  - [Image](docs/Image.md)
+ - [ImportPlannedRunRequest](docs/ImportPlannedRunRequest.md)
+ - [ImportPlannedRunResponse](docs/ImportPlannedRunResponse.md)
+ - [ImportPlannedRunWarning](docs/ImportPlannedRunWarning.md)
  - [IndexAdapterKit](docs/IndexAdapterKit.md)
  - [IndexAdapterKitCompact](docs/IndexAdapterKitCompact.md)
  - [IndexAdapterKitCompactIndexAdapterKitSortFieldPagedItems](docs/IndexAdapterKitCompactIndexAdapterKitSortFieldPagedItems.md)
@@ -418,6 +431,7 @@ Class | Method | HTTP request | Description
  - [LibraryPrepKitSettings](docs/LibraryPrepKitSettings.md)
  - [LibraryPrepKitSettingsResponse](docs/LibraryPrepKitSettingsResponse.md)
  - [MountMappingWithCreds](docs/MountMappingWithCreds.md)
+ - [MultiAnalysisConfiguration](docs/MultiAnalysisConfiguration.md)
  - [NoContentResult](docs/NoContentResult.md)
  - [ObjectStoreAccess](docs/ObjectStoreAccess.md)
  - [ObjectStoreSettings](docs/ObjectStoreSettings.md)
@@ -443,7 +457,7 @@ Class | Method | HTTP request | Description
  - [RunSequencingStats](docs/RunSequencingStats.md)
  - [RunSequencingStatsResponse](docs/RunSequencingStatsResponse.md)
  - [RunSetupValidation](docs/RunSetupValidation.md)
- - [RuntVerificationResult](docs/RuntVerificationResult.md)
+ - [RunVerificationResult](docs/RunVerificationResult.md)
  - [Sample](docs/Sample.md)
  - [SampleCompact](docs/SampleCompact.md)
  - [SampleCompactSampleSortFieldsPagedItems](docs/SampleCompactSampleSortFieldsPagedItems.md)
@@ -525,6 +539,7 @@ Class | Method | HTTP request | Description
  - [VolumeConfigurationListResponse](docs/VolumeConfigurationListResponse.md)
  - [VolumeConfigurationOnlineStatus](docs/VolumeConfigurationOnlineStatus.md)
  - [VolumeConfigurationResponse](docs/VolumeConfigurationResponse.md)
+ - [VolumeLifeCycleSettings](docs/VolumeLifeCycleSettings.md)
  - [VolumeListResponse](docs/VolumeListResponse.md)
  - [VolumeResponse](docs/VolumeResponse.md)
  - [Workflow](docs/Workflow.md)

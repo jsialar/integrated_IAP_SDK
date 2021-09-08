@@ -83,6 +83,8 @@ class AWSS3ObjectStoreSetting(ModelNormal):
         return {
             'bucket_name': (str,),  # noqa: E501
             'key_prefix': (str,),  # noqa: E501
+            'server_side_encryption_algorithm': (str,),  # noqa: E501
+            'server_side_encryption_key': (str,),  # noqa: E501
         }
 
     @cached_property
@@ -93,6 +95,8 @@ class AWSS3ObjectStoreSetting(ModelNormal):
     attribute_map = {
         'bucket_name': 'bucketName',  # noqa: E501
         'key_prefix': 'keyPrefix',  # noqa: E501
+        'server_side_encryption_algorithm': 'serverSideEncryptionAlgorithm',  # noqa: E501
+        'server_side_encryption_key': 'serverSideEncryptionKey',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -145,6 +149,8 @@ class AWSS3ObjectStoreSetting(ModelNormal):
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
             key_prefix (str): Key prefix within the bucket for GDS to operate within. Volumes may only be created within this prefix and the given credentials need only authorize  access here. If not set, default is to allow operation on the full bucket. No leading slash, and must end with a trailing slash.. [optional]  # noqa: E501
+            server_side_encryption_algorithm (str): Used to specify the type of server-side encryption (SSE) to be used on the object provider.  This value is used to determine the Amazon S3 header \"x-amz-server-side-encryption\" value.  For example, specify \"AES256\" for SSE-S3, or \"AWS:KMS\" for SSE-KMS.  By default if none is specified, \"AES256\" will be used.. [optional]  # noqa: E501
+            server_side_encryption_key (str): Used to specify the serve-side encryption key that might be associated with the specified server-side encryption algorithm  This value can be the AWS KMS arn key, to be used for the Amazon S3 header \"x-amz-server-side-encryption-aws-kms-key-id\" value  Value will be ignored if encryption is \"AES256\". [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

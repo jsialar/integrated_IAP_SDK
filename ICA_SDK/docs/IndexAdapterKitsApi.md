@@ -89,6 +89,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
                 "key": "key_example",
             },
         ),
+        checksum="checksum_example",
         index_sequences=[
             IndexSequence(
                 name="name_example",
@@ -937,6 +938,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
                 "key": "key_example",
             },
         ),
+        checksum="checksum_example",
         index_sequences=[
             IndexSequence(
                 name="name_example",

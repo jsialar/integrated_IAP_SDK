@@ -90,6 +90,10 @@ class UpdateIndexAdapterKitRequest(ModelNormal):
             'max_length': 128,
             'min_length': 0,
         },
+        ('checksum',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
     }
 
     additional_properties_type = None
@@ -116,6 +120,7 @@ class UpdateIndexAdapterKitRequest(ModelNormal):
             'adapter_sequence_read1': (str,),  # noqa: E501
             'adapter_sequence_read2': (str,),  # noqa: E501
             'settings': (IndexAdapterKitSettings,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'index_sequences': ([IndexSequence],),  # noqa: E501
             'force': (bool,),  # noqa: E501
             'skip_index_diversity_validation': (bool,),  # noqa: E501
@@ -136,6 +141,7 @@ class UpdateIndexAdapterKitRequest(ModelNormal):
         'adapter_sequence_read1': 'adapterSequenceRead1',  # noqa: E501
         'adapter_sequence_read2': 'adapterSequenceRead2',  # noqa: E501
         'settings': 'settings',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'index_sequences': 'indexSequences',  # noqa: E501
         'force': 'force',  # noqa: E501
         'skip_index_diversity_validation': 'skipIndexDiversityValidation',  # noqa: E501
@@ -196,6 +202,7 @@ class UpdateIndexAdapterKitRequest(ModelNormal):
             adapter_sequence_read1 (str): Optional read 1 adapter sequence. [optional]  # noqa: E501
             adapter_sequence_read2 (str): Optional read 2 adapter sequence. [optional]  # noqa: E501
             settings (IndexAdapterKitSettings): [optional]  # noqa: E501
+            checksum (str): Stores the checksum of IndexAdapterKit. [optional]  # noqa: E501
             index_sequences ([IndexSequence]): Index sequence mappings. [optional]  # noqa: E501
             force (bool): Set to true to force update even when the kit is in use. [optional]  # noqa: E501
             skip_index_diversity_validation (bool): Flag to skip index diversity validation. [optional]  # noqa: E501

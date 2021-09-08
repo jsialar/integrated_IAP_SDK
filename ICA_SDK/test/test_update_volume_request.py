@@ -12,6 +12,8 @@ import sys
 import unittest
 
 import ICA_SDK
+from ICA_SDK.model.volume_life_cycle_settings import VolumeLifeCycleSettings
+globals()['VolumeLifeCycleSettings'] = VolumeLifeCycleSettings
 from ICA_SDK.model.update_volume_request import UpdateVolumeRequest
 
 

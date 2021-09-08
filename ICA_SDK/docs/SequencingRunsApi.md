@@ -1305,6 +1305,13 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     regulatory_mode = [
         "RUO",
     ] # [str] | Filter by regulatory modes using comma separated values, e.g <example>RUO,IVD,IUO</example> (optional)
+    requeued_from_run_id = "requeuedFromRunId_example" # str | Filter By Requeued Run Id (optional)
+    run_name = [
+        "runName_example",
+    ] # [str] | Filter by name of the sequencing run (optional)
+    is_completed = True # bool | Optional parameter. Set to true to filter the run list and only include completed (failed, aborted, successfully completed) runs. (optional)
+    include_completed_after_date = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | Optional parameter. Show runs that were completed after the provided Date as well as runs that are not completed (optional)
+    include_completed_before_date = dateutil_parser('1970-01-01T00:00:00.00Z') # datetime | Optional parameter. Show runs that were completed before the provided Date as well as runs that are not completed (optional)
     tenant_ids = [
         "tenantIds_example",
     ] # [str] | Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids (optional)
@@ -1316,7 +1323,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
     # and optional values
     try:
         # Get a list of sequencing runs.
-        api_response = api_instance.list_sequencing_runs(is_planned=is_planned, is_locked=is_locked, is_favorite=is_favorite, instrument_type=instrument_type, run_origin=run_origin, aggregate_run_status=aggregate_run_status, include=include, flow_cell_barcode=flow_cell_barcode, input_container_identifier=input_container_identifier, regulatory_mode=regulatory_mode, tenant_ids=tenant_ids, page_size=page_size, page_token=page_token, sort=sort)
+        api_response = api_instance.list_sequencing_runs(is_planned=is_planned, is_locked=is_locked, is_favorite=is_favorite, instrument_type=instrument_type, run_origin=run_origin, aggregate_run_status=aggregate_run_status, include=include, flow_cell_barcode=flow_cell_barcode, input_container_identifier=input_container_identifier, regulatory_mode=regulatory_mode, requeued_from_run_id=requeued_from_run_id, run_name=run_name, is_completed=is_completed, include_completed_after_date=include_completed_after_date, include_completed_before_date=include_completed_before_date, tenant_ids=tenant_ids, page_size=page_size, page_token=page_token, sort=sort)
         pprint(api_response)
     except ICA_SDK.ApiException as e:
         print("Exception when calling SequencingRunsApi->list_sequencing_runs: %s\n" % e)
@@ -1337,6 +1344,11 @@ Name | Type | Description  | Notes
  **flow_cell_barcode** | **str**| Filter by flowcell barcode | [optional]
  **input_container_identifier** | **str**| Filter by Input container identifier | [optional]
  **regulatory_mode** | **[str]**| Filter by regulatory modes using comma separated values, e.g &lt;example&gt;RUO,IVD,IUO&lt;/example&gt; | [optional]
+ **requeued_from_run_id** | **str**| Filter By Requeued Run Id | [optional]
+ **run_name** | **[str]**| Filter by name of the sequencing run | [optional]
+ **is_completed** | **bool**| Optional parameter. Set to true to filter the run list and only include completed (failed, aborted, successfully completed) runs. | [optional]
+ **include_completed_after_date** | **datetime**| Optional parameter. Show runs that were completed after the provided Date as well as runs that are not completed | [optional]
+ **include_completed_before_date** | **datetime**| Optional parameter. Show runs that were completed before the provided Date as well as runs that are not completed | [optional]
  **tenant_ids** | **[str]**| Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids | [optional]
  **page_size** | **int**| Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified. | [optional] if omitted the server will use the default value of 10
  **page_token** | **str**| Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified. | [optional]
@@ -2272,7 +2284,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **start_run_verification**
-> RuntVerificationResult start_run_verification(run_id)
+> RunVerificationResult start_run_verification(run_id)
 
 Start verification for a run and return information about that run
 
@@ -2286,9 +2298,9 @@ Start run verification
 import time
 import ICA_SDK
 from ICA_SDK.api import sequencing_runs_api
-from ICA_SDK.model.runt_verification_result import RuntVerificationResult
 from ICA_SDK.model.start_verification_request import StartVerificationRequest
 from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.model.run_verification_result import RunVerificationResult
 from pprint import pprint
 # Defining the host is optional and defaults to https://use1.platform.illumina.com
 # See configuration.py for a list of all supported configuration parameters.
@@ -2351,7 +2363,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RuntVerificationResult**](RuntVerificationResult.md)
+[**RunVerificationResult**](RunVerificationResult.md)
 
 ### Authorization
 

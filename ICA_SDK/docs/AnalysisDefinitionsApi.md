@@ -70,6 +70,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         ],
         illumina_kit_support_mode="All",
         regulatory_mode="RUO",
+        checksum="checksum_example",
         acl=[
             "acl_example",
         ],
@@ -708,6 +709,7 @@ with ICA_SDK.ApiClient(configuration) as api_client:
         ],
         illumina_kit_support_mode="All",
         regulatory_mode="RUO",
+        checksum="checksum_example",
         acl=[
             "acl_example",
         ],

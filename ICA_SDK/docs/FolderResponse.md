@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **id** | **str** | A unique identifier for this Folder | [optional] 
 **name** | **str** | The name of this Folder | [optional] 
 **volume_id** | **str** | The unique identifier for this Folder&#39;s Volume | [optional] 
+**parent_folder_id** | **str** | The unique identifier for this folder&#39;s parent folder | [optional] 
 **volume_name** | **str** | The name of this Folder&#39;s Volume | [optional] 
 **tenant_id** | **str** | The unique identifier for this Folders&#39;s Tenant | [optional] 
 **sub_tenant_id** | **str** | The unique identifier for this Folder&#39;s Sub Tenant | [optional] 

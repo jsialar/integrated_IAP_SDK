@@ -60,7 +60,7 @@ class UpdateAnalysisVersionDefinitionRequest(ModelNormal):
     allowed_values = {
         ('status',): {
             'ACTIVE': "Active",
-            'INACTIVE': "Inactive",
+            'ARCHIVED': "Archived",
         },
         ('analysis_type',): {
             'LOCAL': "Local",
@@ -86,6 +86,10 @@ class UpdateAnalysisVersionDefinitionRequest(ModelNormal):
         },
         ('on_render_function',): {
             'max_length': 100000,
+            'min_length': 0,
+        },
+        ('checksum',): {
+            'max_length': 255,
             'min_length': 0,
         },
     }
@@ -122,6 +126,7 @@ class UpdateAnalysisVersionDefinitionRequest(ModelNormal):
             'on_render_function': (str,),  # noqa: E501
             'on_render_require_run_contents': (bool,),  # noqa: E501
             'settings': (AnalysisVersionDefinitionSettings,),  # noqa: E501
+            'checksum': (str,),  # noqa: E501
             'acl': ([str],),  # noqa: E501
         }
 
@@ -147,6 +152,7 @@ class UpdateAnalysisVersionDefinitionRequest(ModelNormal):
         'on_render_function': 'onRenderFunction',  # noqa: E501
         'on_render_require_run_contents': 'onRenderRequireRunContents',  # noqa: E501
         'settings': 'settings',  # noqa: E501
+        'checksum': 'checksum',  # noqa: E501
         'acl': 'acl',  # noqa: E501
     }
 
@@ -212,6 +218,7 @@ class UpdateAnalysisVersionDefinitionRequest(ModelNormal):
             on_render_function (str): Logic for dynamically rendering AVD settings and AVD setting configurations. [optional]  # noqa: E501
             on_render_require_run_contents (bool): Defines whether the analysis fields should be changed based on input of run contents  This is to avoid unnecessary huge input from UI that is not really needed during rendering. [optional]  # noqa: E501
             settings (AnalysisVersionDefinitionSettings): [optional]  # noqa: E501
+            checksum (str): Checksum of AnalysisVersionDefinition. [optional]  # noqa: E501
             acl ([str]): [optional]  # noqa: E501
         """
 

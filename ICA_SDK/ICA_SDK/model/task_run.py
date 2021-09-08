@@ -75,6 +75,18 @@ class TaskRun(ModelNormal):
             'max_length': 4096,
             'min_length': 0,
         },
+        ('type_of_resource',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
+        ('size_of_resource',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
+        ('tier_of_resource',): {
+            'max_length': 255,
+            'min_length': 0,
+        },
     }
 
     additional_properties_type = None
@@ -100,6 +112,9 @@ class TaskRun(ModelNormal):
             'description': (str,),  # noqa: E501
             'status': (str,),  # noqa: E501
             'status_details': (str,),  # noqa: E501
+            'type_of_resource': (str,),  # noqa: E501
+            'size_of_resource': (str,),  # noqa: E501
+            'tier_of_resource': (str,),  # noqa: E501
             'execution': (Execution,),  # noqa: E501
             'task_version_summary': (TaskVersionSummary,),  # noqa: E501
             'logs': ([TaskRunLogs],),  # noqa: E501
@@ -125,6 +140,9 @@ class TaskRun(ModelNormal):
         'description': 'description',  # noqa: E501
         'status': 'status',  # noqa: E501
         'status_details': 'statusDetails',  # noqa: E501
+        'type_of_resource': 'typeOfResource',  # noqa: E501
+        'size_of_resource': 'sizeOfResource',  # noqa: E501
+        'tier_of_resource': 'tierOfResource',  # noqa: E501
         'execution': 'execution',  # noqa: E501
         'task_version_summary': 'taskVersionSummary',  # noqa: E501
         'logs': 'logs',  # noqa: E501
@@ -190,6 +208,9 @@ class TaskRun(ModelNormal):
             description (str): [optional]  # noqa: E501
             status (str): [optional] if omitted the server will use the default value of "Pending"  # noqa: E501
             status_details (str): [optional]  # noqa: E501
+            type_of_resource (str): [optional]  # noqa: E501
+            size_of_resource (str): [optional]  # noqa: E501
+            tier_of_resource (str): [optional]  # noqa: E501
             execution (Execution): [optional]  # noqa: E501
             task_version_summary (TaskVersionSummary): [optional]  # noqa: E501
             logs ([TaskRunLogs]): [optional]  # noqa: E501
