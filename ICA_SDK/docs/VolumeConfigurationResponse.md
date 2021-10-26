@@ -1,6 +1,5 @@
 # VolumeConfigurationResponse
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

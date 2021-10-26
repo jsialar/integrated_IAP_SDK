@@ -1,7 +1,6 @@
 # LaneLibraryResponse
 
 Defines the compact response model for library content in the lane
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

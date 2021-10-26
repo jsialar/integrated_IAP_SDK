@@ -1,14 +1,13 @@
 # SequencingAnalysisRunResults
 
 Data contract for analysis run results
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**demuxing_results** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Demuxing results of the analysis run | [optional] 
-**analysis_results** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Analysis results of the analysis run | [optional] 
-**launch_parameters_snapshot** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Snapshot of the analysis launch parameters | [optional] 
-**sample_mapping** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Sample mapping of the analysis run | [optional] 
+**demuxing_results** | [**object**](.md) | Demuxing results of the analysis run | [optional] 
+**analysis_results** | [**object**](.md) | Analysis results of the analysis run | [optional] 
+**launch_parameters_snapshot** | [**object**](.md) | Snapshot of the analysis launch parameters | [optional] 
+**sample_mapping** | [**object**](.md) | Sample mapping of the analysis run | [optional] 
 **sample_sheet_snapshot** | **str** | Snapshot of the sample sheet used in the analysis | [optional] 
 **created_by** | **str** | User that created the resource | [optional] 
 **modified_by** | **str** | User that last modified the resource | [optional] 

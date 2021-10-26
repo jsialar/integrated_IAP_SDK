@@ -1,7 +1,6 @@
 # SamplesDeliveryResponse
 
 Response of sample delivery
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

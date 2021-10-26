@@ -1,7 +1,6 @@
 # DirectUploadCredentials
 
 Defines the credentials for uploading to GDS directly
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

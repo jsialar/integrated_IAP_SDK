@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,18 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.job_status import JobStatus
-from ICA_SDK.model.object_store_access import ObjectStoreAccess
-from ICA_SDK.model.volume_life_cycle_settings import VolumeLifeCycleSettings
-globals()['JobStatus'] = JobStatus
-globals()['ObjectStoreAccess'] = ObjectStoreAccess
-globals()['VolumeLifeCycleSettings'] = VolumeLifeCycleSettings
-from ICA_SDK.model.create_volume_response import CreateVolumeResponse
-
+from ICA_SDK.models.create_volume_response import CreateVolumeResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestCreateVolumeResponse(unittest.TestCase):
     """CreateVolumeResponse unit test stubs"""
@@ -30,11 +28,61 @@ class TestCreateVolumeResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test CreateVolumeResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.create_volume_response.CreateVolumeResponse()  # noqa: E501
+        if include_optional :
+            return CreateVolumeResponse(
+                id = '0', 
+                name = '0', 
+                tenant_id = '0', 
+                sub_tenant_id = '0', 
+                urn = '0', 
+                root_folder_id = '0', 
+                root_key_prefix = '0', 
+                volume_configuration_name = '0', 
+                inherited_acl = [
+                    '0'
+                    ], 
+                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                created_by = '0', 
+                time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                modified_by = '0', 
+                job_status = 'None', 
+                metadata = None, 
+                life_cycle = ICA_SDK.models.volume_life_cycle_settings.VolumeLifeCycleSettings(
+                    grace_period_days = 56, 
+                    grace_period_end_action = 'None', ), 
+                import_session_id = '0', 
+                object_store_access = ICA_SDK.models.object_store_access.ObjectStoreAccess(
+                    aws_s3_temporary_upload_credentials = ICA_SDK.models.aws_s3_temporary_upload_credentials.AwsS3TemporaryUploadCredentials(
+                        access_key_id = '0', 
+                        secret_access_key = '0', 
+                        session_token = '0', 
+                        region = '0', 
+                        bucket_name = '0', 
+                        key_prefix = '0', 
+                        expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                    direct_upload_credentials = ICA_SDK.models.direct_upload_credentials.DirectUploadCredentials(
+                        prefix = '0', 
+                        volume_name = '0', 
+                        expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        file_creation_api_path = '0', 
+                        file_upload_api_path = '0', 
+                        upload_id = '0', ), 
+                    session_id = '0', )
+            )
+        else :
+            return CreateVolumeResponse(
+        )
+
     def testCreateVolumeResponse(self):
         """Test CreateVolumeResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = CreateVolumeResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

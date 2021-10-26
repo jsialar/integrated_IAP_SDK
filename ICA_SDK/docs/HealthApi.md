@@ -17,51 +17,70 @@ Returns the health status for all services.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import health_api
-from ICA_SDK.model.system_health_response import SystemHealthResponse
-from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = health_api.HealthApi(api_client)
-
-    # example, this endpoint has no required or optional parameters
+    api_instance = ICA_SDK.HealthApi(api_client)
+    
     try:
         # Returns the health status for all services.
         api_response = api_instance.service_health()
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling HealthApi->service_health: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.HealthApi(api_client)
+    
+    try:
+        # Returns the health status for all services.
+        api_response = api_instance.service_health()
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling HealthApi->service_health: %s\n" % e)
+```
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -78,7 +97,6 @@ This endpoint does not need any parameter.
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |

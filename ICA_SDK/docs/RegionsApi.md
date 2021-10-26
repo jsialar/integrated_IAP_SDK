@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **list_regions**
-> [Region] list_regions()
+> list[Region] list_regions(instrument_type=instrument_type, version=version)
 
 Get a list of available regions
 
@@ -17,64 +17,85 @@ Get a list of available regions
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import regions_api
-from ICA_SDK.model.region import Region
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = regions_api.RegionsApi(api_client)
-    instrument_type = "instrumentType_example" # str | Instrument type (optional)
-    version = "version_example" # str | Instrument version (optional)
+    api_instance = ICA_SDK.RegionsApi(api_client)
+    instrument_type = 'instrument_type_example' # str | Instrument type (optional)
+version = 'version_example' # str | Instrument version (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get a list of available regions
         api_response = api_instance.list_regions(instrument_type=instrument_type, version=version)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling RegionsApi->list_regions: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.RegionsApi(api_client)
+    instrument_type = 'instrument_type_example' # str | Instrument type (optional)
+version = 'version_example' # str | Instrument version (optional)
+
+    try:
+        # Get a list of available regions
+        api_response = api_instance.list_regions(instrument_type=instrument_type, version=version)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling RegionsApi->list_regions: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **instrument_type** | **str**| Instrument type | [optional]
- **version** | **str**| Instrument version | [optional]
+ **instrument_type** | **str**| Instrument type | [optional] 
+ **version** | **str**| Instrument version | [optional] 
 
 ### Return type
 
-[**[Region]**](Region.md)
+[**list[Region]**](Region.md)
 
 ### Authorization
 
@@ -84,7 +105,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |

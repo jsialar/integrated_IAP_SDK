@@ -1,10 +1,9 @@
 # FileResponse
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**volume_metadata** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Metadata about this file&#39;s volume | [optional] 
+**volume_metadata** | [**object**](.md) | Metadata about this file&#39;s volume | [optional] 
 **id** | **str** | A unique identifier for this File | [optional] 
 **name** | **str** | The name of this File | [optional] 
 **volume_id** | **str** | The unique identifier of the volume where the file resides | [optional] 
@@ -19,10 +18,10 @@ Name | Type | Description | Notes
 **created_by** | **str** | The creator of this File | [optional] 
 **time_modified** | **datetime** | The date &amp; time this File was updated, in GDS | [optional] 
 **modified_by** | **str** | The updator of this File | [optional] 
-**inherited_acl** | **[str]** | The inherited list of Id(s) that have access to this File | [optional] 
+**inherited_acl** | **list[str]** | The inherited list of Id(s) that have access to this File | [optional] 
 **urn** | **str** | The Universal Resource Name, unique to this File | [optional] 
 **size_in_bytes** | **int** | The File&#39;s Size in bytes | [optional] 
-**metadata** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Metadata about this File | [optional] 
+**metadata** | [**object**](.md) | Metadata about this File | [optional] 
 **is_uploaded** | **bool** | The current upload state of the File | [optional] 
 **archive_status** | [**ArchiveStatuses**](ArchiveStatuses.md) |  | [optional] 
 **time_archived** | **datetime** | The date &amp; time this File was archived | [optional] 

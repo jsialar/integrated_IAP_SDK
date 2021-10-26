@@ -1,7 +1,6 @@
 # ReadSequencingStats
 
 Defines the data transfer object (DTO) for creating ReadSequencingStats
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

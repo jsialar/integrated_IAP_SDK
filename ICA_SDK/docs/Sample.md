@@ -1,14 +1,13 @@
 # Sample
 
 Data contract for the full sample
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique object ID | [optional] 
 **urn** | **str** | URN of the object | [optional] 
 **href** | **str** | HREF to the object | [optional] 
-**analysis_datasets** | [**[AnalysisDatasetCompact]**](AnalysisDatasetCompact.md) | Analysis datasets of the sample | [optional] 
+**analysis_datasets** | [**list[AnalysisDatasetCompact]**](AnalysisDatasetCompact.md) | Analysis datasets of the sample | [optional] 
 **name** | **str** | Name of the sample | [optional] 
 **description** | **str** | Description of the sample | [optional] 
 **status** | **str** | Status of the sample | [optional] 
@@ -17,7 +16,7 @@ Name | Type | Description | Notes
 **project_name** | **str** | Project Name  Note: This field is an alias of DataAggregationGroup field until DataAggregationGroups is deprecated. | [optional] 
 **external_id** | **str** | Optional external ID associated with the sample | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

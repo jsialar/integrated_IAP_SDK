@@ -1,6 +1,5 @@
 # CompleteSessionRequest
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

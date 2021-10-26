@@ -1,7 +1,6 @@
 # SequencingRunGenome
 
 Genome involved in the sequencing run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

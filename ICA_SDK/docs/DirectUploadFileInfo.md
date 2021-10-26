@@ -1,7 +1,6 @@
 # DirectUploadFileInfo
 
 Direct upload information for a file
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.can_upload_response import CanUploadResponse
-
+from ICA_SDK.models.can_upload_response import CanUploadResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestCanUploadResponse(unittest.TestCase):
     """CanUploadResponse unit test stubs"""
@@ -24,11 +28,24 @@ class TestCanUploadResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test CanUploadResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.can_upload_response.CanUploadResponse()  # noqa: E501
+        if include_optional :
+            return CanUploadResponse(
+                can_upload = True
+            )
+        else :
+            return CanUploadResponse(
+        )
+
     def testCanUploadResponse(self):
         """Test CanUploadResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = CanUploadResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

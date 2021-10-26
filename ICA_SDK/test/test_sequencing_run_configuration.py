@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.sequencing_run_configuration import SequencingRunConfiguration
-
+from ICA_SDK.models.sequencing_run_configuration import SequencingRunConfiguration  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestSequencingRunConfiguration(unittest.TestCase):
     """SequencingRunConfiguration unit test stubs"""
@@ -24,11 +28,34 @@ class TestSequencingRunConfiguration(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test SequencingRunConfiguration
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.sequencing_run_configuration.SequencingRunConfiguration()  # noqa: E501
+        if include_optional :
+            return SequencingRunConfiguration(
+                instrument_type = '0', 
+                instrument_platform = '0', 
+                num_cycles_read1 = 56, 
+                num_cycles_read2 = 56, 
+                read_type = '0', 
+                num_cycles_index1 = 56, 
+                num_cycles_index2 = 56, 
+                use_custom_primer_for_read1 = True, 
+                use_custom_primer_for_read2 = True, 
+                use_custom_primer_for_index1 = True, 
+                use_custom_primer_for_index2 = True
+            )
+        else :
+            return SequencingRunConfiguration(
+        )
+
     def testSequencingRunConfiguration(self):
         """Test SequencingRunConfiguration"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = SequencingRunConfiguration()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

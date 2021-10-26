@@ -1,7 +1,6 @@
 # RegisterSampleDataRequest
 
 Request to register data associated with the given sample
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -14,7 +13,7 @@ Name | Type | Description | Notes
 **external_sample_id** | **str** | Optional external ID to associate with the sample (only when a new sample is being created) | [optional] 
 **external_project_id** | **str** | Optional external ID for the project associated with the sample (only when a new sample is being created) | [optional] 
 **external_analysis_run_id** | **str** | Optional external Id for the analysis run | [optional] 
-**analysis_datasets** | [**[CreateAnalysisDatasetParameters]**](CreateAnalysisDatasetParameters.md) | One or more analysis datasets that should be associated with the analysis | [optional] 
+**analysis_datasets** | [**list[CreateAnalysisDatasetParameters]**](CreateAnalysisDatasetParameters.md) | One or more analysis datasets that should be associated with the analysis | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

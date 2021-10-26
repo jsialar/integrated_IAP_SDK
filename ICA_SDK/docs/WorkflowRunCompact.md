@@ -1,7 +1,6 @@
 # WorkflowRunCompact
 
 Compact details of a workflow run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -24,7 +23,7 @@ Name | Type | Description | Notes
 **created_by** | **str** | User that created the resource | [optional] 
 **modified_by** | **str** | User that modified the resource | [optional] 
 **tenant_id** | **str** | Tenant ID the resource belongs to | [optional] 
-**acl** | **[str]** | Access control list of the resource | [optional] 
+**acl** | **list[str]** | Access control list of the resource | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

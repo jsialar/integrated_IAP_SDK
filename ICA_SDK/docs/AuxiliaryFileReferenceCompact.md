@@ -1,7 +1,6 @@
 # AuxiliaryFileReferenceCompact
 
 Compact model of auxiliary file reference
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

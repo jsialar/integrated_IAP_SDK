@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.input_stream_settings import InputStreamSettings
-
+from ICA_SDK.models.input_stream_settings import InputStreamSettings  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestInputStreamSettings(unittest.TestCase):
     """InputStreamSettings unit test stubs"""
@@ -24,11 +28,27 @@ class TestInputStreamSettings(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test InputStreamSettings
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.input_stream_settings.InputStreamSettings()  # noqa: E501
+        if include_optional :
+            return InputStreamSettings(
+                access_pattern = 'sequential', 
+                cache_size_gb = 5E+1, 
+                block_size_mb = 0, 
+                prefetch_blocks = 0
+            )
+        else :
+            return InputStreamSettings(
+        )
+
     def testInputStreamSettings(self):
         """Test InputStreamSettings"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = InputStreamSettings()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

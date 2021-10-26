@@ -1,6 +1,5 @@
 # ContainerState
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

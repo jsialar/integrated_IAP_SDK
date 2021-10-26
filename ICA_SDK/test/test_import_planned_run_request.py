@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.default_kit import DefaultKit
-globals()['DefaultKit'] = DefaultKit
-from ICA_SDK.model.import_planned_run_request import ImportPlannedRunRequest
-
+from ICA_SDK.models.import_planned_run_request import ImportPlannedRunRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestImportPlannedRunRequest(unittest.TestCase):
     """ImportPlannedRunRequest unit test stubs"""
@@ -26,11 +28,35 @@ class TestImportPlannedRunRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test ImportPlannedRunRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.import_planned_run_request.ImportPlannedRunRequest()  # noqa: E501
+        if include_optional :
+            return ImportPlannedRunRequest(
+                sample_sheet_content = '0', 
+                resolve_prep_kits = True, 
+                resolve_prep_kits_by_name = True, 
+                resolve_index_sequence_info = True, 
+                enable_warnings_for_missing_cloud_sections = True, 
+                default_kits = [
+                    ICA_SDK.models.default_kit.DefaultKit(
+                        lane_number = 56, 
+                        library_prep_kit_id = '0', 
+                        index_adapter_kit_id = '0', )
+                    ]
+            )
+        else :
+            return ImportPlannedRunRequest(
+                sample_sheet_content = '0',
+        )
+
     def testImportPlannedRunRequest(self):
         """Test ImportPlannedRunRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = ImportPlannedRunRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

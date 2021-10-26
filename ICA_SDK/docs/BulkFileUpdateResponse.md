@@ -1,10 +1,9 @@
 # BulkFileUpdateResponse
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items_failed** | [**[BulkUpdateFailedItem]**](BulkUpdateFailedItem.md) | Items failed to be updated with error details | [optional] 
+**items_failed** | [**list[BulkUpdateFailedItem]**](BulkUpdateFailedItem.md) | Items failed to be updated with error details | [optional] 
 **items_updated_count** | **int** | Total items successfully updated | [optional] 
 **items_failed_count** | **int** | Total items failed to be updated | [optional] 
 

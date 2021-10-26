@@ -1,7 +1,6 @@
 # CloseRunUploadSessionRequest
 
 Request to refresh a sequencing run upload
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,7 +1,6 @@
 # CanUploadResponse
 
 Represents the returned data from the sequencing run canUpload.
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

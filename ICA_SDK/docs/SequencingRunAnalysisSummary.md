@@ -1,7 +1,6 @@
 # SequencingRunAnalysisSummary
 
 Summary of a sequencing run analysis
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

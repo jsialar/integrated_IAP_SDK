@@ -1,6 +1,5 @@
 # CreateVolumeConfigurationRequest
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

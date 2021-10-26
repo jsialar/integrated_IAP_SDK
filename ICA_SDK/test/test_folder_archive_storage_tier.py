@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.folder_archive_storage_tier import FolderArchiveStorageTier
-
+from ICA_SDK.models.folder_archive_storage_tier import FolderArchiveStorageTier  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestFolderArchiveStorageTier(unittest.TestCase):
     """FolderArchiveStorageTier unit test stubs"""
@@ -24,11 +28,23 @@ class TestFolderArchiveStorageTier(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test FolderArchiveStorageTier
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.folder_archive_storage_tier.FolderArchiveStorageTier()  # noqa: E501
+        if include_optional :
+            return FolderArchiveStorageTier(
+            )
+        else :
+            return FolderArchiveStorageTier(
+        )
+
     def testFolderArchiveStorageTier(self):
         """Test FolderArchiveStorageTier"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = FolderArchiveStorageTier()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

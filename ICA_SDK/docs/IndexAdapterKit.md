@@ -1,7 +1,6 @@
 # IndexAdapterKit
 
 Data contract for the full index adapter kit
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -14,15 +13,15 @@ Name | Type | Description | Notes
 **organization** | **str** | Name of organization owning the kit | [optional] 
 **is_illumina** | **bool** | Indicates whether or not the current index adapter kit is from Illumina | [optional] 
 **description** | **str** | Description of the kit | [optional] 
-**allowed_index_strategies** | **[str]** | List of allowed index strategies | [optional] 
+**allowed_index_strategies** | **list[str]** | List of allowed index strategies | [optional] 
 **adapter_sequence_read1** | **str** | Read 1 adapter sequence | [optional] 
 **adapter_sequence_read2** | **str** | Read 2 adapter sequence | [optional] 
 **settings** | [**IndexAdapterKitSettingsResponse**](IndexAdapterKitSettingsResponse.md) |  | [optional] 
 **checksum** | **str** | Stores the checksum of IndexAdapterKit | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
-**index_sequences** | [**[IndexSequence]**](IndexSequence.md) | Index sequences of the kit | [optional] 
-**compatible_library_prep_kits** | [**[LibraryPrepKitCompact]**](LibraryPrepKitCompact.md) | Compatible library preparation kits for this index adapter kit | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
+**index_sequences** | [**list[IndexSequence]**](IndexSequence.md) | Index sequences of the kit | [optional] 
+**compatible_library_prep_kits** | [**list[LibraryPrepKitCompact]**](LibraryPrepKitCompact.md) | Compatible library preparation kits for this index adapter kit | [optional] 
 **num_cycles_index1** | **int** | Number of cycles in index 1 | [optional] 
 **num_cycles_index2** | **int** | Number of cycles in index 2 | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 

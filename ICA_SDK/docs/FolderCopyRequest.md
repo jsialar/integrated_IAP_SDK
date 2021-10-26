@@ -1,6 +1,5 @@
 # FolderCopyRequest
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,7 +1,6 @@
 # ObjectStoreAccess
 
 ObjectStoreAccess to get the temporaryCredentials per provider
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

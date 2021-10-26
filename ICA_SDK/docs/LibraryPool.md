@@ -1,19 +1,18 @@
 # LibraryPool
 
 Data contract for library pool
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique object ID | [optional] 
 **urn** | **str** | URN of the object | [optional] 
 **href** | **str** | HREF to the object | [optional] 
-**contained_libraries** | [**[LibraryCompact]**](LibraryCompact.md) | List of libraries contained in the pool | [optional] 
+**contained_libraries** | [**list[LibraryCompact]**](LibraryCompact.md) | List of libraries contained in the pool | [optional] 
 **name** | **str** | Name of the library pool | [optional] 
 **description** | **str** | Description of the library pool | [optional] 
 **status** | **str** | Status of the library pool | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

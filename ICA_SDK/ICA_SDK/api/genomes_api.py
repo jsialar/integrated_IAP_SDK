@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,26 +10,18 @@
 """
 
 
-import re  # noqa: F401
-import sys  # noqa: F401
+from __future__ import absolute_import
 
-from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
-from ICA_SDK.model_utils import (  # noqa: F401
-    check_allowed_values,
-    check_validations,
-    date,
-    datetime,
-    file_type,
-    none_type,
-    validate_and_convert_types
+import re  # noqa: F401
+
+# python 2 and python 3 compatibility library
+import six
+
+from ICA_SDK.api_client import ApiClient
+from ICA_SDK.exceptions import (  # noqa: F401
+    ApiTypeError,
+    ApiValueError
 )
-from ICA_SDK.model.create_genome_request import CreateGenomeRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.genome import Genome
-from ICA_SDK.model.genome_compact_genome_sort_fields_paged_items import GenomeCompactGenomeSortFieldsPagedItems
-from ICA_SDK.model.no_content_result import NoContentResult
-from ICA_SDK.model.update_acl_request import UpdateAclRequest
-from ICA_SDK.model.update_genome_request import UpdateGenomeRequest
 
 
 class GenomesApi(object):
@@ -42,1045 +36,1001 @@ class GenomesApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-        def __create_genome(
-            self,
-            **kwargs
-        ):
-            """Create a reference genome.  # noqa: E501
+    def create_genome(self, **kwargs):  # noqa: E501
+        """Create a reference genome.  # noqa: E501
 
-            Create a reference genome, and return information about that reference genome.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        Create a reference genome, and return information about that reference genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_genome(async_req=True)
+        >>> result = thread.get()
 
-            >>> thread = api.create_genome(async_req=True)
-            >>> result = thread.get()
+        :param async_req bool: execute request asynchronously
+        :param CreateGenomeRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Genome
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.create_genome_with_http_info(**kwargs)  # noqa: E501
 
+    def create_genome_with_http_info(self, **kwargs):  # noqa: E501
+        """Create a reference genome.  # noqa: E501
 
-            Keyword Args:
-                body (CreateGenomeRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        Create a reference genome, and return information about that reference genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_genome_with_http_info(async_req=True)
+        >>> result = thread.get()
 
-            Returns:
-                Genome
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            return self.call_with_http_info(**kwargs)
+        :param async_req bool: execute request asynchronously
+        :param CreateGenomeRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Genome, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
 
-        self.create_genome = _Endpoint(
-            settings={
-                'response_type': (Genome,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes',
-                'operation_id': 'create_genome',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'body',
-                ],
-                'required': [],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'body':
-                        (CreateGenomeRequest,),
-                },
-                'attribute_map': {
-                },
-                'location_map': {
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__create_genome
+        local_var_params = locals()
+
+        all_params = [
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __delete_genome(
-            self,
-            genome_id,
-            **kwargs
-        ):
-            """Delete genome.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_genome" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
 
-            For a given genome ID, delete the genome.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.delete_genome(genome_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
 
-            Args:
-                genome_id (str): ID of the genome
+        query_params = []
 
-            Keyword Args:
-                force (bool): Force delete the genome. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                NoContentResult
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['genome_id'] = \
-                genome_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.delete_genome = _Endpoint(
-            settings={
-                'response_type': (NoContentResult,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes/{genomeId}',
-                'operation_id': 'delete_genome',
-                'http_method': 'DELETE',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'genome_id',
-                    'force',
-                ],
-                'required': [
-                    'genome_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'genome_id':
-                        (str,),
-                    'force':
-                        (bool,),
-                },
-                'attribute_map': {
-                    'genome_id': 'genomeId',
-                    'force': 'force',
-                },
-                'location_map': {
-                    'genome_id': 'path',
-                    'force': 'query',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__delete_genome
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Genome',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def delete_genome(self, genome_id, **kwargs):  # noqa: E501
+        """Delete genome.  # noqa: E501
+
+        For a given genome ID, delete the genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.delete_genome(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: ID of the genome (required)
+        :param bool force: Force delete the genome
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: NoContentResult
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.delete_genome_with_http_info(genome_id, **kwargs)  # noqa: E501
+
+    def delete_genome_with_http_info(self, genome_id, **kwargs):  # noqa: E501
+        """Delete genome.  # noqa: E501
+
+        For a given genome ID, delete the genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.delete_genome_with_http_info(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: ID of the genome (required)
+        :param bool force: Force delete the genome
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(NoContentResult, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'genome_id',
+            'force'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_genome(
-            self,
-            genome_id,
-            **kwargs
-        ):
-            """Get genome details.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_genome" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'genome_id' is set
+        if self.api_client.client_side_validation and ('genome_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['genome_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `genome_id` when calling `delete_genome`")  # noqa: E501
 
-            For a given genome ID, return information about that genome.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_genome(genome_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'genome_id' in local_var_params:
+            path_params['genomeId'] = local_var_params['genome_id']  # noqa: E501
 
-            Args:
-                genome_id (str): The ID of the requested genome.
+        query_params = []
+        if 'force' in local_var_params and local_var_params['force'] is not None:  # noqa: E501
+            query_params.append(('force', local_var_params['force']))  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                Genome
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['genome_id'] = \
-                genome_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_genome = _Endpoint(
-            settings={
-                'response_type': (Genome,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes/{genomeId}',
-                'operation_id': 'get_genome',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'genome_id',
-                ],
-                'required': [
-                    'genome_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'genome_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'genome_id': 'genomeId',
-                },
-                'location_map': {
-                    'genome_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_genome
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes/{genomeId}', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='NoContentResult',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_genome(self, genome_id, **kwargs):  # noqa: E501
+        """Get genome details.  # noqa: E501
+
+        For a given genome ID, return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_genome(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: The ID of the requested genome. (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Genome
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_genome_with_http_info(genome_id, **kwargs)  # noqa: E501
+
+    def get_genome_with_http_info(self, genome_id, **kwargs):  # noqa: E501
+        """Get genome details.  # noqa: E501
+
+        For a given genome ID, return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_genome_with_http_info(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: The ID of the requested genome. (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Genome, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'genome_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __list_genomes(
-            self,
-            **kwargs
-        ):
-            """Get a list of genomes.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_genome" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'genome_id' is set
+        if self.api_client.client_side_validation and ('genome_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['genome_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `genome_id` when calling `get_genome`")  # noqa: E501
 
-            Get a list of genomes accessible by the current request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.list_genomes(async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'genome_id' in local_var_params:
+            path_params['genomeId'] = local_var_params['genome_id']  # noqa: E501
 
+        query_params = []
 
-            Keyword Args:
-                analysis_version_definition_id (str): Filter genomes by ID of AnalysisVersionDefinition. [optional]
-                dragen_version (str): Filter genomes by DragenVersion. [optional]
-                name ([str]): Filter genomes by comma-separated Name values. [optional]
-                include ([str]): Include flags to specify what is included in the response. [optional]
-                tenant_ids ([str]): Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids. [optional]
-                page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
-                page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
-                sort (str): Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).. [optional] if omitted the server will use the default value of "timeCreated asc"
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                GenomeCompactGenomeSortFieldsPagedItems
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.list_genomes = _Endpoint(
-            settings={
-                'response_type': (GenomeCompactGenomeSortFieldsPagedItems,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes',
-                'operation_id': 'list_genomes',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                    'dragen_version',
-                    'name',
-                    'include',
-                    'tenant_ids',
-                    'page_size',
-                    'page_token',
-                    'sort',
-                ],
-                'required': [],
-                'nullable': [
-                ],
-                'enum': [
-                    'include',
-                ],
-                'validation': [
-                    'analysis_version_definition_id',
-                    'dragen_version',
-                ]
-            },
-            root_map={
-                'validations': {
-                    ('analysis_version_definition_id',): {
-                        'max_length': 50,
-                        'min_length': 0,
-                    },
-                    ('dragen_version',): {
-                        'max_length': 50,
-                        'min_length': 0,
-                    },
-                },
-                'allowed_values': {
-                    ('include',): {
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
 
-                        "TOTALITEMCOUNT": "TotalItemCount"
-                    },
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                    'dragen_version':
-                        (str,),
-                    'name':
-                        ([str],),
-                    'include':
-                        ([str],),
-                    'tenant_ids':
-                        ([str],),
-                    'page_size':
-                        (int,),
-                    'page_token':
-                        (str,),
-                    'sort':
-                        (str,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                    'dragen_version': 'dragenVersion',
-                    'name': 'name',
-                    'include': 'include',
-                    'tenant_ids': 'tenantIds',
-                    'page_size': 'pageSize',
-                    'page_token': 'pageToken',
-                    'sort': 'sort',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'query',
-                    'dragen_version': 'query',
-                    'name': 'query',
-                    'include': 'query',
-                    'tenant_ids': 'query',
-                    'page_size': 'query',
-                    'page_token': 'query',
-                    'sort': 'query',
-                },
-                'collection_format_map': {
-                    'name': 'csv',
-                    'include': 'csv',
-                    'tenant_ids': 'csv',
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__list_genomes
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes/{genomeId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Genome',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def list_genomes(self, **kwargs):  # noqa: E501
+        """Get a list of genomes.  # noqa: E501
+
+        Get a list of genomes accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_genomes(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: Filter genomes by ID of AnalysisVersionDefinition
+        :param str dragen_version: Filter genomes by DragenVersion
+        :param list[str] name: Filter genomes by comma-separated Name values
+        :param list[str] include: Include flags to specify what is included in the response
+        :param list[str] tenant_ids: Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids
+        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
+        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
+        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: GenomeCompactGenomeSortFieldsPagedItems
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.list_genomes_with_http_info(**kwargs)  # noqa: E501
+
+    def list_genomes_with_http_info(self, **kwargs):  # noqa: E501
+        """Get a list of genomes.  # noqa: E501
+
+        Get a list of genomes accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_genomes_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: Filter genomes by ID of AnalysisVersionDefinition
+        :param str dragen_version: Filter genomes by DragenVersion
+        :param list[str] name: Filter genomes by comma-separated Name values
+        :param list[str] include: Include flags to specify what is included in the response
+        :param list[str] tenant_ids: Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids
+        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
+        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
+        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(GenomeCompactGenomeSortFieldsPagedItems, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id',
+            'dragen_version',
+            'name',
+            'include',
+            'tenant_ids',
+            'page_size',
+            'page_token',
+            'sort'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __merge_genome_acl(
-            self,
-            genome_id,
-            **kwargs
-        ):
-            """Merge the access control list of a genome with the input access control list.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method list_genomes" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
 
-            Merge the access control list of a given genome with the input access control list, and return information about that genome.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' in local_var_params and  # noqa: E501
+                                                        len(local_var_params['analysis_version_definition_id']) > 50):  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `analysis_version_definition_id` when calling `list_genomes`, length must be less than or equal to `50`")  # noqa: E501
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' in local_var_params and  # noqa: E501
+                                                        len(local_var_params['analysis_version_definition_id']) < 0):  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `analysis_version_definition_id` when calling `list_genomes`, length must be greater than or equal to `0`")  # noqa: E501
+        if self.api_client.client_side_validation and ('dragen_version' in local_var_params and  # noqa: E501
+                                                        len(local_var_params['dragen_version']) > 50):  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `dragen_version` when calling `list_genomes`, length must be less than or equal to `50`")  # noqa: E501
+        if self.api_client.client_side_validation and ('dragen_version' in local_var_params and  # noqa: E501
+                                                        len(local_var_params['dragen_version']) < 0):  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `dragen_version` when calling `list_genomes`, length must be greater than or equal to `0`")  # noqa: E501
+        collection_formats = {}
 
-            >>> thread = api.merge_genome_acl(genome_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
 
-            Args:
-                genome_id (str):
+        query_params = []
+        if 'analysis_version_definition_id' in local_var_params and local_var_params['analysis_version_definition_id'] is not None:  # noqa: E501
+            query_params.append(('analysisVersionDefinitionId', local_var_params['analysis_version_definition_id']))  # noqa: E501
+        if 'dragen_version' in local_var_params and local_var_params['dragen_version'] is not None:  # noqa: E501
+            query_params.append(('dragenVersion', local_var_params['dragen_version']))  # noqa: E501
+        if 'name' in local_var_params and local_var_params['name'] is not None:  # noqa: E501
+            query_params.append(('name', local_var_params['name']))  # noqa: E501
+            collection_formats['name'] = 'csv'  # noqa: E501
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
+        if 'tenant_ids' in local_var_params and local_var_params['tenant_ids'] is not None:  # noqa: E501
+            query_params.append(('tenantIds', local_var_params['tenant_ids']))  # noqa: E501
+            collection_formats['tenantIds'] = 'csv'  # noqa: E501
+        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
+            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
+        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
+            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
+        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
+            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                Genome
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['genome_id'] = \
-                genome_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.merge_genome_acl = _Endpoint(
-            settings={
-                'response_type': (Genome,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes/{genomeId}/acl',
-                'operation_id': 'merge_genome_acl',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'genome_id',
-                    'body',
-                ],
-                'required': [
-                    'genome_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'genome_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'genome_id': 'genomeId',
-                },
-                'location_map': {
-                    'genome_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__merge_genome_acl
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='GenomeCompactGenomeSortFieldsPagedItems',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def merge_genome_acl(self, genome_id, **kwargs):  # noqa: E501
+        """Merge the access control list of a genome with the input access control list.  # noqa: E501
+
+        Merge the access control list of a given genome with the input access control list, and return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.merge_genome_acl(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Genome
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.merge_genome_acl_with_http_info(genome_id, **kwargs)  # noqa: E501
+
+    def merge_genome_acl_with_http_info(self, genome_id, **kwargs):  # noqa: E501
+        """Merge the access control list of a genome with the input access control list.  # noqa: E501
+
+        Merge the access control list of a given genome with the input access control list, and return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.merge_genome_acl_with_http_info(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Genome, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'genome_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __remove_genome_acl(
-            self,
-            genome_id,
-            **kwargs
-        ):
-            """Remove the access control list of a genome.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method merge_genome_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'genome_id' is set
+        if self.api_client.client_side_validation and ('genome_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['genome_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `genome_id` when calling `merge_genome_acl`")  # noqa: E501
 
-            Remove the access control list of a given genome, and return information about that genome.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.remove_genome_acl(genome_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'genome_id' in local_var_params:
+            path_params['genomeId'] = local_var_params['genome_id']  # noqa: E501
 
-            Args:
-                genome_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                Genome
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['genome_id'] = \
-                genome_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.remove_genome_acl = _Endpoint(
-            settings={
-                'response_type': (Genome,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes/{genomeId}/acl',
-                'operation_id': 'remove_genome_acl',
-                'http_method': 'DELETE',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'genome_id',
-                    'body',
-                ],
-                'required': [
-                    'genome_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'genome_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'genome_id': 'genomeId',
-                },
-                'location_map': {
-                    'genome_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__remove_genome_acl
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes/{genomeId}/acl', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Genome',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def remove_genome_acl(self, genome_id, **kwargs):  # noqa: E501
+        """Remove the access control list of a genome.  # noqa: E501
+
+        Remove the access control list of a given genome, and return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.remove_genome_acl(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Genome
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.remove_genome_acl_with_http_info(genome_id, **kwargs)  # noqa: E501
+
+    def remove_genome_acl_with_http_info(self, genome_id, **kwargs):  # noqa: E501
+        """Remove the access control list of a genome.  # noqa: E501
+
+        Remove the access control list of a given genome, and return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.remove_genome_acl_with_http_info(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Genome, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'genome_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __replace_genome_acl(
-            self,
-            genome_id,
-            **kwargs
-        ):
-            """Replace the access control list of a genome with the input access control list.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_genome_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'genome_id' is set
+        if self.api_client.client_side_validation and ('genome_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['genome_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `genome_id` when calling `remove_genome_acl`")  # noqa: E501
 
-            Replace the access control list of a genome with the input access control list, and return information about that genome.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.replace_genome_acl(genome_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'genome_id' in local_var_params:
+            path_params['genomeId'] = local_var_params['genome_id']  # noqa: E501
 
-            Args:
-                genome_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                Genome
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['genome_id'] = \
-                genome_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.replace_genome_acl = _Endpoint(
-            settings={
-                'response_type': (Genome,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes/{genomeId}/acl',
-                'operation_id': 'replace_genome_acl',
-                'http_method': 'PUT',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'genome_id',
-                    'body',
-                ],
-                'required': [
-                    'genome_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'genome_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'genome_id': 'genomeId',
-                },
-                'location_map': {
-                    'genome_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__replace_genome_acl
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes/{genomeId}/acl', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Genome',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def replace_genome_acl(self, genome_id, **kwargs):  # noqa: E501
+        """Replace the access control list of a genome with the input access control list.  # noqa: E501
+
+        Replace the access control list of a genome with the input access control list, and return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.replace_genome_acl(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Genome
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.replace_genome_acl_with_http_info(genome_id, **kwargs)  # noqa: E501
+
+    def replace_genome_acl_with_http_info(self, genome_id, **kwargs):  # noqa: E501
+        """Replace the access control list of a genome with the input access control list.  # noqa: E501
+
+        Replace the access control list of a genome with the input access control list, and return information about that genome.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.replace_genome_acl_with_http_info(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Genome, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'genome_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __update_genome(
-            self,
-            genome_id,
-            **kwargs
-        ):
-            """Update genome details.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method replace_genome_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'genome_id' is set
+        if self.api_client.client_side_validation and ('genome_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['genome_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `genome_id` when calling `replace_genome_acl`")  # noqa: E501
 
-            For a given genome ID, update the genome details.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.update_genome(genome_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'genome_id' in local_var_params:
+            path_params['genomeId'] = local_var_params['genome_id']  # noqa: E501
 
-            Args:
-                genome_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateGenomeRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                Genome
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['genome_id'] = \
-                genome_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.update_genome = _Endpoint(
-            settings={
-                'response_type': (Genome,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/genomes/{genomeId}',
-                'operation_id': 'update_genome',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'genome_id',
-                    'body',
-                ],
-                'required': [
-                    'genome_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'genome_id':
-                        (str,),
-                    'body':
-                        (UpdateGenomeRequest,),
-                },
-                'attribute_map': {
-                    'genome_id': 'genomeId',
-                },
-                'location_map': {
-                    'genome_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__update_genome
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes/{genomeId}/acl', 'PUT',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Genome',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def update_genome(self, genome_id, **kwargs):  # noqa: E501
+        """Update genome details.  # noqa: E501
+
+        For a given genome ID, update the genome details.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_genome(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateGenomeRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Genome
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.update_genome_with_http_info(genome_id, **kwargs)  # noqa: E501
+
+    def update_genome_with_http_info(self, genome_id, **kwargs):  # noqa: E501
+        """Update genome details.  # noqa: E501
+
+        For a given genome ID, update the genome details.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_genome_with_http_info(genome_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str genome_id: (required)
+        :param UpdateGenomeRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(Genome, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'genome_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_genome" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'genome_id' is set
+        if self.api_client.client_side_validation and ('genome_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['genome_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `genome_id` when calling `update_genome`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'genome_id' in local_var_params:
+            path_params['genomeId'] = local_var_params['genome_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/genomes/{genomeId}', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='Genome',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)

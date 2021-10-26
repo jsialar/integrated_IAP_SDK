@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.file_life_cycle_settings import FileLifeCycleSettings
-globals()['FileLifeCycleSettings'] = FileLifeCycleSettings
-from ICA_SDK.model.bulk_file_update_item import BulkFileUpdateItem
-
+from ICA_SDK.models.bulk_file_update_item import BulkFileUpdateItem  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestBulkFileUpdateItem(unittest.TestCase):
     """BulkFileUpdateItem unit test stubs"""
@@ -26,11 +28,32 @@ class TestBulkFileUpdateItem(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test BulkFileUpdateItem
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.bulk_file_update_item.BulkFileUpdateItem()  # noqa: E501
+        if include_optional :
+            return BulkFileUpdateItem(
+                id = '0', 
+                metadata = None, 
+                format = '0', 
+                format_edam = '0', 
+                life_cycle = ICA_SDK.models.file_life_cycle_settings.FileLifeCycleSettings(
+                    time_grace_period_ends = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    time_to_be_archived = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    time_to_be_deleted = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    archive_storage_tier = 'Archive', )
+            )
+        else :
+            return BulkFileUpdateItem(
+        )
+
     def testBulkFileUpdateItem(self):
         """Test BulkFileUpdateItem"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = BulkFileUpdateItem()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

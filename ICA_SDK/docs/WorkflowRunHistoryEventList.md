@@ -1,10 +1,9 @@
 # WorkflowRunHistoryEventList
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**[WorkflowRunHistoryEvent]**](WorkflowRunHistoryEvent.md) | Items in paged list | [optional] 
+**items** | [**list[WorkflowRunHistoryEvent]**](WorkflowRunHistoryEvent.md) | Items in paged list | [optional] 
 **item_count** | **int** | Number of items included in the page | [optional] 
 **first_page_token** | **str** | PageToken for first paged list | [optional] 
 **next_page_token** | **str** | PageToken for the next paged list | [optional] 

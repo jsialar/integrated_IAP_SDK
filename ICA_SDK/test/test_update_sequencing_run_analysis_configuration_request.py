@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.sample_setting_entry import SampleSettingEntry
-globals()['SampleSettingEntry'] = SampleSettingEntry
-from ICA_SDK.model.update_sequencing_run_analysis_configuration_request import UpdateSequencingRunAnalysisConfigurationRequest
-
+from ICA_SDK.models.update_sequencing_run_analysis_configuration_request import UpdateSequencingRunAnalysisConfigurationRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestUpdateSequencingRunAnalysisConfigurationRequest(unittest.TestCase):
     """UpdateSequencingRunAnalysisConfigurationRequest unit test stubs"""
@@ -26,11 +28,32 @@ class TestUpdateSequencingRunAnalysisConfigurationRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test UpdateSequencingRunAnalysisConfigurationRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.update_sequencing_run_analysis_configuration_request.UpdateSequencingRunAnalysisConfigurationRequest()  # noqa: E501
+        if include_optional :
+            return UpdateSequencingRunAnalysisConfigurationRequest(
+                name = '0', 
+                description = '0', 
+                analysis_version_definition_id = '0', 
+                settings = None, 
+                sample_settings = [
+                    ICA_SDK.models.sample_setting_entry.SampleSettingEntry(
+                        sample_id = '0', 
+                        settings = ICA_SDK.models.settings.settings(), )
+                    ]
+            )
+        else :
+            return UpdateSequencingRunAnalysisConfigurationRequest(
+        )
+
     def testUpdateSequencingRunAnalysisConfigurationRequest(self):
         """Test UpdateSequencingRunAnalysisConfigurationRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = UpdateSequencingRunAnalysisConfigurationRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

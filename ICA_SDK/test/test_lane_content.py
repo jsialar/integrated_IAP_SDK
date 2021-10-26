@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.lane_library import LaneLibrary
-globals()['LaneLibrary'] = LaneLibrary
-from ICA_SDK.model.lane_content import LaneContent
-
+from ICA_SDK.models.lane_content import LaneContent  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestLaneContent(unittest.TestCase):
     """LaneContent unit test stubs"""
@@ -26,11 +28,44 @@ class TestLaneContent(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test LaneContent
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.lane_content.LaneContent()  # noqa: E501
+        if include_optional :
+            return LaneContent(
+                lane_number = 56, 
+                same_as_lane_number = 56, 
+                adapter_sequence_read1 = '0', 
+                adapter_sequence_read2 = '0', 
+                lane_libraries = [
+                    ICA_SDK.models.lane_library.LaneLibrary(
+                        sample_name = '0', 
+                        sample_urn = '0', 
+                        project_name = '0', 
+                        library_name = '0', 
+                        library_urn = '0', 
+                        adapter_sequence_read1 = '0', 
+                        adapter_sequence_read2 = '0', 
+                        index1_sequence = '0', 
+                        index2_sequence = '0', 
+                        index_container_position = '0', 
+                        index1_name = '0', 
+                        index2_name = '0', 
+                        library_prep_kit_urn = '0', 
+                        index_adapter_kit_urn = '0', )
+                    ]
+            )
+        else :
+            return LaneContent(
+        )
+
     def testLaneContent(self):
         """Test LaneContent"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = LaneContent()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

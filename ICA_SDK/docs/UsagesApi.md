@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **get_usage**
-> UsageResponse get_usage()
+> UsageResponse get_usage(periods=periods)
 
 Get current tenant's usage detail by period.  Default returns current period usage data. 
 
@@ -19,59 +19,78 @@ This endpoint provides the ability for the user to get the aggregated usage data
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import usages_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.usage_response import UsageResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = usages_api.UsagesApi(api_client)
-    periods = 1 # int |  (optional)
+    api_instance = ICA_SDK.UsagesApi(api_client)
+    periods = 56 # int |  (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get current tenant's usage detail by period.  Default returns current period usage data. 
         api_response = api_instance.get_usage(periods=periods)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling UsagesApi->get_usage: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.UsagesApi(api_client)
+    periods = 56 # int |  (optional)
+
+    try:
+        # Get current tenant's usage detail by period.  Default returns current period usage data. 
+        api_response = api_instance.get_usage(periods=periods)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling UsagesApi->get_usage: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **periods** | **int**|  | [optional]
+ **periods** | **int**|  | [optional] 
 
 ### Return type
 
@@ -85,7 +104,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -99,7 +117,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_usage_details**
-> UsageResponse get_usage_details()
+> UsageResponse get_usage_details(period_id=period_id)
 
 Get current tenant's usage detail by period.  Default returns current period usage data. 
 
@@ -108,59 +126,78 @@ This endpoint provides the billing details for specified period id. Summarize ea
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import usages_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.usage_response import UsageResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = usages_api.UsagesApi(api_client)
-    period_id = 1 # int |  (optional)
+    api_instance = ICA_SDK.UsagesApi(api_client)
+    period_id = 56 # int |  (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get current tenant's usage detail by period.  Default returns current period usage data. 
         api_response = api_instance.get_usage_details(period_id=period_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling UsagesApi->get_usage_details: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.UsagesApi(api_client)
+    period_id = 56 # int |  (optional)
+
+    try:
+        # Get current tenant's usage detail by period.  Default returns current period usage data. 
+        api_response = api_instance.get_usage_details(period_id=period_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling UsagesApi->get_usage_details: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **period_id** | **int**|  | [optional]
+ **period_id** | **int**|  | [optional] 
 
 ### Return type
 
@@ -174,7 +211,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -188,7 +224,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_usage_periods**
-> UsageResponse get_usage_periods()
+> UsageResponse get_usage_periods(limit=limit)
 
 Get periods detail info 
 
@@ -197,59 +233,78 @@ This endpoint provides the periods details
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import usages_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.usage_response import UsageResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = usages_api.UsagesApi(api_client)
-    limit = 26 # int |  (optional) if omitted the server will use the default value of 26
+    api_instance = ICA_SDK.UsagesApi(api_client)
+    limit = 26 # int |  (optional) (default to 26)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get periods detail info 
         api_response = api_instance.get_usage_periods(limit=limit)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling UsagesApi->get_usage_periods: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.UsagesApi(api_client)
+    limit = 26 # int |  (optional) (default to 26)
+
+    try:
+        # Get periods detail info 
+        api_response = api_instance.get_usage_periods(limit=limit)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling UsagesApi->get_usage_periods: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **int**|  | [optional] if omitted the server will use the default value of 26
+ **limit** | **int**|  | [optional] [default to 26]
 
 ### Return type
 
@@ -263,7 +318,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |

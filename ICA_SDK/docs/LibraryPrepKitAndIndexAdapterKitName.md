@@ -1,7 +1,6 @@
 # LibraryPrepKitAndIndexAdapterKitName
 
 Library prep kit and index adapter kit name
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,7 +1,6 @@
 # FileUnarchiveRequest
 
 FileUnarchiveRequest to specify the RestoreSpeed
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

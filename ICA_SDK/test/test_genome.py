@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.genome import Genome
-
+from ICA_SDK.models.genome import Genome  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestGenome(unittest.TestCase):
     """Genome unit test stubs"""
@@ -24,11 +28,55 @@ class TestGenome(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test Genome
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.genome.Genome()  # noqa: E501
+        if include_optional :
+            return Genome(
+                id = '0', 
+                urn = '0', 
+                href = '0', 
+                name = '0', 
+                display_name = '0', 
+                order = 56, 
+                organization = '0', 
+                description = '0', 
+                status = '0', 
+                species = '0', 
+                source = '0', 
+                build = '0', 
+                dragen_version = '0', 
+                data_location_urn = '0', 
+                genome_format = '0', 
+                settings = None, 
+                source_file_metadata = None, 
+                fasta_file_urn = '0', 
+                is_application_specific = True, 
+                is_illumina = True, 
+                checksum = '0', 
+                sub_tenant_id = '0', 
+                acl = [
+                    '0'
+                    ], 
+                tenant_id = '0', 
+                tenant_name = '0', 
+                created_by_client_id = '0', 
+                created_by = '0', 
+                modified_by = '0', 
+                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+            )
+        else :
+            return Genome(
+        )
+
     def testGenome(self):
         """Test Genome"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = Genome()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

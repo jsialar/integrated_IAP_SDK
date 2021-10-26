@@ -1,7 +1,6 @@
 # AccessTokenRequest
 
 Access token passed into an api request
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

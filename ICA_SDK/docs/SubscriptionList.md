@@ -1,10 +1,9 @@
 # SubscriptionList
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**[Subscription]**](Subscription.md) |  | [optional] 
+**items** | [**list[Subscription]**](Subscription.md) |  | [optional] 
 **item_count** | **int** |  | [optional] 
 **first_page_token** | **str** |  | [optional] 
 **next_page_token** | **str** |  | [optional] 

@@ -1,7 +1,6 @@
 # LaneSequencingStats
 
 Defines the data transfer object (DTO) for creating LaneSequencingStats
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

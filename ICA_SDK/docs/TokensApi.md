@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create_token**
-> TokenResponse create_token()
+> TokenResponse create_token(x_api_key=x_api_key, client_id=client_id, api_key=api_key, domain=domain, data=data, scopes=scopes, cwid=cwid, cid=cid, return_session_token=return_session_token)
 
 Creates a JWT token to call IAP services.
 
@@ -20,77 +20,102 @@ This endpoint creates a JWT token to call IAP services. Authorization can be a B
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import tokens_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.token_response import TokenResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = tokens_api.TokensApi(api_client)
-    x_api_key = "X-API-Key_example" # str | Api Key can be passed in header to generate a JWT. (optional)
-    client_id = "clientId_example" # str | Optionally pass client Id from calling app to set as authorized party on JWT. (optional)
-    api_key = "api_key_example" # str | OBSOLETE: api key should now be passed as as an X-API-Key header. (optional)
-    domain = "domain_example" # str | Optionally pass the domain name you are logging into (optional)
-    data = "data_example" # str | Data is a custom meta data field that will be applied to the session field in the JWT payload. (optional)
-    scopes = [
-        "scopes_example",
-    ] # [str] | Scopes can be passed in during token generation to limit the token to particular scopes. (optional)
-    cwid = "cwid_example" # str | Set the current workgroup on the token. Used for aligning resources to a workgroup. (optional)
-    cid = "cid_example" # str | Set the current context on the token. Used for aligning resources to a context. (optional)
-    return_session_token = True # bool | By default, this endpoint returns a JWT token. You can specify returnSessionToken=true to get an Illumina psToken instead. (optional)
+    api_instance = ICA_SDK.TokensApi(api_client)
+    x_api_key = 'x_api_key_example' # str | Api Key can be passed in header to generate a JWT. (optional)
+client_id = 'client_id_example' # str | Optionally pass client Id from calling app to set as authorized party on JWT. (optional)
+api_key = 'api_key_example' # str | OBSOLETE: api key should now be passed as as an X-API-Key header. (optional)
+domain = 'domain_example' # str | Optionally pass the domain name you are logging into (optional)
+data = 'data_example' # str | Data is a custom meta data field that will be applied to the session field in the JWT payload. (optional)
+scopes = ['scopes_example'] # list[str] | Scopes can be passed in during token generation to limit the token to particular scopes. (optional)
+cwid = 'cwid_example' # str | Set the current workgroup on the token. Used for aligning resources to a workgroup. (optional)
+cid = 'cid_example' # str | Set the current context on the token. Used for aligning resources to a context. (optional)
+return_session_token = True # bool | By default, this endpoint returns a JWT token. You can specify returnSessionToken=true to get an Illumina psToken instead. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Creates a JWT token to call IAP services.
         api_response = api_instance.create_token(x_api_key=x_api_key, client_id=client_id, api_key=api_key, domain=domain, data=data, scopes=scopes, cwid=cwid, cid=cid, return_session_token=return_session_token)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling TokensApi->create_token: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.TokensApi(api_client)
+    x_api_key = 'x_api_key_example' # str | Api Key can be passed in header to generate a JWT. (optional)
+client_id = 'client_id_example' # str | Optionally pass client Id from calling app to set as authorized party on JWT. (optional)
+api_key = 'api_key_example' # str | OBSOLETE: api key should now be passed as as an X-API-Key header. (optional)
+domain = 'domain_example' # str | Optionally pass the domain name you are logging into (optional)
+data = 'data_example' # str | Data is a custom meta data field that will be applied to the session field in the JWT payload. (optional)
+scopes = ['scopes_example'] # list[str] | Scopes can be passed in during token generation to limit the token to particular scopes. (optional)
+cwid = 'cwid_example' # str | Set the current workgroup on the token. Used for aligning resources to a workgroup. (optional)
+cid = 'cid_example' # str | Set the current context on the token. Used for aligning resources to a context. (optional)
+return_session_token = True # bool | By default, this endpoint returns a JWT token. You can specify returnSessionToken=true to get an Illumina psToken instead. (optional)
+
+    try:
+        # Creates a JWT token to call IAP services.
+        api_response = api_instance.create_token(x_api_key=x_api_key, client_id=client_id, api_key=api_key, domain=domain, data=data, scopes=scopes, cwid=cwid, cid=cid, return_session_token=return_session_token)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling TokensApi->create_token: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **x_api_key** | **str**| Api Key can be passed in header to generate a JWT. | [optional]
- **client_id** | **str**| Optionally pass client Id from calling app to set as authorized party on JWT. | [optional]
- **api_key** | **str**| OBSOLETE: api key should now be passed as as an X-API-Key header. | [optional]
- **domain** | **str**| Optionally pass the domain name you are logging into | [optional]
- **data** | **str**| Data is a custom meta data field that will be applied to the session field in the JWT payload. | [optional]
- **scopes** | **[str]**| Scopes can be passed in during token generation to limit the token to particular scopes. | [optional]
- **cwid** | **str**| Set the current workgroup on the token. Used for aligning resources to a workgroup. | [optional]
- **cid** | **str**| Set the current context on the token. Used for aligning resources to a context. | [optional]
- **return_session_token** | **bool**| By default, this endpoint returns a JWT token. You can specify returnSessionToken&#x3D;true to get an Illumina psToken instead. | [optional]
+ **x_api_key** | **str**| Api Key can be passed in header to generate a JWT. | [optional] 
+ **client_id** | **str**| Optionally pass client Id from calling app to set as authorized party on JWT. | [optional] 
+ **api_key** | **str**| OBSOLETE: api key should now be passed as as an X-API-Key header. | [optional] 
+ **domain** | **str**| Optionally pass the domain name you are logging into | [optional] 
+ **data** | **str**| Data is a custom meta data field that will be applied to the session field in the JWT payload. | [optional] 
+ **scopes** | [**list[str]**](str.md)| Scopes can be passed in during token generation to limit the token to particular scopes. | [optional] 
+ **cwid** | **str**| Set the current workgroup on the token. Used for aligning resources to a workgroup. | [optional] 
+ **cid** | **str**| Set the current context on the token. Used for aligning resources to a context. | [optional] 
+ **return_session_token** | **bool**| By default, this endpoint returns a JWT token. You can specify returnSessionToken&#x3D;true to get an Illumina psToken instead. | [optional] 
 
 ### Return type
 
@@ -104,7 +129,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -127,50 +151,70 @@ Get token details
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import tokens_api
-from ICA_SDK.model.token_detail_response import TokenDetailResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = tokens_api.TokensApi(api_client)
-
-    # example, this endpoint has no required or optional parameters
+    api_instance = ICA_SDK.TokensApi(api_client)
+    
     try:
         # Get current tokens info require authorization Bearer token
         api_response = api_instance.get_token_details()
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling TokensApi->get_token_details: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.TokensApi(api_client)
+    
+    try:
+        # Get current tokens info require authorization Bearer token
+        api_response = api_instance.get_token_details()
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling TokensApi->get_token_details: %s\n" % e)
+```
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -188,7 +232,6 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
@@ -199,7 +242,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **refresh_token**
-> TokenResponse refresh_token()
+> TokenResponse refresh_token(body=body)
 
 Refresh session psToken.
 
@@ -208,62 +251,78 @@ This endpoint extends the session for the psToken.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import tokens_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.token_response import TokenResponse
-from ICA_SDK.model.access_token_request import AccessTokenRequest
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = tokens_api.TokensApi(api_client)
-    body = AccessTokenRequest(
-        access_token="access_token_example",
-    ) # AccessTokenRequest | Access token request accepts a psToken in the access_token field in the body of the request. (optional)
+    api_instance = ICA_SDK.TokensApi(api_client)
+    body = ICA_SDK.AccessTokenRequest() # AccessTokenRequest | Access token request accepts a psToken in the access_token field in the body of the request. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Refresh session psToken.
         api_response = api_instance.refresh_token(body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling TokensApi->refresh_token: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.TokensApi(api_client)
+    body = ICA_SDK.AccessTokenRequest() # AccessTokenRequest | Access token request accepts a psToken in the access_token field in the body of the request. (optional)
+
+    try:
+        # Refresh session psToken.
+        api_response = api_instance.refresh_token(body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling TokensApi->refresh_token: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AccessTokenRequest**](AccessTokenRequest.md)| Access token request accepts a psToken in the access_token field in the body of the request. | [optional]
+ **body** | [**AccessTokenRequest**](AccessTokenRequest.md)| Access token request accepts a psToken in the access_token field in the body of the request. | [optional] 
 
 ### Return type
 
@@ -278,7 +337,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
 
-
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
@@ -290,7 +348,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **revoke_token**
-> revoke_token()
+> revoke_token(body=body)
 
 Revokes an access token.
 
@@ -299,60 +357,76 @@ This endpoint revokes the access token that is passed in.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import tokens_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.access_token_request import AccessTokenRequest
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = tokens_api.TokensApi(api_client)
-    body = AccessTokenRequest(
-        access_token="access_token_example",
-    ) # AccessTokenRequest | Access token request accepts either a psToken or a JWT in the access_token field in the body of the request. (optional)
+    api_instance = ICA_SDK.TokensApi(api_client)
+    body = ICA_SDK.AccessTokenRequest() # AccessTokenRequest | Access token request accepts either a psToken or a JWT in the access_token field in the body of the request. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Revokes an access token.
         api_instance.revoke_token(body=body)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling TokensApi->revoke_token: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.TokensApi(api_client)
+    body = ICA_SDK.AccessTokenRequest() # AccessTokenRequest | Access token request accepts either a psToken or a JWT in the access_token field in the body of the request. (optional)
+
+    try:
+        # Revokes an access token.
+        api_instance.revoke_token(body=body)
+    except ApiException as e:
+        print("Exception when calling TokensApi->revoke_token: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**AccessTokenRequest**](AccessTokenRequest.md)| Access token request accepts either a psToken or a JWT in the access_token field in the body of the request. | [optional]
+ **body** | [**AccessTokenRequest**](AccessTokenRequest.md)| Access token request accepts either a psToken or a JWT in the access_token field in the body of the request. | [optional] 
 
 ### Return type
 
@@ -366,7 +440,6 @@ void (empty response body)
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |

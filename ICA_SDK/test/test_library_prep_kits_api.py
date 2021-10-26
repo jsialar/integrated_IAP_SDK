@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,17 +10,20 @@
 """
 
 
+from __future__ import absolute_import
+
 import unittest
 
 import ICA_SDK
 from ICA_SDK.api.library_prep_kits_api import LibraryPrepKitsApi  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 
 class TestLibraryPrepKitsApi(unittest.TestCase):
     """LibraryPrepKitsApi unit test stubs"""
 
     def setUp(self):
-        self.api = LibraryPrepKitsApi()  # noqa: E501
+        self.api = ICA_SDK.api.library_prep_kits_api.LibraryPrepKitsApi()  # noqa: E501
 
     def tearDown(self):
         pass

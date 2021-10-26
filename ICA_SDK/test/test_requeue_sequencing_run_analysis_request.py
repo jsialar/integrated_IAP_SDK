@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,16 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.create_sequencing_run_analysis_configuration_request import CreateSequencingRunAnalysisConfigurationRequest
-from ICA_SDK.model.update_sequencing_run_contents_request import UpdateSequencingRunContentsRequest
-globals()['CreateSequencingRunAnalysisConfigurationRequest'] = CreateSequencingRunAnalysisConfigurationRequest
-globals()['UpdateSequencingRunContentsRequest'] = UpdateSequencingRunContentsRequest
-from ICA_SDK.model.requeue_sequencing_run_analysis_request import RequeueSequencingRunAnalysisRequest
-
+from ICA_SDK.models.requeue_sequencing_run_analysis_request import RequeueSequencingRunAnalysisRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestRequeueSequencingRunAnalysisRequest(unittest.TestCase):
     """RequeueSequencingRunAnalysisRequest unit test stubs"""
@@ -28,11 +28,65 @@ class TestRequeueSequencingRunAnalysisRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test RequeueSequencingRunAnalysisRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.requeue_sequencing_run_analysis_request.RequeueSequencingRunAnalysisRequest()  # noqa: E501
+        if include_optional :
+            return RequeueSequencingRunAnalysisRequest(
+                run_name = '0', 
+                run_contents = ICA_SDK.models.update_sequencing_run_contents_request.UpdateSequencingRunContentsRequest(
+                    allow_index_updates = True, 
+                    lane_contents = [
+                        ICA_SDK.models.lane_content.LaneContent(
+                            lane_number = 56, 
+                            same_as_lane_number = 56, 
+                            adapter_sequence_read1 = '0', 
+                            adapter_sequence_read2 = '0', 
+                            lane_libraries = [
+                                ICA_SDK.models.lane_library.LaneLibrary(
+                                    sample_name = '0', 
+                                    sample_urn = '0', 
+                                    project_name = '0', 
+                                    library_name = '0', 
+                                    library_urn = '0', 
+                                    adapter_sequence_read1 = '0', 
+                                    adapter_sequence_read2 = '0', 
+                                    index1_sequence = '0', 
+                                    index2_sequence = '0', 
+                                    index_container_position = '0', 
+                                    index1_name = '0', 
+                                    index2_name = '0', 
+                                    library_prep_kit_urn = '0', 
+                                    index_adapter_kit_urn = '0', )
+                                ], )
+                        ], ), 
+                run_analysis_configurations = [
+                    ICA_SDK.models.create_sequencing_run_analysis_configuration_request.CreateSequencingRunAnalysisConfigurationRequest(
+                        name = '0', 
+                        description = '0', 
+                        analysis_version_definition_id = '0', 
+                        settings = ICA_SDK.models.settings.settings(), 
+                        sample_settings = [
+                            ICA_SDK.models.sample_setting_entry.SampleSettingEntry(
+                                sample_id = '0', 
+                                settings = ICA_SDK.models.settings.settings(), )
+                            ], )
+                    ], 
+                requeue_reason = '0', 
+                replace_existing_run_requeue = True
+            )
+        else :
+            return RequeueSequencingRunAnalysisRequest(
+                run_name = '0',
+        )
+
     def testRequeueSequencingRunAnalysisRequest(self):
         """Test RequeueSequencingRunAnalysisRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = RequeueSequencingRunAnalysisRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

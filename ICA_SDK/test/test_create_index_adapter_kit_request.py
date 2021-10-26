@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,16 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.index_adapter_kit_settings import IndexAdapterKitSettings
-from ICA_SDK.model.index_sequence import IndexSequence
-globals()['IndexAdapterKitSettings'] = IndexAdapterKitSettings
-globals()['IndexSequence'] = IndexSequence
-from ICA_SDK.model.create_index_adapter_kit_request import CreateIndexAdapterKitRequest
-
+from ICA_SDK.models.create_index_adapter_kit_request import CreateIndexAdapterKitRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestCreateIndexAdapterKitRequest(unittest.TestCase):
     """CreateIndexAdapterKitRequest unit test stubs"""
@@ -28,11 +28,63 @@ class TestCreateIndexAdapterKitRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test CreateIndexAdapterKitRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.create_index_adapter_kit_request.CreateIndexAdapterKitRequest()  # noqa: E501
+        if include_optional :
+            return CreateIndexAdapterKitRequest(
+                name = '0', 
+                display_name = '0', 
+                organization = '0', 
+                description = '0', 
+                allowed_index_strategies = [
+                    'NoIndex'
+                    ], 
+                adapter_sequence_read1 = '0', 
+                adapter_sequence_read2 = '0', 
+                settings = ICA_SDK.models.index_adapter_kit_settings.IndexAdapterKitSettings(
+                    default_index_strategy = 'NoIndex', 
+                    override_cycles = '0', 
+                    fixed_layout = True, 
+                    multiplate = True, 
+                    multiple_indexes_per_well = True, 
+                    fixed_index_positions = [
+                        '0'
+                        ], 
+                    enable_custom_index_cycles = True, 
+                    num_cycles_index1_override = 56, 
+                    num_cycles_index2_override = 56, 
+                    fixed_layout_position_key_by_index_id = True, 
+                    custom_bcl_convert_settings = {
+                        'key' : '0'
+                        }, ), 
+                checksum = '0', 
+                index_sequences = [
+                    ICA_SDK.models.index_sequence.IndexSequence(
+                        name = '0', 
+                        read_number = 1, 
+                        sequence = '0', )
+                    ], 
+                skip_index_diversity_validation = True, 
+                acl = [
+                    '0'
+                    ]
+            )
+        else :
+            return CreateIndexAdapterKitRequest(
+                name = '0',
+                allowed_index_strategies = [
+                    'NoIndex'
+                    ],
+        )
+
     def testCreateIndexAdapterKitRequest(self):
         """Test CreateIndexAdapterKitRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = CreateIndexAdapterKitRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

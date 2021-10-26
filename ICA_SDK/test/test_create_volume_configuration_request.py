@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.object_store_settings import ObjectStoreSettings
-globals()['ObjectStoreSettings'] = ObjectStoreSettings
-from ICA_SDK.model.create_volume_configuration_request import CreateVolumeConfigurationRequest
-
+from ICA_SDK.models.create_volume_configuration_request import CreateVolumeConfigurationRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestCreateVolumeConfigurationRequest(unittest.TestCase):
     """CreateVolumeConfigurationRequest unit test stubs"""
@@ -26,11 +28,41 @@ class TestCreateVolumeConfigurationRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test CreateVolumeConfigurationRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.create_volume_configuration_request.CreateVolumeConfigurationRequest()  # noqa: E501
+        if include_optional :
+            return CreateVolumeConfigurationRequest(
+                name = '0', 
+                object_store_settings = ICA_SDK.models.object_store_settings.ObjectStoreSettings(
+                    aws_s3 = ICA_SDK.models.awss3_object_store_setting.AWSS3ObjectStoreSetting(
+                        bucket_name = '012', 
+                        key_prefix = 'a', 
+                        server_side_encryption_algorithm = '0', 
+                        server_side_encryption_key = '0', ), 
+                    secret_name = '0', 
+                    secret_id = '0', )
+            )
+        else :
+            return CreateVolumeConfigurationRequest(
+                name = '0',
+                object_store_settings = ICA_SDK.models.object_store_settings.ObjectStoreSettings(
+                    aws_s3 = ICA_SDK.models.awss3_object_store_setting.AWSS3ObjectStoreSetting(
+                        bucket_name = '012', 
+                        key_prefix = 'a', 
+                        server_side_encryption_algorithm = '0', 
+                        server_side_encryption_key = '0', ), 
+                    secret_name = '0', 
+                    secret_id = '0', ),
+        )
+
     def testCreateVolumeConfigurationRequest(self):
         """Test CreateVolumeConfigurationRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = CreateVolumeConfigurationRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

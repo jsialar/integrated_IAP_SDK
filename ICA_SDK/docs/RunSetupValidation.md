@@ -1,7 +1,6 @@
 # RunSetupValidation
 
 Data transfer object (DTO) for the Settings.RunSetupValidation field of a validated analysis version definition
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -11,8 +10,8 @@ Name | Type | Description | Notes
 **read1_length_max** | **int** | Maximum value for read1 length | [optional] 
 **read2_length_min** | **int** | Minimum value for read2 length | [optional] 
 **read2_length_max** | **int** | Maximum value for read2 length | [optional] 
-**allowed_index_strategies** | **[str]** | Selected index strategy must match one of these values. Provided run contents must match. | [optional] 
-**allowed_read_types** | **[str]** | Read type selection must match one of these values. | [optional] 
+**allowed_index_strategies** | **list[str]** | Selected index strategy must match one of these values. Provided run contents must match. | [optional] 
+**allowed_read_types** | **list[str]** | Read type selection must match one of these values. | [optional] 
 **allow_deviations** | **bool** | If true, the UI should allow deviations from default read length specified in prep kit,  index strategies and read types (does not apply to unique sample IDs per lane or custom kits) | [optional] 
 **deviation_warning_message** | **str** | Desired warning message when deviations are detected | [optional] 
 **custom_prep_kit_warning_message** | **str** | Desired warning message when using a custom kit (not part of the compatible kits) | [optional] 

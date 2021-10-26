@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.library_pool_compact import LibraryPoolCompact
-
+from ICA_SDK.models.library_pool_compact import LibraryPoolCompact  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestLibraryPoolCompact(unittest.TestCase):
     """LibraryPoolCompact unit test stubs"""
@@ -24,11 +28,40 @@ class TestLibraryPoolCompact(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test LibraryPoolCompact
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.library_pool_compact.LibraryPoolCompact()  # noqa: E501
+        if include_optional :
+            return LibraryPoolCompact(
+                id = '0', 
+                urn = '0', 
+                href = '0', 
+                name = '0', 
+                description = '0', 
+                status = '0', 
+                sub_tenant_id = '0', 
+                acl = [
+                    '0'
+                    ], 
+                tenant_id = '0', 
+                tenant_name = '0', 
+                created_by_client_id = '0', 
+                created_by = '0', 
+                modified_by = '0', 
+                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+            )
+        else :
+            return LibraryPoolCompact(
+        )
+
     def testLibraryPoolCompact(self):
         """Test LibraryPoolCompact"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = LibraryPoolCompact()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

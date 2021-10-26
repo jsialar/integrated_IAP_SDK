@@ -1,7 +1,6 @@
 # ServiceHealthResponse
 
 Describes the individual health of all services in the platform
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,25 +10,18 @@
 """
 
 
-import re  # noqa: F401
-import sys  # noqa: F401
+from __future__ import absolute_import
 
-from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
-from ICA_SDK.model_utils import (  # noqa: F401
-    check_allowed_values,
-    check_validations,
-    date,
-    datetime,
-    file_type,
-    none_type,
-    validate_and_convert_types
+import re  # noqa: F401
+
+# python 2 and python 3 compatibility library
+import six
+
+from ICA_SDK.api_client import ApiClient
+from ICA_SDK.exceptions import (  # noqa: F401
+    ApiTypeError,
+    ApiValueError
 )
-from ICA_SDK.model.create_library_pool_request import CreateLibraryPoolRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.library_pool import LibraryPool
-from ICA_SDK.model.library_pool_compact_library_pool_sort_fields_paged_items import LibraryPoolCompactLibraryPoolSortFieldsPagedItems
-from ICA_SDK.model.update_acl_request import UpdateAclRequest
-from ICA_SDK.model.update_library_pool_request import UpdateLibraryPoolRequest
 
 
 class LibraryPoolsApi(object):
@@ -41,890 +36,854 @@ class LibraryPoolsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-        def __create_library_pool(
-            self,
-            **kwargs
-        ):
-            """Create library pool.  # noqa: E501
+    def create_library_pool(self, **kwargs):  # noqa: E501
+        """Create library pool.  # noqa: E501
 
-            Create a library pool, and return information about that library pool.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        Create a library pool, and return information about that library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_library_pool(async_req=True)
+        >>> result = thread.get()
 
-            >>> thread = api.create_library_pool(async_req=True)
-            >>> result = thread.get()
+        :param async_req bool: execute request asynchronously
+        :param CreateLibraryPoolRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPool
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.create_library_pool_with_http_info(**kwargs)  # noqa: E501
 
+    def create_library_pool_with_http_info(self, **kwargs):  # noqa: E501
+        """Create library pool.  # noqa: E501
 
-            Keyword Args:
-                body (CreateLibraryPoolRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        Create a library pool, and return information about that library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_library_pool_with_http_info(async_req=True)
+        >>> result = thread.get()
 
-            Returns:
-                LibraryPool
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            return self.call_with_http_info(**kwargs)
+        :param async_req bool: execute request asynchronously
+        :param CreateLibraryPoolRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPool, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
 
-        self.create_library_pool = _Endpoint(
-            settings={
-                'response_type': (LibraryPool,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools',
-                'operation_id': 'create_library_pool',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'body',
-                ],
-                'required': [],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'body':
-                        (CreateLibraryPoolRequest,),
-                },
-                'attribute_map': {
-                },
-                'location_map': {
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__create_library_pool
+        local_var_params = locals()
+
+        all_params = [
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_library_pool(
-            self,
-            library_pool_id,
-            **kwargs
-        ):
-            """Get library pool details.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_library_pool" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
 
-            For a given library pool ID, get the library pool details accessible by the request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_library_pool(library_pool_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
 
-            Args:
-                library_pool_id (str):
+        query_params = []
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                LibraryPool
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['library_pool_id'] = \
-                library_pool_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_library_pool = _Endpoint(
-            settings={
-                'response_type': (LibraryPool,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools/{libraryPoolId}',
-                'operation_id': 'get_library_pool',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'library_pool_id',
-                ],
-                'required': [
-                    'library_pool_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'library_pool_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'library_pool_id': 'libraryPoolId',
-                },
-                'location_map': {
-                    'library_pool_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_library_pool
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPool',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_library_pool(self, library_pool_id, **kwargs):  # noqa: E501
+        """Get library pool details.  # noqa: E501
+
+        For a given library pool ID, get the library pool details accessible by the request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_library_pool(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPool
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_library_pool_with_http_info(library_pool_id, **kwargs)  # noqa: E501
+
+    def get_library_pool_with_http_info(self, library_pool_id, **kwargs):  # noqa: E501
+        """Get library pool details.  # noqa: E501
+
+        For a given library pool ID, get the library pool details accessible by the request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_library_pool_with_http_info(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPool, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'library_pool_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __list_library_pools(
-            self,
-            **kwargs
-        ):
-            """Get a list of library pools.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_library_pool" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'library_pool_id' is set
+        if self.api_client.client_side_validation and ('library_pool_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['library_pool_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `library_pool_id` when calling `get_library_pool`")  # noqa: E501
 
-            Get a list of library pools accessible by the request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.list_library_pools(async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'library_pool_id' in local_var_params:
+            path_params['libraryPoolId'] = local_var_params['library_pool_id']  # noqa: E501
 
+        query_params = []
 
-            Keyword Args:
-                include ([str]): Include flags to specify what is included in the response. [optional]
-                tenant_ids ([str]): Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids. [optional]
-                page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
-                page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
-                sort (str): Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).. [optional] if omitted the server will use the default value of "timeCreated asc"
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                LibraryPoolCompactLibraryPoolSortFieldsPagedItems
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.list_library_pools = _Endpoint(
-            settings={
-                'response_type': (LibraryPoolCompactLibraryPoolSortFieldsPagedItems,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools',
-                'operation_id': 'list_library_pools',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'include',
-                    'tenant_ids',
-                    'page_size',
-                    'page_token',
-                    'sort',
-                ],
-                'required': [],
-                'nullable': [
-                ],
-                'enum': [
-                    'include',
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                    ('include',): {
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
 
-                        "TOTALITEMCOUNT": "TotalItemCount"
-                    },
-                },
-                'openapi_types': {
-                    'include':
-                        ([str],),
-                    'tenant_ids':
-                        ([str],),
-                    'page_size':
-                        (int,),
-                    'page_token':
-                        (str,),
-                    'sort':
-                        (str,),
-                },
-                'attribute_map': {
-                    'include': 'include',
-                    'tenant_ids': 'tenantIds',
-                    'page_size': 'pageSize',
-                    'page_token': 'pageToken',
-                    'sort': 'sort',
-                },
-                'location_map': {
-                    'include': 'query',
-                    'tenant_ids': 'query',
-                    'page_size': 'query',
-                    'page_token': 'query',
-                    'sort': 'query',
-                },
-                'collection_format_map': {
-                    'include': 'csv',
-                    'tenant_ids': 'csv',
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__list_library_pools
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools/{libraryPoolId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPool',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def list_library_pools(self, **kwargs):  # noqa: E501
+        """Get a list of library pools.  # noqa: E501
+
+        Get a list of library pools accessible by the request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_library_pools(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param list[str] include: Include flags to specify what is included in the response
+        :param list[str] tenant_ids: Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids
+        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
+        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
+        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPoolCompactLibraryPoolSortFieldsPagedItems
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.list_library_pools_with_http_info(**kwargs)  # noqa: E501
+
+    def list_library_pools_with_http_info(self, **kwargs):  # noqa: E501
+        """Get a list of library pools.  # noqa: E501
+
+        Get a list of library pools accessible by the request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_library_pools_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param list[str] include: Include flags to specify what is included in the response
+        :param list[str] tenant_ids: Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids
+        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
+        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
+        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPoolCompactLibraryPoolSortFieldsPagedItems, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'include',
+            'tenant_ids',
+            'page_size',
+            'page_token',
+            'sort'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __merge_library_pool_acl(
-            self,
-            library_pool_id,
-            **kwargs
-        ):
-            """Merge the access control list of a library pool with the input access control list.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method list_library_pools" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
 
-            Merge the access control list of a library pool with the input access control list, and return information about the library pool.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.merge_library_pool_acl(library_pool_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
 
-            Args:
-                library_pool_id (str):
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
+        if 'tenant_ids' in local_var_params and local_var_params['tenant_ids'] is not None:  # noqa: E501
+            query_params.append(('tenantIds', local_var_params['tenant_ids']))  # noqa: E501
+            collection_formats['tenantIds'] = 'csv'  # noqa: E501
+        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
+            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
+        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
+            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
+        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
+            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                LibraryPool
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['library_pool_id'] = \
-                library_pool_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.merge_library_pool_acl = _Endpoint(
-            settings={
-                'response_type': (LibraryPool,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools/{libraryPoolId}/acl',
-                'operation_id': 'merge_library_pool_acl',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'library_pool_id',
-                    'body',
-                ],
-                'required': [
-                    'library_pool_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'library_pool_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'library_pool_id': 'libraryPoolId',
-                },
-                'location_map': {
-                    'library_pool_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__merge_library_pool_acl
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPoolCompactLibraryPoolSortFieldsPagedItems',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def merge_library_pool_acl(self, library_pool_id, **kwargs):  # noqa: E501
+        """Merge the access control list of a library pool with the input access control list.  # noqa: E501
+
+        Merge the access control list of a library pool with the input access control list, and return information about the library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.merge_library_pool_acl(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPool
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.merge_library_pool_acl_with_http_info(library_pool_id, **kwargs)  # noqa: E501
+
+    def merge_library_pool_acl_with_http_info(self, library_pool_id, **kwargs):  # noqa: E501
+        """Merge the access control list of a library pool with the input access control list.  # noqa: E501
+
+        Merge the access control list of a library pool with the input access control list, and return information about the library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.merge_library_pool_acl_with_http_info(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPool, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'library_pool_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __remove_library_pool_acl(
-            self,
-            library_pool_id,
-            **kwargs
-        ):
-            """Remove the input access control list from a library pool.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method merge_library_pool_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'library_pool_id' is set
+        if self.api_client.client_side_validation and ('library_pool_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['library_pool_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `library_pool_id` when calling `merge_library_pool_acl`")  # noqa: E501
 
-            Remove the input access control list from a library pool, and return information about the library pool.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.remove_library_pool_acl(library_pool_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'library_pool_id' in local_var_params:
+            path_params['libraryPoolId'] = local_var_params['library_pool_id']  # noqa: E501
 
-            Args:
-                library_pool_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                LibraryPool
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['library_pool_id'] = \
-                library_pool_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.remove_library_pool_acl = _Endpoint(
-            settings={
-                'response_type': (LibraryPool,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools/{libraryPoolId}/acl',
-                'operation_id': 'remove_library_pool_acl',
-                'http_method': 'DELETE',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'library_pool_id',
-                    'body',
-                ],
-                'required': [
-                    'library_pool_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'library_pool_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'library_pool_id': 'libraryPoolId',
-                },
-                'location_map': {
-                    'library_pool_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__remove_library_pool_acl
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools/{libraryPoolId}/acl', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPool',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def remove_library_pool_acl(self, library_pool_id, **kwargs):  # noqa: E501
+        """Remove the input access control list from a library pool.  # noqa: E501
+
+        Remove the input access control list from a library pool, and return information about the library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.remove_library_pool_acl(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPool
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.remove_library_pool_acl_with_http_info(library_pool_id, **kwargs)  # noqa: E501
+
+    def remove_library_pool_acl_with_http_info(self, library_pool_id, **kwargs):  # noqa: E501
+        """Remove the input access control list from a library pool.  # noqa: E501
+
+        Remove the input access control list from a library pool, and return information about the library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.remove_library_pool_acl_with_http_info(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPool, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'library_pool_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __replace_library_pool_acl(
-            self,
-            library_pool_id,
-            **kwargs
-        ):
-            """Replace the access control list of a library pool with the input access control list.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_library_pool_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'library_pool_id' is set
+        if self.api_client.client_side_validation and ('library_pool_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['library_pool_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `library_pool_id` when calling `remove_library_pool_acl`")  # noqa: E501
 
-            Replace the access control list of a library pool with the input access control list, and return information about that library pool.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.replace_library_pool_acl(library_pool_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'library_pool_id' in local_var_params:
+            path_params['libraryPoolId'] = local_var_params['library_pool_id']  # noqa: E501
 
-            Args:
-                library_pool_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                LibraryPool
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['library_pool_id'] = \
-                library_pool_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.replace_library_pool_acl = _Endpoint(
-            settings={
-                'response_type': (LibraryPool,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools/{libraryPoolId}/acl',
-                'operation_id': 'replace_library_pool_acl',
-                'http_method': 'PUT',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'library_pool_id',
-                    'body',
-                ],
-                'required': [
-                    'library_pool_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'library_pool_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'library_pool_id': 'libraryPoolId',
-                },
-                'location_map': {
-                    'library_pool_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__replace_library_pool_acl
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools/{libraryPoolId}/acl', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPool',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def replace_library_pool_acl(self, library_pool_id, **kwargs):  # noqa: E501
+        """Replace the access control list of a library pool with the input access control list.  # noqa: E501
+
+        Replace the access control list of a library pool with the input access control list, and return information about that library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.replace_library_pool_acl(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPool
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.replace_library_pool_acl_with_http_info(library_pool_id, **kwargs)  # noqa: E501
+
+    def replace_library_pool_acl_with_http_info(self, library_pool_id, **kwargs):  # noqa: E501
+        """Replace the access control list of a library pool with the input access control list.  # noqa: E501
+
+        Replace the access control list of a library pool with the input access control list, and return information about that library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.replace_library_pool_acl_with_http_info(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPool, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'library_pool_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __update_library_pool(
-            self,
-            library_pool_id,
-            **kwargs
-        ):
-            """Update library pool.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method replace_library_pool_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'library_pool_id' is set
+        if self.api_client.client_side_validation and ('library_pool_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['library_pool_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `library_pool_id` when calling `replace_library_pool_acl`")  # noqa: E501
 
-            Update a library pool, and return information about that library pool.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.update_library_pool(library_pool_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'library_pool_id' in local_var_params:
+            path_params['libraryPoolId'] = local_var_params['library_pool_id']  # noqa: E501
 
-            Args:
-                library_pool_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateLibraryPoolRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                LibraryPool
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['library_pool_id'] = \
-                library_pool_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.update_library_pool = _Endpoint(
-            settings={
-                'response_type': (LibraryPool,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/librarypools/{libraryPoolId}',
-                'operation_id': 'update_library_pool',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'library_pool_id',
-                    'body',
-                ],
-                'required': [
-                    'library_pool_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'library_pool_id':
-                        (str,),
-                    'body':
-                        (UpdateLibraryPoolRequest,),
-                },
-                'attribute_map': {
-                    'library_pool_id': 'libraryPoolId',
-                },
-                'location_map': {
-                    'library_pool_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__update_library_pool
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools/{libraryPoolId}/acl', 'PUT',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPool',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def update_library_pool(self, library_pool_id, **kwargs):  # noqa: E501
+        """Update library pool.  # noqa: E501
+
+        Update a library pool, and return information about that library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_library_pool(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateLibraryPoolRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: LibraryPool
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.update_library_pool_with_http_info(library_pool_id, **kwargs)  # noqa: E501
+
+    def update_library_pool_with_http_info(self, library_pool_id, **kwargs):  # noqa: E501
+        """Update library pool.  # noqa: E501
+
+        Update a library pool, and return information about that library pool.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_library_pool_with_http_info(library_pool_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str library_pool_id: (required)
+        :param UpdateLibraryPoolRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(LibraryPool, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'library_pool_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_library_pool" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'library_pool_id' is set
+        if self.api_client.client_side_validation and ('library_pool_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['library_pool_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `library_pool_id` when calling `update_library_pool`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'library_pool_id' in local_var_params:
+            path_params['libraryPoolId'] = local_var_params['library_pool_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/librarypools/{libraryPoolId}', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='LibraryPool',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)

@@ -1,7 +1,6 @@
 # AwsS3TemporaryUploadCredentials
 
 Defines the credentials for uploading to Amazon Simple Storage Service (Amazon S3). This definition matches the Upload Credentials API model of the Genomic Data Store (GDS) service.
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

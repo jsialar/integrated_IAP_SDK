@@ -1,7 +1,6 @@
 # FlowCellType
 
 Information about FlowCellType
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,7 +1,6 @@
 # SequencingAnalysisRunCompact
 
 Data contract for sequencing analysis run (compact)
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -24,7 +23,7 @@ Name | Type | Description | Notes
 **can_abort** | **bool** | Indicates whether the analysis run can be aborted or not | [optional] 
 **is_active** | **bool** | Indicates whether the analysis run is active or not | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

@@ -1,7 +1,6 @@
 # SampleSheetParsingWarning
 
 Warning of sample sheet parsing
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

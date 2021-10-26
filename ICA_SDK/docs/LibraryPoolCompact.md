@@ -1,7 +1,6 @@
 # LibraryPoolCompact
 
 Defines the data contract for a library pool
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -12,7 +11,7 @@ Name | Type | Description | Notes
 **description** | **str** | Description of the library pool | [optional] 
 **status** | **str** | Status of the library pool | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

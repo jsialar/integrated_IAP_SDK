@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.project import Project
-globals()['Project'] = Project
-from ICA_SDK.model.project_paged_items import ProjectPagedItems
-
+from ICA_SDK.models.project_paged_items import ProjectPagedItems  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestProjectPagedItems(unittest.TestCase):
     """ProjectPagedItems unit test stubs"""
@@ -26,11 +28,39 @@ class TestProjectPagedItems(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test ProjectPagedItems
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.project_paged_items.ProjectPagedItems()  # noqa: E501
+        if include_optional :
+            return ProjectPagedItems(
+                items = [
+                    ICA_SDK.models.project.Project(
+                        id = '0', 
+                        urn = '0', 
+                        name = '0', 
+                        owner = '0', 
+                        time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                    ], 
+                item_count = 56, 
+                first_page_token = '0', 
+                next_page_token = '0', 
+                prev_page_token = '0', 
+                last_page_token = '0', 
+                total_item_count = 56, 
+                total_page_count = 56
+            )
+        else :
+            return ProjectPagedItems(
+        )
+
     def testProjectPagedItems(self):
         """Test ProjectPagedItems"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = ProjectPagedItems()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

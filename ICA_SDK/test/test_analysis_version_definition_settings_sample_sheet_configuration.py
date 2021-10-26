@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.analysis_version_definition_settings_sample_sheet_configuration import AnalysisVersionDefinitionSettingsSampleSheetConfiguration
-
+from ICA_SDK.models.analysis_version_definition_settings_sample_sheet_configuration import AnalysisVersionDefinitionSettingsSampleSheetConfiguration  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestAnalysisVersionDefinitionSettingsSampleSheetConfiguration(unittest.TestCase):
     """AnalysisVersionDefinitionSettingsSampleSheetConfiguration unit test stubs"""
@@ -24,11 +28,32 @@ class TestAnalysisVersionDefinitionSettingsSampleSheetConfiguration(unittest.Tes
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test AnalysisVersionDefinitionSettingsSampleSheetConfiguration
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.analysis_version_definition_settings_sample_sheet_configuration.AnalysisVersionDefinitionSettingsSampleSheetConfiguration()  # noqa: E501
+        if include_optional :
+            return AnalysisVersionDefinitionSettingsSampleSheetConfiguration(
+                bcl_convert_section_settings = {
+                    'key' : '0'
+                    }, 
+                analysis_section_settings = {
+                    'key' : '0'
+                    }, 
+                cloud_section_settings = {
+                    'key' : '0'
+                    }
+            )
+        else :
+            return AnalysisVersionDefinitionSettingsSampleSheetConfiguration(
+        )
+
     def testAnalysisVersionDefinitionSettingsSampleSheetConfiguration(self):
         """Test AnalysisVersionDefinitionSettingsSampleSheetConfiguration"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = AnalysisVersionDefinitionSettingsSampleSheetConfiguration()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

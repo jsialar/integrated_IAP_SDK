@@ -1,7 +1,6 @@
 # RunSequencingStatsResponse
 
 Response of RunSequencingStats
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

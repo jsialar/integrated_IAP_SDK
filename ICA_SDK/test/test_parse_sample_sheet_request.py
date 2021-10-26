@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.default_kit import DefaultKit
-globals()['DefaultKit'] = DefaultKit
-from ICA_SDK.model.parse_sample_sheet_request import ParseSampleSheetRequest
-
+from ICA_SDK.models.parse_sample_sheet_request import ParseSampleSheetRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestParseSampleSheetRequest(unittest.TestCase):
     """ParseSampleSheetRequest unit test stubs"""
@@ -26,11 +28,37 @@ class TestParseSampleSheetRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test ParseSampleSheetRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.parse_sample_sheet_request.ParseSampleSheetRequest()  # noqa: E501
+        if include_optional :
+            return ParseSampleSheetRequest(
+                include = [
+                    'PrepKitInfo'
+                    ], 
+                sample_sheet_content = '0', 
+                resolve_prep_kits = True, 
+                resolve_prep_kits_by_name = True, 
+                resolve_index_sequence_info = True, 
+                enable_warnings_for_missing_cloud_sections = True, 
+                default_kits = [
+                    ICA_SDK.models.default_kit.DefaultKit(
+                        lane_number = 56, 
+                        library_prep_kit_id = '0', 
+                        index_adapter_kit_id = '0', )
+                    ]
+            )
+        else :
+            return ParseSampleSheetRequest(
+        )
+
     def testParseSampleSheetRequest(self):
         """Test ParseSampleSheetRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = ParseSampleSheetRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

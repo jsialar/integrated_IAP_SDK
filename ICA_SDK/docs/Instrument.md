@@ -1,7 +1,6 @@
 # Instrument
 
 Defines the instrument associated with a sequencing run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **create_library**
-> Library create_library(sample_id)
+> Library create_library(sample_id, body=body)
 
 Create library.
 
@@ -24,86 +24,81 @@ Create a library, and return information about that library.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.create_library_request import CreateLibraryRequest
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    sample_id = "sampleId_example" # str | 
-    body = CreateLibraryRequest(
-        name="name_example",
-        description="description_example",
-        status="Active",
-        library_prep_kit_id="library_prep_kit_id_example",
-        index_adapter_kit_id="index_adapter_kit_id_example",
-        index_container_position="index_container_position_example",
-        index1_sequence="index1_sequence_example",
-        index2_sequence="index2_sequence_example",
-        index1_name="index1_name_example",
-        index2_name="index2_name_example",
-        adapter_sequence_read1="adapter_sequence_read1_example",
-        adapter_sequence_read2="adapter_sequence_read2_example",
-        acl=[
-            "acl_example",
-        ],
-    ) # CreateLibraryRequest |  (optional)
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    sample_id = 'sample_id_example' # str | 
+body = ICA_SDK.CreateLibraryRequest() # CreateLibraryRequest |  (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Create library.
-        api_response = api_instance.create_library(sample_id)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling LibrariesApi->create_library: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Create library.
         api_response = api_instance.create_library(sample_id, body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->create_library: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    sample_id = 'sample_id_example' # str | 
+body = ICA_SDK.CreateLibraryRequest() # CreateLibraryRequest |  (optional)
+
+    try:
+        # Create library.
+        api_response = api_instance.create_library(sample_id, body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->create_library: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sample_id** | **str**|  |
- **body** | [**CreateLibraryRequest**](CreateLibraryRequest.md)|  | [optional]
+ **sample_id** | **str**|  | 
+ **body** | [**CreateLibraryRequest**](CreateLibraryRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -117,7 +112,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -141,58 +135,78 @@ For a given library ID, disassociate the library prep kit and index adapter kit.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    library_id = "libraryId_example" # str | 
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Disassociate library prep kit and index adapter kit from library.
         api_response = api_instance.disassociate_library_prep_kit_from_library(library_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->disassociate_library_prep_kit_from_library: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+
+    try:
+        # Disassociate library prep kit and index adapter kit from library.
+        api_response = api_instance.disassociate_library_prep_kit_from_library(library_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->disassociate_library_prep_kit_from_library: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **str**|  |
+ **library_id** | **str**|  | 
 
 ### Return type
 
@@ -206,7 +220,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -232,58 +245,78 @@ For a given library ID, get the details of the library.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    library_id = "libraryId_example" # str | 
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Get library details.
         api_response = api_instance.get_library(library_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->get_library: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+
+    try:
+        # Get library details.
+        api_response = api_instance.get_library(library_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->get_library: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **str**|  |
+ **library_id** | **str**|  | 
 
 ### Return type
 
@@ -297,7 +330,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -313,7 +345,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_libraries**
-> LibraryCompactLibrarySortFieldsPagedItems list_libraries()
+> LibraryCompactLibrarySortFieldsPagedItems list_libraries(include=include, tenant_ids=tenant_ids, page_size=page_size, page_token=page_token, sort=sort)
 
 Get a list of libraries.
 
@@ -322,71 +354,90 @@ Get a list of libraries accessible by the request token.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.library_compact_library_sort_fields_paged_items import LibraryCompactLibrarySortFieldsPagedItems
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    include = [
-        "TotalItemCount",
-    ] # [str] | Include flags to specify what is included in the response (optional)
-    tenant_ids = [
-        "tenantIds_example",
-    ] # [str] | Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids (optional)
-    page_size = 10 # int | Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified. (optional) if omitted the server will use the default value of 10
-    page_token = "pageToken_example" # str | Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified. (optional)
-    sort = "timeCreated asc" # str | Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending). (optional) if omitted the server will use the default value of "timeCreated asc"
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    include = ['include_example'] # list[str] | Include flags to specify what is included in the response (optional)
+tenant_ids = ['tenant_ids_example'] # list[str] | Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids (optional)
+page_size = 10 # int | Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified. (optional) (default to 10)
+page_token = 'page_token_example' # str | Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified. (optional)
+sort = 'timeCreated asc' # str | Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending). (optional) (default to 'timeCreated asc')
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get a list of libraries.
         api_response = api_instance.list_libraries(include=include, tenant_ids=tenant_ids, page_size=page_size, page_token=page_token, sort=sort)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->list_libraries: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    include = ['include_example'] # list[str] | Include flags to specify what is included in the response (optional)
+tenant_ids = ['tenant_ids_example'] # list[str] | Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids (optional)
+page_size = 10 # int | Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified. (optional) (default to 10)
+page_token = 'page_token_example' # str | Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified. (optional)
+sort = 'timeCreated asc' # str | Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending). (optional) (default to 'timeCreated asc')
+
+    try:
+        # Get a list of libraries.
+        api_response = api_instance.list_libraries(include=include, tenant_ids=tenant_ids, page_size=page_size, page_token=page_token, sort=sort)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->list_libraries: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **[str]**| Include flags to specify what is included in the response | [optional]
- **tenant_ids** | **[str]**| Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids | [optional]
- **page_size** | **int**| Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified. | [optional] if omitted the server will use the default value of 10
- **page_token** | **str**| Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified. | [optional]
- **sort** | **str**| Specifies the order to include list items as \&quot;_{fieldName}_ [asc|desc]\&quot;. The second field is optional and specifies the sort direction (\&quot;asc\&quot; for ascending or \&quot;desc\&quot; for descending). | [optional] if omitted the server will use the default value of "timeCreated asc"
+ **include** | [**list[str]**](str.md)| Include flags to specify what is included in the response | [optional] 
+ **tenant_ids** | [**list[str]**](str.md)| Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids | [optional] 
+ **page_size** | **int**| Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified. | [optional] [default to 10]
+ **page_token** | **str**| Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified. | [optional] 
+ **sort** | **str**| Specifies the order to include list items as \&quot;_{fieldName}_ [asc|desc]\&quot;. The second field is optional and specifies the sort direction (\&quot;asc\&quot; for ascending or \&quot;desc\&quot; for descending). | [optional] [default to &#39;timeCreated asc&#39;]
 
 ### Return type
 
@@ -401,7 +452,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
@@ -414,7 +464,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **merge_library_acl**
-> Library merge_library_acl(library_id)
+> Library merge_library_acl(library_id, body=body)
 
 Merge the access control list of a library.
 
@@ -423,74 +473,81 @@ Merge the access control list of a library, and return information about that li
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.update_acl_request import UpdateAclRequest
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    library_id = "libraryId_example" # str | 
-    body = UpdateAclRequest(
-        acl=[
-            "acl_example",
-        ],
-    ) # UpdateAclRequest |  (optional)
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+body = ICA_SDK.UpdateAclRequest() # UpdateAclRequest |  (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Merge the access control list of a library.
-        api_response = api_instance.merge_library_acl(library_id)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling LibrariesApi->merge_library_acl: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Merge the access control list of a library.
         api_response = api_instance.merge_library_acl(library_id, body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->merge_library_acl: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+body = ICA_SDK.UpdateAclRequest() # UpdateAclRequest |  (optional)
+
+    try:
+        # Merge the access control list of a library.
+        api_response = api_instance.merge_library_acl(library_id, body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->merge_library_acl: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **str**|  |
- **body** | [**UpdateAclRequest**](UpdateAclRequest.md)|  | [optional]
+ **library_id** | **str**|  | 
+ **body** | [**UpdateAclRequest**](UpdateAclRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -504,7 +561,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -520,7 +576,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **remove_library_acl**
-> Library remove_library_acl(library_id)
+> Library remove_library_acl(library_id, body=body)
 
 Remove the access control list of a library.
 
@@ -529,74 +585,81 @@ Remove the access control list of a library, and return information about that l
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.update_acl_request import UpdateAclRequest
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    library_id = "libraryId_example" # str | 
-    body = UpdateAclRequest(
-        acl=[
-            "acl_example",
-        ],
-    ) # UpdateAclRequest |  (optional)
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+body = ICA_SDK.UpdateAclRequest() # UpdateAclRequest |  (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Remove the access control list of a library.
-        api_response = api_instance.remove_library_acl(library_id)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling LibrariesApi->remove_library_acl: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Remove the access control list of a library.
         api_response = api_instance.remove_library_acl(library_id, body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->remove_library_acl: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+body = ICA_SDK.UpdateAclRequest() # UpdateAclRequest |  (optional)
+
+    try:
+        # Remove the access control list of a library.
+        api_response = api_instance.remove_library_acl(library_id, body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->remove_library_acl: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **str**|  |
- **body** | [**UpdateAclRequest**](UpdateAclRequest.md)|  | [optional]
+ **library_id** | **str**|  | 
+ **body** | [**UpdateAclRequest**](UpdateAclRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -610,7 +673,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -626,7 +688,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **replace_library_acl**
-> Library replace_library_acl(library_id)
+> Library replace_library_acl(library_id, body=body)
 
 Replace the access control list of a library.
 
@@ -635,74 +697,81 @@ Replace the access control list of a library, and return information about that 
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.update_acl_request import UpdateAclRequest
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    library_id = "libraryId_example" # str | 
-    body = UpdateAclRequest(
-        acl=[
-            "acl_example",
-        ],
-    ) # UpdateAclRequest |  (optional)
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+body = ICA_SDK.UpdateAclRequest() # UpdateAclRequest |  (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Replace the access control list of a library.
-        api_response = api_instance.replace_library_acl(library_id)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling LibrariesApi->replace_library_acl: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Replace the access control list of a library.
         api_response = api_instance.replace_library_acl(library_id, body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->replace_library_acl: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | 
+body = ICA_SDK.UpdateAclRequest() # UpdateAclRequest |  (optional)
+
+    try:
+        # Replace the access control list of a library.
+        api_response = api_instance.replace_library_acl(library_id, body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->replace_library_acl: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **str**|  |
- **body** | [**UpdateAclRequest**](UpdateAclRequest.md)|  | [optional]
+ **library_id** | **str**|  | 
+ **body** | [**UpdateAclRequest**](UpdateAclRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -716,7 +785,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -732,7 +800,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_library**
-> Library update_library(library_id)
+> Library update_library(library_id, body=body)
 
 Update library.
 
@@ -741,86 +809,81 @@ For a given library ID, update the library.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import libraries_api
-from ICA_SDK.model.update_library_request import UpdateLibraryRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.library import Library
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = libraries_api.LibrariesApi(api_client)
-    library_id = "libraryId_example" # str | The id of the requested library.
-    body = UpdateLibraryRequest(
-        name="name_example",
-        description="description_example",
-        status="Active",
-        library_prep_kit_id="library_prep_kit_id_example",
-        index_adapter_kit_id="index_adapter_kit_id_example",
-        index_container_position="index_container_position_example",
-        index1_name="index1_name_example",
-        index2_name="index2_name_example",
-        index1_sequence="index1_sequence_example",
-        index2_sequence="index2_sequence_example",
-        adapter_sequence_read1="adapter_sequence_read1_example",
-        adapter_sequence_read2="adapter_sequence_read2_example",
-        acl=[
-            "acl_example",
-        ],
-    ) # UpdateLibraryRequest | The update request for the library (optional)
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | The id of the requested library.
+body = ICA_SDK.UpdateLibraryRequest() # UpdateLibraryRequest | The update request for the library (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Update library.
-        api_response = api_instance.update_library(library_id)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling LibrariesApi->update_library: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Update library.
         api_response = api_instance.update_library(library_id, body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling LibrariesApi->update_library: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.LibrariesApi(api_client)
+    library_id = 'library_id_example' # str | The id of the requested library.
+body = ICA_SDK.UpdateLibraryRequest() # UpdateLibraryRequest | The update request for the library (optional)
+
+    try:
+        # Update library.
+        api_response = api_instance.update_library(library_id, body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling LibrariesApi->update_library: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **library_id** | **str**| The id of the requested library. |
- **body** | [**UpdateLibraryRequest**](UpdateLibraryRequest.md)| The update request for the library | [optional]
+ **library_id** | **str**| The id of the requested library. | 
+ **body** | [**UpdateLibraryRequest**](UpdateLibraryRequest.md)| The update request for the library | [optional] 
 
 ### Return type
 
@@ -834,7 +897,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |

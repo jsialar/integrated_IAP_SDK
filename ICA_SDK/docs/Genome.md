@@ -1,7 +1,6 @@
 # Genome
 
 Data contract for genome (full)
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -20,14 +19,14 @@ Name | Type | Description | Notes
 **dragen_version** | **str** | Dragen version for the genome, it is required when Illumina.GenomicSequencingService.Models.V1.GenomeCompact.GenomeFormat is Dragen | [optional] 
 **data_location_urn** | **str** | Urn of the file in GDS containing the genome data file | [optional] 
 **genome_format** | **str** | Format for the genome file, Illumina.GenomicSequencingService.Models.V1.GenomeCompact.DragenVersion is required when it is Dragen | [optional] 
-**settings** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Custom settings for the genome | [optional] 
-**source_file_metadata** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Key-value pairs that indicate the source files for the specific genome | [optional] 
+**settings** | [**object**](.md) | Custom settings for the genome | [optional] 
+**source_file_metadata** | [**object**](.md) | Key-value pairs that indicate the source files for the specific genome | [optional] 
 **fasta_file_urn** | **str** | The Fasta file Urn being used by the genome | [optional] 
 **is_application_specific** | **bool** | Whether the genome is application specific | [optional] 
 **is_illumina** | **bool** | Whether the genome is belonging to Illumina | [optional] 
 **checksum** | **str** | Stores the checksum of Genome | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

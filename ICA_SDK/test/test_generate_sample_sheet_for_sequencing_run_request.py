@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.generate_sample_sheet_for_sequencing_run_request import GenerateSampleSheetForSequencingRunRequest
-
+from ICA_SDK.models.generate_sample_sheet_for_sequencing_run_request import GenerateSampleSheetForSequencingRunRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestGenerateSampleSheetForSequencingRunRequest(unittest.TestCase):
     """GenerateSampleSheetForSequencingRunRequest unit test stubs"""
@@ -24,11 +28,27 @@ class TestGenerateSampleSheetForSequencingRunRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test GenerateSampleSheetForSequencingRunRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.generate_sample_sheet_for_sequencing_run_request.GenerateSampleSheetForSequencingRunRequest()  # noqa: E501
+        if include_optional :
+            return GenerateSampleSheetForSequencingRunRequest(
+                include = [
+                    'IncludeFileReferences'
+                    ], 
+                exclude_kit_urns = True
+            )
+        else :
+            return GenerateSampleSheetForSequencingRunRequest(
+        )
+
     def testGenerateSampleSheetForSequencingRunRequest(self):
         """Test GenerateSampleSheetForSequencingRunRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = GenerateSampleSheetForSequencingRunRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

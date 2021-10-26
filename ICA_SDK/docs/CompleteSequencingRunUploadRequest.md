@@ -1,7 +1,6 @@
 # CompleteSequencingRunUploadRequest
 
 Request to complete a sequencing run upload
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.instrument import Instrument
-
+from ICA_SDK.models.instrument import Instrument  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestInstrument(unittest.TestCase):
     """Instrument unit test stubs"""
@@ -24,11 +28,30 @@ class TestInstrument(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test Instrument
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.instrument.Instrument()  # noqa: E501
+        if include_optional :
+            return Instrument(
+                id = '0', 
+                name = '0', 
+                description = '0', 
+                serial_number = '0', 
+                control_software_version = '0', 
+                operating_software_version = '0', 
+                instrument_type = '0'
+            )
+        else :
+            return Instrument(
+        )
+
     def testInstrument(self):
         """Test Instrument"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = Instrument()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

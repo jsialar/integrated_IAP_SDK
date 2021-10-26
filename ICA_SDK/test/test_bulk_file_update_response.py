@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.bulk_update_failed_item import BulkUpdateFailedItem
-globals()['BulkUpdateFailedItem'] = BulkUpdateFailedItem
-from ICA_SDK.model.bulk_file_update_response import BulkFileUpdateResponse
-
+from ICA_SDK.models.bulk_file_update_response import BulkFileUpdateResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestBulkFileUpdateResponse(unittest.TestCase):
     """BulkFileUpdateResponse unit test stubs"""
@@ -26,11 +28,35 @@ class TestBulkFileUpdateResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test BulkFileUpdateResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.bulk_file_update_response.BulkFileUpdateResponse()  # noqa: E501
+        if include_optional :
+            return BulkFileUpdateResponse(
+                items_failed = [
+                    ICA_SDK.models.bulk_update_failed_item.BulkUpdateFailedItem(
+                        id = '0', 
+                        error_response = ICA_SDK.models.error_response.ErrorResponse(
+                            code = '0', 
+                            message = '0', 
+                            details = [
+                                None
+                                ], ), )
+                    ], 
+                items_updated_count = 56, 
+                items_failed_count = 56
+            )
+        else :
+            return BulkFileUpdateResponse(
+        )
+
     def testBulkFileUpdateResponse(self):
         """Test BulkFileUpdateResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = BulkFileUpdateResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

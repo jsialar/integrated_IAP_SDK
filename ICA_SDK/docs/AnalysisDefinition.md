@@ -1,13 +1,13 @@
 # AnalysisDefinition
 
 Data contract for an analysis definition
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique object ID | [optional] 
 **urn** | **str** | URN of the object | [optional] 
 **href** | **str** | HREF to the object | [optional] 
+**compatible_library_prep_kits** | [**list[LibraryPrepKitCompact]**](LibraryPrepKitCompact.md) | The library preparation kits that are compatible with this analysis definition | [optional] 
 **name** | **str** | Name of the analysis definition | [optional] 
 **organization** | **str** | Organization owning the analysis definition | [optional] 
 **is_illumina** | **bool** | Indicates whether or not the current analysis definition is from Illumina | [optional] 
@@ -19,8 +19,7 @@ Name | Type | Description | Notes
 **analysis_versions** | [**AnalysisVersionDefinitionCompactItemList**](AnalysisVersionDefinitionCompactItemList.md) |  | [optional] 
 **checksum** | **str** | Stores the checksum of AnalysisDefinition | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
-**compatible_library_prep_kits** | [**[LibraryPrepKitCompact]**](LibraryPrepKitCompact.md) | The library preparation kits that are compatible with this analysis definition | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

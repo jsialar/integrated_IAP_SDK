@@ -1,6 +1,5 @@
 # BulkUpdateFailedItem
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

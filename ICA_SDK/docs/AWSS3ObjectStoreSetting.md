@@ -1,6 +1,5 @@
 # AWSS3ObjectStoreSetting
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

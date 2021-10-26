@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,16 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.health_check_statuses import HealthCheckStatuses
-from ICA_SDK.model.service_health_response import ServiceHealthResponse
-globals()['HealthCheckStatuses'] = HealthCheckStatuses
-globals()['ServiceHealthResponse'] = ServiceHealthResponse
-from ICA_SDK.model.system_health_response import SystemHealthResponse
-
+from ICA_SDK.models.system_health_response import SystemHealthResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestSystemHealthResponse(unittest.TestCase):
     """SystemHealthResponse unit test stubs"""
@@ -28,11 +28,30 @@ class TestSystemHealthResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test SystemHealthResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.system_health_response.SystemHealthResponse()  # noqa: E501
+        if include_optional :
+            return SystemHealthResponse(
+                status = 0, 
+                details = [
+                    ICA_SDK.models.service_health_response.ServiceHealthResponse(
+                        name = '0', 
+                        status = 0, 
+                        version = '0', )
+                    ]
+            )
+        else :
+            return SystemHealthResponse(
+        )
+
     def testSystemHealthResponse(self):
         """Test SystemHealthResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = SystemHealthResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

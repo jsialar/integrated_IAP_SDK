@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.direct_upload_credentials import DirectUploadCredentials
-
+from ICA_SDK.models.direct_upload_credentials import DirectUploadCredentials  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestDirectUploadCredentials(unittest.TestCase):
     """DirectUploadCredentials unit test stubs"""
@@ -24,11 +28,29 @@ class TestDirectUploadCredentials(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test DirectUploadCredentials
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.direct_upload_credentials.DirectUploadCredentials()  # noqa: E501
+        if include_optional :
+            return DirectUploadCredentials(
+                prefix = '0', 
+                volume_name = '0', 
+                expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                file_creation_api_path = '0', 
+                file_upload_api_path = '0', 
+                upload_id = '0'
+            )
+        else :
+            return DirectUploadCredentials(
+        )
+
     def testDirectUploadCredentials(self):
         """Test DirectUploadCredentials"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = DirectUploadCredentials()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

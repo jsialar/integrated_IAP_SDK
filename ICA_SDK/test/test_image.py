@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.credentials import Credentials
-globals()['Credentials'] = Credentials
-from ICA_SDK.model.image import Image
-
+from ICA_SDK.models.image import Image  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestImage(unittest.TestCase):
     """Image unit test stubs"""
@@ -26,11 +28,30 @@ class TestImage(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test Image
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.image.Image()  # noqa: E501
+        if include_optional :
+            return Image(
+                name = '0', 
+                tag = '0', 
+                digest = '0', 
+                credentials = ICA_SDK.models.credentials.Credentials(
+                    username = '0', 
+                    password = '0', )
+            )
+        else :
+            return Image(
+                name = '0',
+        )
+
     def testImage(self):
         """Test Image"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = Image()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

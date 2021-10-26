@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.start_planned_run_request import StartPlannedRunRequest
-
+from ICA_SDK.models.start_planned_run_request import StartPlannedRunRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestStartPlannedRunRequest(unittest.TestCase):
     """StartPlannedRunRequest unit test stubs"""
@@ -24,11 +28,44 @@ class TestStartPlannedRunRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test StartPlannedRunRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.start_planned_run_request.StartPlannedRunRequest()  # noqa: E501
+        if include_optional :
+            return StartPlannedRunRequest(
+                instrument_run_id = '0', 
+                instrument_run_status = '0', 
+                flow_cell_barcode = '0', 
+                consumables = None, 
+                sample_sheet_name = '0', 
+                run_mode = 'InstrumentMetrics', 
+                run_name = '0', 
+                run_parameters_xml = '0', 
+                run_info_xml = '0', 
+                instrument_run_number = 0, 
+                description = '0', 
+                instrument_software_version = '0', 
+                external_location = '0'
+            )
+        else :
+            return StartPlannedRunRequest(
+                instrument_run_id = '0',
+                instrument_run_status = '0',
+                flow_cell_barcode = '0',
+                consumables = None,
+                run_mode = 'InstrumentMetrics',
+                run_parameters_xml = '0',
+                instrument_run_number = 0,
+                instrument_software_version = '0',
+        )
+
     def testStartPlannedRunRequest(self):
         """Test StartPlannedRunRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = StartPlannedRunRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

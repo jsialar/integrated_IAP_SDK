@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.flow_cell_type import FlowCellType
-
+from ICA_SDK.models.flow_cell_type import FlowCellType  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestFlowCellType(unittest.TestCase):
     """FlowCellType unit test stubs"""
@@ -24,11 +28,25 @@ class TestFlowCellType(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test FlowCellType
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.flow_cell_type.FlowCellType()  # noqa: E501
+        if include_optional :
+            return FlowCellType(
+                type = '0', 
+                max_number_of_lanes = 56
+            )
+        else :
+            return FlowCellType(
+        )
+
     def testFlowCellType(self):
         """Test FlowCellType"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = FlowCellType()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

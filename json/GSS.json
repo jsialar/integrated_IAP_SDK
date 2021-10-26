@@ -8610,6 +8610,13 @@
           "description": "HREF to the object",
           "type": "string"
         },
+        "compatibleLibraryPrepKits": {
+          "description": "The library preparation kits that are compatible with this analysis definition",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LibraryPrepKitCompact"
+          }
+        },
         "name": {
           "description": "Name of the analysis definition",
           "type": "string"
@@ -8658,13 +8665,6 @@
           "type": "array",
           "items": {
             "type": "string"
-          }
-        },
-        "compatibleLibraryPrepKits": {
-          "description": "The library preparation kits that are compatible with this analysis definition",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/LibraryPrepKitCompact"
           }
         },
         "tenantId": {

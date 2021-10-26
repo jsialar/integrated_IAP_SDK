@@ -1,7 +1,6 @@
 # AbortSequencingRunRequest
 
 Request to abort a sequencing run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

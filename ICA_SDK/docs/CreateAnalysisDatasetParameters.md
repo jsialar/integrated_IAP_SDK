@@ -1,7 +1,6 @@
 # CreateAnalysisDatasetParameters
 
 Data transfer object (DTO) for creating an analysis dataset
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -13,11 +12,11 @@ Name | Type | Description | Notes
 **lane_number** | **int** | Optional Lane number associated with the analysis dataset | [optional] 
 **data_folder_urn** | **str** | Data folder urn of the analysis dataset | [optional] 
 **data_folder_volume_path** | **str** | VolumeName + path of the DataFolder | [optional] 
-**attributes** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Attributes of the analysis dataset | [optional] 
+**attributes** | [**object**](.md) | Attributes of the analysis dataset | [optional] 
 **type** | **str** | Type of the analysis dataset | [optional] 
 **qc_status** | **str** | QC status of the analysis dataset | [optional] 
 **qc_status_summary** | **str** | QC summary of the analysis dataset | [optional] 
-**file_urns** | **[str]** | FileUrns (or FileIds) of the AnalysisDataset | [optional] 
+**file_urns** | **list[str]** | FileUrns (or FileIds) of the AnalysisDataset | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

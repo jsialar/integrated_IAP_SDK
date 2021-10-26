@@ -1,7 +1,6 @@
 # CreateFileRequest
 
 CreateFileRequest Model
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -12,6 +11,7 @@ Name | Type | Description | Notes
 **volume_name** | **str** | Name of the Volume | [optional] 
 **format** | **str** | The File&#39;s Format | [optional] 
 **format_edam** | **str** | The File&#39;s Edam Format | [optional] 
+**metadata** | [**object**](.md) | Metadata about this file and its contents | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

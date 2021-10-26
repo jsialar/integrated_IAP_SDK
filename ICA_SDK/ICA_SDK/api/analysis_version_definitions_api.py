@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,27 +10,18 @@
 """
 
 
-import re  # noqa: F401
-import sys  # noqa: F401
+from __future__ import absolute_import
 
-from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
-from ICA_SDK.model_utils import (  # noqa: F401
-    check_allowed_values,
-    check_validations,
-    date,
-    datetime,
-    file_type,
-    none_type,
-    validate_and_convert_types
+import re  # noqa: F401
+
+# python 2 and python 3 compatibility library
+import six
+
+from ICA_SDK.api_client import ApiClient
+from ICA_SDK.exceptions import (  # noqa: F401
+    ApiTypeError,
+    ApiValueError
 )
-from ICA_SDK.model.analysis_version_definition import AnalysisVersionDefinition
-from ICA_SDK.model.analysis_version_definition_compact_analysis_version_definition_sort_fields_paged_items import AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems
-from ICA_SDK.model.create_analysis_version_definition_request import CreateAnalysisVersionDefinitionRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.render_analysis_version_definition_request import RenderAnalysisVersionDefinitionRequest
-from ICA_SDK.model.render_analysis_version_definition_response import RenderAnalysisVersionDefinitionResponse
-from ICA_SDK.model.update_acl_request import UpdateAclRequest
-from ICA_SDK.model.update_analysis_version_definition_request import UpdateAnalysisVersionDefinitionRequest
 
 
 class AnalysisVersionDefinitionsApi(object):
@@ -43,1463 +36,1377 @@ class AnalysisVersionDefinitionsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-        def __archive_analysis_version_definition(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Archives the given Analysis Version Definition.  # noqa: E501
+    def archive_analysis_version_definition(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Archives the given Analysis Version Definition.  # noqa: E501
 
-            For the given Id, Status of Analysis Version Definition is set to archived.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        For the given Id, Status of Analysis Version Definition is set to archived.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.archive_analysis_version_definition(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
 
-            >>> thread = api.archive_analysis_version_definition(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.archive_analysis_version_definition_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+    def archive_analysis_version_definition_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Archives the given Analysis Version Definition.  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        For the given Id, Status of Analysis Version Definition is set to archived.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.archive_analysis_version_definition_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
 
-        self.archive_analysis_version_definition = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:archive',
-                'operation_id': 'archive_analysis_version_definition',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__archive_analysis_version_definition
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __create_analysis_version_definition(
-            self,
-            analysis_definition_id,
-            **kwargs
-        ):
-            """Create an analysis version definition.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method archive_analysis_version_definition" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `archive_analysis_version_definition`")  # noqa: E501
 
-            Create an analysis version definition, and return information about that analysis definition.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.create_analysis_version_definition(analysis_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_definition_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (CreateAnalysisVersionDefinitionRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_definition_id'] = \
-                analysis_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.create_analysis_version_definition = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions',
-                'operation_id': 'create_analysis_version_definition',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_definition_id',
-                    'body',
-                ],
-                'required': [
-                    'analysis_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_definition_id':
-                        (str,),
-                    'body':
-                        (CreateAnalysisVersionDefinitionRequest,),
-                },
-                'attribute_map': {
-                    'analysis_definition_id': 'analysisDefinitionId',
-                },
-                'location_map': {
-                    'analysis_definition_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__create_analysis_version_definition
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:archive', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def create_analysis_version_definition(self, analysis_definition_id, **kwargs):  # noqa: E501
+        """Create an analysis version definition.  # noqa: E501
+
+        Create an analysis version definition, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_analysis_version_definition(analysis_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: (required)
+        :param CreateAnalysisVersionDefinitionRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.create_analysis_version_definition_with_http_info(analysis_definition_id, **kwargs)  # noqa: E501
+
+    def create_analysis_version_definition_with_http_info(self, analysis_definition_id, **kwargs):  # noqa: E501
+        """Create an analysis version definition.  # noqa: E501
+
+        Create an analysis version definition, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_analysis_version_definition_with_http_info(analysis_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: (required)
+        :param CreateAnalysisVersionDefinitionRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_definition_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_analysis_version_definition(
-            self,
-            analysis_definition_id,
-            version_name,
-            **kwargs
-        ):
-            """Get a specific analysis definition version by version name.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_analysis_version_definition" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_definition_id` when calling `create_analysis_version_definition`")  # noqa: E501
 
-            Get a specific analysis definition version accessible by the current request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_analysis_version_definition(analysis_definition_id, version_name, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_definition_id' in local_var_params:
+            path_params['analysisDefinitionId'] = local_var_params['analysis_definition_id']  # noqa: E501
 
-            Args:
-                analysis_definition_id (str):
-                version_name (str):
+        query_params = []
 
-            Keyword Args:
-                include ([str]): Include flags to specify what is included in the response. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_definition_id'] = \
-                analysis_definition_id
-            kwargs['version_name'] = \
-                version_name
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_analysis_version_definition = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName}',
-                'operation_id': 'get_analysis_version_definition',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_definition_id',
-                    'version_name',
-                    'include',
-                ],
-                'required': [
-                    'analysis_definition_id',
-                    'version_name',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                    'include',
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                    ('include',): {
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
 
-                        "COMPATIBLELIBRARYPREPKITS": "CompatibleLibraryPrepKits",
-                        "COMPATIBLEGENOMES": "CompatibleGenomes"
-                    },
-                },
-                'openapi_types': {
-                    'analysis_definition_id':
-                        (str,),
-                    'version_name':
-                        (str,),
-                    'include':
-                        ([str],),
-                },
-                'attribute_map': {
-                    'analysis_definition_id': 'analysisDefinitionId',
-                    'version_name': 'versionName',
-                    'include': 'include',
-                },
-                'location_map': {
-                    'analysis_definition_id': 'path',
-                    'version_name': 'path',
-                    'include': 'query',
-                },
-                'collection_format_map': {
-                    'include': 'csv',
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_analysis_version_definition
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_analysis_version_definition(self, analysis_definition_id, version_name, **kwargs):  # noqa: E501
+        """Get a specific analysis definition version by version name.  # noqa: E501
+
+        Get a specific analysis definition version accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_analysis_version_definition(analysis_definition_id, version_name, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: (required)
+        :param str version_name: (required)
+        :param list[str] include: Include flags to specify what is included in the response
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_analysis_version_definition_with_http_info(analysis_definition_id, version_name, **kwargs)  # noqa: E501
+
+    def get_analysis_version_definition_with_http_info(self, analysis_definition_id, version_name, **kwargs):  # noqa: E501
+        """Get a specific analysis definition version by version name.  # noqa: E501
+
+        Get a specific analysis definition version accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_analysis_version_definition_with_http_info(analysis_definition_id, version_name, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: (required)
+        :param str version_name: (required)
+        :param list[str] include: Include flags to specify what is included in the response
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_definition_id',
+            'version_name',
+            'include'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_analysis_version_definition_by_id_or_urn(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Get details of an analysis definition version by ID or URN.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_analysis_version_definition" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_definition_id` when calling `get_analysis_version_definition`")  # noqa: E501
+        # verify the required parameter 'version_name' is set
+        if self.api_client.client_side_validation and ('version_name' not in local_var_params or  # noqa: E501
+                                                        local_var_params['version_name'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `version_name` when calling `get_analysis_version_definition`")  # noqa: E501
 
-            For a given ID or URN, get details of an analysis definition version accessible by the current request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_analysis_version_definition_by_id_or_urn(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_definition_id' in local_var_params:
+            path_params['analysisDefinitionId'] = local_var_params['analysis_definition_id']  # noqa: E501
+        if 'version_name' in local_var_params:
+            path_params['versionName'] = local_var_params['version_name']  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
 
-            Keyword Args:
-                include ([str]): Include flags to specify what is included in the response. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_analysis_version_definition_by_id_or_urn = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}',
-                'operation_id': 'get_analysis_version_definition_by_id_or_urn',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                    'include',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                    'include',
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                    ('include',): {
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
 
-                        "COMPATIBLELIBRARYPREPKITS": "CompatibleLibraryPrepKits",
-                        "COMPATIBLEGENOMES": "CompatibleGenomes"
-                    },
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                    'include':
-                        ([str],),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                    'include': 'include',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                    'include': 'query',
-                },
-                'collection_format_map': {
-                    'include': 'csv',
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_analysis_version_definition_by_id_or_urn
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_analysis_version_definition_by_id_or_urn(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Get details of an analysis definition version by ID or URN.  # noqa: E501
+
+        For a given ID or URN, get details of an analysis definition version accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_analysis_version_definition_by_id_or_urn(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param list[str] include: Include flags to specify what is included in the response
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_analysis_version_definition_by_id_or_urn_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
+
+    def get_analysis_version_definition_by_id_or_urn_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Get details of an analysis definition version by ID or URN.  # noqa: E501
+
+        For a given ID or URN, get details of an analysis definition version accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_analysis_version_definition_by_id_or_urn_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param list[str] include: Include flags to specify what is included in the response
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id',
+            'include'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __list_analysis_version_definitions(
-            self,
-            analysis_definition_id,
-            **kwargs
-        ):
-            """Get a list of analysis definition versions.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_analysis_version_definition_by_id_or_urn" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `get_analysis_version_definition_by_id_or_urn`")  # noqa: E501
 
-            Get a list of analysis definition versions accessible by the current request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.list_analysis_version_definitions(analysis_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_definition_id (str): ID of the analysis definition
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
 
-            Keyword Args:
-                instrument_platform (str): Instrument platform. [optional]
-                instrument_type (str): Instrument type. [optional]
-                include ([str]): Include flags to specify what is included in the response. [optional]
-                tenant_ids ([str]): Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids. [optional]
-                page_size (int): Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.. [optional] if omitted the server will use the default value of 10
-                page_token (str): Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.. [optional]
-                sort (str): Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).. [optional] if omitted the server will use the default value of "timeCreated asc"
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_definition_id'] = \
-                analysis_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.list_analysis_version_definitions = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions',
-                'operation_id': 'list_analysis_version_definitions',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_definition_id',
-                    'instrument_platform',
-                    'instrument_type',
-                    'include',
-                    'tenant_ids',
-                    'page_size',
-                    'page_token',
-                    'sort',
-                ],
-                'required': [
-                    'analysis_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                    'include',
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                    ('include',): {
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
 
-                        "TOTALITEMCOUNT": "TotalItemCount",
-                        "ARCHIVED": "Archived"
-                    },
-                },
-                'openapi_types': {
-                    'analysis_definition_id':
-                        (str,),
-                    'instrument_platform':
-                        (str,),
-                    'instrument_type':
-                        (str,),
-                    'include':
-                        ([str],),
-                    'tenant_ids':
-                        ([str],),
-                    'page_size':
-                        (int,),
-                    'page_token':
-                        (str,),
-                    'sort':
-                        (str,),
-                },
-                'attribute_map': {
-                    'analysis_definition_id': 'analysisDefinitionId',
-                    'instrument_platform': 'instrumentPlatform',
-                    'instrument_type': 'instrumentType',
-                    'include': 'include',
-                    'tenant_ids': 'tenantIds',
-                    'page_size': 'pageSize',
-                    'page_token': 'pageToken',
-                    'sort': 'sort',
-                },
-                'location_map': {
-                    'analysis_definition_id': 'path',
-                    'instrument_platform': 'query',
-                    'instrument_type': 'query',
-                    'include': 'query',
-                    'tenant_ids': 'query',
-                    'page_size': 'query',
-                    'page_token': 'query',
-                    'sort': 'query',
-                },
-                'collection_format_map': {
-                    'include': 'csv',
-                    'tenant_ids': 'csv',
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__list_analysis_version_definitions
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def list_analysis_version_definitions(self, analysis_definition_id, **kwargs):  # noqa: E501
+        """Get a list of analysis definition versions.  # noqa: E501
+
+        Get a list of analysis definition versions accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_analysis_version_definitions(analysis_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: ID of the analysis definition (required)
+        :param str instrument_platform: Instrument platform
+        :param str instrument_type: Instrument type
+        :param list[str] include: Include flags to specify what is included in the response
+        :param list[str] tenant_ids: Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids
+        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
+        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
+        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.list_analysis_version_definitions_with_http_info(analysis_definition_id, **kwargs)  # noqa: E501
+
+    def list_analysis_version_definitions_with_http_info(self, analysis_definition_id, **kwargs):  # noqa: E501
+        """Get a list of analysis definition versions.  # noqa: E501
+
+        Get a list of analysis definition versions accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_analysis_version_definitions_with_http_info(analysis_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: ID of the analysis definition (required)
+        :param str instrument_platform: Instrument platform
+        :param str instrument_type: Instrument type
+        :param list[str] include: Include flags to specify what is included in the response
+        :param list[str] tenant_ids: Optional parameter to limit the response to be with in provided tenant ids  Comma separated to support multiple tenant ids
+        :param int page_size: Number of items to include in a page. Value must be an integer between 1 and 1000. Only one of pageSize or pageToken can be specified.
+        :param str page_token: Page offset descriptor. Valid page tokens are included in the response. Only one of pageSize or pageToken can be specified.
+        :param str sort: Specifies the order to include list items as \"_{fieldName}_ [asc|desc]\". The second field is optional and specifies the sort direction (\"asc\" for ascending or \"desc\" for descending).
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_definition_id',
+            'instrument_platform',
+            'instrument_type',
+            'include',
+            'tenant_ids',
+            'page_size',
+            'page_token',
+            'sort'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __merge_analysis_version_definition_acl(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Merge the access control list of an analysis version definition with the input access control list.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method list_analysis_version_definitions" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_definition_id` when calling `list_analysis_version_definitions`")  # noqa: E501
 
-            Merge the access control list of an analysis version definition with the input access control list, and return information about that analysis definition.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.merge_analysis_version_definition_acl(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_definition_id' in local_var_params:
+            path_params['analysisDefinitionId'] = local_var_params['analysis_definition_id']  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+        query_params = []
+        if 'instrument_platform' in local_var_params and local_var_params['instrument_platform'] is not None:  # noqa: E501
+            query_params.append(('instrumentPlatform', local_var_params['instrument_platform']))  # noqa: E501
+        if 'instrument_type' in local_var_params and local_var_params['instrument_type'] is not None:  # noqa: E501
+            query_params.append(('instrumentType', local_var_params['instrument_type']))  # noqa: E501
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
+        if 'tenant_ids' in local_var_params and local_var_params['tenant_ids'] is not None:  # noqa: E501
+            query_params.append(('tenantIds', local_var_params['tenant_ids']))  # noqa: E501
+            collection_formats['tenantIds'] = 'csv'  # noqa: E501
+        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
+            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
+        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
+            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
+        if 'sort' in local_var_params and local_var_params['sort'] is not None:  # noqa: E501
+            query_params.append(('sort', local_var_params['sort']))  # noqa: E501
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.merge_analysis_version_definition_acl = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl',
-                'operation_id': 'merge_analysis_version_definition_acl',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                    'body',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__merge_analysis_version_definition_acl
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinitionCompactAnalysisVersionDefinitionSortFieldsPagedItems',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def merge_analysis_version_definition_acl(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Merge the access control list of an analysis version definition with the input access control list.  # noqa: E501
+
+        Merge the access control list of an analysis version definition with the input access control list, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.merge_analysis_version_definition_acl(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.merge_analysis_version_definition_acl_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
+
+    def merge_analysis_version_definition_acl_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Merge the access control list of an analysis version definition with the input access control list.  # noqa: E501
+
+        Merge the access control list of an analysis version definition with the input access control list, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.merge_analysis_version_definition_acl_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __remove_analysis_version_definition_acl(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Remove the access control list of an analysis version definition.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method merge_analysis_version_definition_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `merge_analysis_version_definition_acl`")  # noqa: E501
 
-            Remove the access control list of an analysis version definition, and return information about that analysis definition.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.remove_analysis_version_definition_acl(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.remove_analysis_version_definition_acl = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl',
-                'operation_id': 'remove_analysis_version_definition_acl',
-                'http_method': 'DELETE',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                    'body',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__remove_analysis_version_definition_acl
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def remove_analysis_version_definition_acl(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Remove the access control list of an analysis version definition.  # noqa: E501
+
+        Remove the access control list of an analysis version definition, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.remove_analysis_version_definition_acl(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.remove_analysis_version_definition_acl_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
+
+    def remove_analysis_version_definition_acl_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Remove the access control list of an analysis version definition.  # noqa: E501
+
+        Remove the access control list of an analysis version definition, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.remove_analysis_version_definition_acl_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __render_analysis_version_definition_by_id_or_urn(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Dynamically render an analysis definition version by ID or URN.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method remove_analysis_version_definition_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `remove_analysis_version_definition_acl`")  # noqa: E501
 
-            For a given ID or URN, get details of an analysis definition version accessible by the current request token.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.render_analysis_version_definition_by_id_or_urn(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (RenderAnalysisVersionDefinitionRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                RenderAnalysisVersionDefinitionResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.render_analysis_version_definition_by_id_or_urn = _Endpoint(
-            settings={
-                'response_type': (RenderAnalysisVersionDefinitionResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:render',
-                'operation_id': 'render_analysis_version_definition_by_id_or_urn',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                    'body',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                    'body':
-                        (RenderAnalysisVersionDefinitionRequest,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json-patch+json',
-                    'application/json',
-                    'text/json',
-                    'application/*+json'
-                ]
-            },
-            api_client=api_client,
-            callable=__render_analysis_version_definition_by_id_or_urn
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def render_analysis_version_definition_by_id_or_urn(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Dynamically render an analysis definition version by ID or URN.  # noqa: E501
+
+        For a given ID or URN, get details of an analysis definition version accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.render_analysis_version_definition_by_id_or_urn(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param RenderAnalysisVersionDefinitionRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: RenderAnalysisVersionDefinitionResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.render_analysis_version_definition_by_id_or_urn_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
+
+    def render_analysis_version_definition_by_id_or_urn_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Dynamically render an analysis definition version by ID or URN.  # noqa: E501
+
+        For a given ID or URN, get details of an analysis definition version accessible by the current request token.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.render_analysis_version_definition_by_id_or_urn_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param RenderAnalysisVersionDefinitionRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(RenderAnalysisVersionDefinitionResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __replace_analysis_version_definition_acl(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Replace the access control list of an analysis version definition with the input access control list.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method render_analysis_version_definition_by_id_or_urn" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `render_analysis_version_definition_by_id_or_urn`")  # noqa: E501
 
-            Replace the access control list of an analysis version definition with the input access control list, and return information about that analysis definition.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.replace_analysis_version_definition_acl(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAclRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.replace_analysis_version_definition_acl = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl',
-                'operation_id': 'replace_analysis_version_definition_acl',
-                'http_method': 'PUT',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                    'body',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                    'body':
-                        (UpdateAclRequest,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__replace_analysis_version_definition_acl
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:render', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='RenderAnalysisVersionDefinitionResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def replace_analysis_version_definition_acl(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Replace the access control list of an analysis version definition with the input access control list.  # noqa: E501
+
+        Replace the access control list of an analysis version definition with the input access control list, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.replace_analysis_version_definition_acl(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param UpdateAclRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.replace_analysis_version_definition_acl_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
+
+    def replace_analysis_version_definition_acl_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Replace the access control list of an analysis version definition with the input access control list.  # noqa: E501
+
+        Replace the access control list of an analysis version definition with the input access control list, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.replace_analysis_version_definition_acl_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param UpdateAclRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __unarchive_analysis_version_definition(
-            self,
-            analysis_version_definition_id,
-            **kwargs
-        ):
-            """Unarchive the given Analysis Version Definition.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method replace_analysis_version_definition_acl" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `replace_analysis_version_definition_acl`")  # noqa: E501
 
-            For the given Id, Status of Analysis Version Definition is set to active.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.unarchive_analysis_version_definition(analysis_version_definition_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_version_definition_id (str):
+        query_params = []
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_version_definition_id'] = \
-                analysis_version_definition_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.unarchive_analysis_version_definition = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:unarchive',
-                'operation_id': 'unarchive_analysis_version_definition',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_version_definition_id',
-                ],
-                'required': [
-                    'analysis_version_definition_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_version_definition_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'analysis_version_definition_id': 'analysisVersionDefinitionId',
-                },
-                'location_map': {
-                    'analysis_version_definition_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__unarchive_analysis_version_definition
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}/acl', 'PUT',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def unarchive_analysis_version_definition(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Unarchive the given Analysis Version Definition.  # noqa: E501
+
+        For the given Id, Status of Analysis Version Definition is set to active.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.unarchive_analysis_version_definition(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.unarchive_analysis_version_definition_with_http_info(analysis_version_definition_id, **kwargs)  # noqa: E501
+
+    def unarchive_analysis_version_definition_with_http_info(self, analysis_version_definition_id, **kwargs):  # noqa: E501
+        """Unarchive the given Analysis Version Definition.  # noqa: E501
+
+        For the given Id, Status of Analysis Version Definition is set to active.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.unarchive_analysis_version_definition_with_http_info(analysis_version_definition_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_version_definition_id: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_version_definition_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __update_analysis_version_definition(
-            self,
-            analysis_definition_id,
-            version_name,
-            **kwargs
-        ):
-            """Update an analysis version definition.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method unarchive_analysis_version_definition" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_version_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_version_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_version_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_version_definition_id` when calling `unarchive_analysis_version_definition`")  # noqa: E501
 
-            Update an analysis version definition, and return information about that analysis definition.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.update_analysis_version_definition(analysis_definition_id, version_name, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'analysis_version_definition_id' in local_var_params:
+            path_params['analysisVersionDefinitionId'] = local_var_params['analysis_version_definition_id']  # noqa: E501
 
-            Args:
-                analysis_definition_id (str):
-                version_name (str):
+        query_params = []
 
-            Keyword Args:
-                body (UpdateAnalysisVersionDefinitionRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                AnalysisVersionDefinition
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['analysis_definition_id'] = \
-                analysis_definition_id
-            kwargs['version_name'] = \
-                version_name
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.update_analysis_version_definition = _Endpoint(
-            settings={
-                'response_type': (AnalysisVersionDefinition,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName}',
-                'operation_id': 'update_analysis_version_definition',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'analysis_definition_id',
-                    'version_name',
-                    'body',
-                ],
-                'required': [
-                    'analysis_definition_id',
-                    'version_name',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'analysis_definition_id':
-                        (str,),
-                    'version_name':
-                        (str,),
-                    'body':
-                        (UpdateAnalysisVersionDefinitionRequest,),
-                },
-                'attribute_map': {
-                    'analysis_definition_id': 'analysisDefinitionId',
-                    'version_name': 'versionName',
-                },
-                'location_map': {
-                    'analysis_definition_id': 'path',
-                    'version_name': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__update_analysis_version_definition
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/versions/{analysisVersionDefinitionId}:unarchive', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def update_analysis_version_definition(self, analysis_definition_id, version_name, **kwargs):  # noqa: E501
+        """Update an analysis version definition.  # noqa: E501
+
+        Update an analysis version definition, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_analysis_version_definition(analysis_definition_id, version_name, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: (required)
+        :param str version_name: (required)
+        :param UpdateAnalysisVersionDefinitionRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: AnalysisVersionDefinition
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.update_analysis_version_definition_with_http_info(analysis_definition_id, version_name, **kwargs)  # noqa: E501
+
+    def update_analysis_version_definition_with_http_info(self, analysis_definition_id, version_name, **kwargs):  # noqa: E501
+        """Update an analysis version definition.  # noqa: E501
+
+        Update an analysis version definition, and return information about that analysis definition.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_analysis_version_definition_with_http_info(analysis_definition_id, version_name, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str analysis_definition_id: (required)
+        :param str version_name: (required)
+        :param UpdateAnalysisVersionDefinitionRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(AnalysisVersionDefinition, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'analysis_definition_id',
+            'version_name',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_analysis_version_definition" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'analysis_definition_id' is set
+        if self.api_client.client_side_validation and ('analysis_definition_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['analysis_definition_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `analysis_definition_id` when calling `update_analysis_version_definition`")  # noqa: E501
+        # verify the required parameter 'version_name' is set
+        if self.api_client.client_side_validation and ('version_name' not in local_var_params or  # noqa: E501
+                                                        local_var_params['version_name'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `version_name` when calling `update_analysis_version_definition`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'analysis_definition_id' in local_var_params:
+            path_params['analysisDefinitionId'] = local_var_params['analysis_definition_id']  # noqa: E501
+        if 'version_name' in local_var_params:
+            path_params['versionName'] = local_var_params['version_name']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/sequencing/analysisdefinitions/{analysisDefinitionId}/versions/{versionName}', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='AnalysisVersionDefinition',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)

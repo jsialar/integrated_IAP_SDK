@@ -1,7 +1,6 @@
 # RenderMessage
 
 The render message
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

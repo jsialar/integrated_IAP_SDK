@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,16 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.object_store_settings import ObjectStoreSettings
-from ICA_SDK.model.volume_configuration_online_status import VolumeConfigurationOnlineStatus
-globals()['ObjectStoreSettings'] = ObjectStoreSettings
-globals()['VolumeConfigurationOnlineStatus'] = VolumeConfigurationOnlineStatus
-from ICA_SDK.model.volume_configuration_response import VolumeConfigurationResponse
-
+from ICA_SDK.models.volume_configuration_response import VolumeConfigurationResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestVolumeConfigurationResponse(unittest.TestCase):
     """VolumeConfigurationResponse unit test stubs"""
@@ -28,11 +28,43 @@ class TestVolumeConfigurationResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test VolumeConfigurationResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.volume_configuration_response.VolumeConfigurationResponse()  # noqa: E501
+        if include_optional :
+            return VolumeConfigurationResponse(
+                name = '0', 
+                tenant_id = '0', 
+                sub_tenant_id = '0', 
+                urn = '0', 
+                online_status = 'Initializing', 
+                error_code = '0', 
+                error_message = '0', 
+                time_of_last_error = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                created_by = '0', 
+                time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                modified_by = '0', 
+                object_store_settings = ICA_SDK.models.object_store_settings.ObjectStoreSettings(
+                    aws_s3 = ICA_SDK.models.awss3_object_store_setting.AWSS3ObjectStoreSetting(
+                        bucket_name = '012', 
+                        key_prefix = 'a', 
+                        server_side_encryption_algorithm = '0', 
+                        server_side_encryption_key = '0', ), 
+                    secret_name = '0', 
+                    secret_id = '0', )
+            )
+        else :
+            return VolumeConfigurationResponse(
+        )
+
     def testVolumeConfigurationResponse(self):
         """Test VolumeConfigurationResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = VolumeConfigurationResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,6 @@
 # RunSequencingStats
 
 Defines the data transfer object (DTO) for creating RunSequencingStats
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

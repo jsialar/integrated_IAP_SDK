@@ -1,7 +1,6 @@
 # UpdateSequencingRunConfigurationRequest
 
 Request to update sequencing run configuration
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

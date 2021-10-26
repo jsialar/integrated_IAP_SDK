@@ -1,7 +1,6 @@
 # SequencingRun
 
 Data contract for the full sequencing run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -55,7 +54,7 @@ Name | Type | Description | Notes
 **genome_info** | [**SequencingRunGenomeInfo**](SequencingRunGenomeInfo.md) |  | [optional] 
 **flow_cell_barcode** | **str** | Barcode of the flow cell used in the sequencing run | [optional] 
 **input_container_identifier** | **str** | Input container identifier used in the sequencing run | [optional] 
-**consumables** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Information (such as barcodes) about consumables (such as reagents, buffers, etc.) used in the sequencing run | [optional] 
+**consumables** | [**object**](.md) | Information (such as barcodes) about consumables (such as reagents, buffers, etc.) used in the sequencing run | [optional] 
 **run_mode** | **str** | Describes the analysis and proactive data that is uploaded and processed in the cloud | [optional] 
 **instrument_run_number** | **int** | Records the number of runs performed on a specific instrument | [optional] 
 **sample_sheet_name** | **str** | Name of the sample sheet file | [optional] 
@@ -72,8 +71,8 @@ Name | Type | Description | Notes
 **instrument_type_snapshot** | **str** | Instrument type snapshot when the run is locked or started | [optional] 
 **instrument_software_version** | **str** | Version of instrument control software provided by the instrument when the run starts | [optional] 
 **analysis_location** | **str** | Indicate the sequencing run will be performing local analysis or cloud analysis | [optional] 
-**analysis_summaries** | [**[SequencingRunAnalysisSummary]**](SequencingRunAnalysisSummary.md) | Configured analysis summary information | [optional] 
-**run_analysis_settings** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Run analysis settings | [optional] 
+**analysis_summaries** | [**list[SequencingRunAnalysisSummary]**](SequencingRunAnalysisSummary.md) | Configured analysis summary information | [optional] 
+**run_analysis_settings** | [**object**](.md) | Run analysis settings | [optional] 
 **is_favorite** | **bool** | Indicate whether the sequencing run is set as favorite run for the user | [optional] 
 **external_location** | **str** | Stores the external location of the sequencing run | [optional] 
 **checksum_of_manifest** | **str** | Stores the checksum of manifest  Used to verify run contents copied from external location | [optional] 
@@ -87,9 +86,9 @@ Name | Type | Description | Notes
 **analysis_time_completed** | **datetime** | Indicates the DateTime when the analysis is completed (typically for off-instrument analysis) | [optional] 
 **run_time_completed** | **datetime** | Indicates the DateTime of the overall run which have been fully completed (including post-upload cloud processing) | [optional] 
 **run_sequencing_stats** | [**RunSequencingStatsResponse**](RunSequencingStatsResponse.md) |  | [optional] 
-**analysis_runs** | [**[SequencingAnalysisRunCompact]**](SequencingAnalysisRunCompact.md) | Consists of the sequencing analysis runs related to the sequencing run | [optional] 
+**analysis_runs** | [**list[SequencingAnalysisRunCompact]**](SequencingAnalysisRunCompact.md) | Consists of the sequencing analysis runs related to the sequencing run | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **run_parameters_xml** | **str** | The content of the instrument RunParameters.xml file generated when sequencing run starts | [optional] 
 **run_info_xml** | **str** | Content of the instrument RunInfo.xml file, generated in XML format when sequencing run starts | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 

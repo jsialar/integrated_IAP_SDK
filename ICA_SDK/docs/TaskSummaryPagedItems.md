@@ -1,10 +1,9 @@
 # TaskSummaryPagedItems
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**[TaskSummary]**](TaskSummary.md) |  | [optional] 
+**items** | [**list[TaskSummary]**](TaskSummary.md) |  | [optional] 
 **item_count** | **int** |  | [optional] 
 **first_page_token** | **str** |  | [optional] 
 **next_page_token** | **str** |  | [optional] 

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.complete_sequencing_run_upload_request import CompleteSequencingRunUploadRequest
-
+from ICA_SDK.models.complete_sequencing_run_upload_request import CompleteSequencingRunUploadRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestCompleteSequencingRunUploadRequest(unittest.TestCase):
     """CompleteSequencingRunUploadRequest unit test stubs"""
@@ -24,11 +28,26 @@ class TestCompleteSequencingRunUploadRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test CompleteSequencingRunUploadRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.complete_sequencing_run_upload_request.CompleteSequencingRunUploadRequest()  # noqa: E501
+        if include_optional :
+            return CompleteSequencingRunUploadRequest(
+                run_upload_status_summary = '0', 
+                session_id = '0', 
+                expected_session_file_count = 0
+            )
+        else :
+            return CompleteSequencingRunUploadRequest(
+        )
+
     def testCompleteSequencingRunUploadRequest(self):
         """Test CompleteSequencingRunUploadRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = CompleteSequencingRunUploadRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

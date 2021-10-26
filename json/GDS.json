@@ -42,6 +42,12 @@
           },
           {
             "in": "query",
+            "name": "includeVolumeMetadata",
+            "description": "Optional parameter to return volume's metadata",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
             "name": "metadata.include",
             "description": "Optional parameter to specify comma separated patterns to include metadata by their field names.",
             "type": "string"
@@ -97,7 +103,7 @@
           "Files"
         ],
         "summary": "Update a file entry in GDS and get temporary credentials for upload",
-        "description": "Update a file entry in GDS. Returns temporary credentials for file upload directly to S3 when the include=objectStoreAccess parameter is used. Note that the currently supported changes to the file resource are updating the file type and the underlying content.",
+        "description": "Update a file entry in GDS. Returns temporary credentials and presigned url(s) for file upload directly to S3 when the include=objectStoreAccess parameter is used. Note that the currently supported changes to the file resource are updating the file type and the underlying content.",
         "operationId": "updateFile",
         "consumes": [
           "application/json"
@@ -118,6 +124,15 @@
             "name": "include",
             "description": "Optionally include additional fields in the response.\r\n            Possible values: ObjectStoreAccess",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "uploadPartCount",
+            "description": "Optional number of parts for the presigned url for uploads (1 - 10000)",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 10000,
+            "minimum": 1
           },
           {
             "in": "body",
@@ -231,7 +246,7 @@
           "Files"
         ],
         "summary": "Create a file entry in GDS and get temporary credentials for upload",
-        "description": "Create a file entry in GDS. Returns temporary credentials for file upload directly to S3 when the include=objectStoreAccess parameter is used. Volume ID or volume name is required for file creation. If a folder path is provided and does not exist, GDS creates the folder path in the appropriate account automatically.",
+        "description": "Create a file entry in GDS. Returns temporary credentials and presigned url(s) for file upload directly to S3 when the include=objectStoreAccess parameter is used. Volume ID or volume name is required for file creation. If a folder path is provided and does not exist, GDS creates the folder path in the appropriate account automatically.",
         "operationId": "createFile",
         "consumes": [
           "application/json"
@@ -245,6 +260,15 @@
             "name": "include",
             "description": "Optionally include additional fields in the response.\r\n            Possible values: ObjectStoreAccess",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "uploadPartCount",
+            "description": "Optional number of parts for the presigned url for uploads (1 - 10000)",
+            "type": "integer",
+            "format": "int32",
+            "maximum": 10000,
+            "minimum": 1
           },
           {
             "in": "body",
@@ -421,6 +445,81 @@
           },
           "403": {
             "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected issue. Please try your request again. If problem persists, please contact the system administrator.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v1/files/{fileId}:completeUpload": {
+      "post": {
+        "tags": [
+          "Files"
+        ],
+        "summary": "Complete a file Upload",
+        "description": "Complete a file upload operation. If the file was uploaded using multipart uploads, combine all the multiple parts uploaded into one complete file.",
+        "operationId": "completeFileUpload",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fileId",
+            "description": "Unique identifier for the file upload to be completed.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FileUploadCompleteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/FileResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "File not found.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "Conflict.",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -821,6 +920,12 @@
             "name": "tenantId",
             "description": "Optional parameter to see shared data in another tenant",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "includeVolumeMetadata",
+            "description": "Optional parameter to return volume's metadata",
+            "type": "boolean"
           },
           {
             "in": "query",
@@ -1494,6 +1599,7 @@
         }
       }
     },
+    "/v1/jobs/{jobId}": { },
     "/v1/volumeconfigurations": {
       "get": {
         "tags": [
@@ -2145,28 +2251,35 @@
         }
       }
     },
-    "AwsS3PostPolicy": {
-      "description": "POST Policy as a credential for uploading using POST",
+    "AwsS3PresignedUrlForUpload": {
+      "description": "AwsS3PresignedUrlForUpload",
       "type": "object",
       "properties": {
-        "policy": {
-          "description": "A base64 policy to restrict uploads with expiry time and for a given key prefix",
+        "singlePartUrl": {
+          "description": "A single part presigned url for upload",
           "type": "string"
         },
-        "signature": {
-          "description": "Signature for the upload operation",
+        "multipartTemplate": {
+          "description": "A url template for multi parts presigned url for upload",
           "type": "string"
         },
-        "credential": {
-          "description": "Credential for the upload",
+        "multipartSignatures": {
+          "description": "Multi parts info that needs to be applied to the MultipartTemplate",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartInfo"
+          }
+        },
+        "multipartUploadId": {
+          "description": "Multi part upload id",
           "type": "string"
         },
-        "algorithm": {
-          "description": "This is AWS4-HMAC-SHA256",
+        "serverSideEncryptionAlgorithm": {
+          "description": "The server side encryption method used by S3.\r\nThis value is used to determine the Amazon S3 header \"x-amz-server-side-encryption\" value.\r\nPossible values: 'AES256' and 'aws:kms'.",
           "type": "string"
         },
-        "date": {
-          "description": "The current upload date",
+        "serverSideEncryptionKey": {
+          "description": "Server-side encryption key that might be associated with the specified server-side encryption algorithm\r\nThis value can be the AWS KMS arn key, to be used for the Amazon S3 header \"x-amz-server-side-encryption-aws-kms-key-id\" value\r\nThis is only used when ServerSideEncryptionAlgorithm is 'aws:kms'",
           "type": "string"
         }
       }
@@ -2358,6 +2471,9 @@
         "formatEdam": {
           "description": "The File's Edam Format",
           "type": "string"
+        },
+        "metadata": {
+          "description": "Metadata about this file and its contents"
         }
       }
     },
@@ -2811,6 +2927,23 @@
         }
       }
     },
+    "FileUploadCompleteRequest": {
+      "description": "FileUploadCompleteRequest",
+      "type": "object",
+      "properties": {
+        "multipartUploadId": {
+          "description": "The multipart upload id used by the object store",
+          "type": "string"
+        },
+        "partEtags": {
+          "description": "etags for each uploaded part (optional for files that uses multipart upload)",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PartEtag"
+          }
+        }
+      }
+    },
     "FileWriteableResponse": {
       "type": "object",
       "properties": {
@@ -2982,6 +3115,16 @@
         }
       }
     },
+    "FolderDeleteOperationParameters": {
+      "description": "Operation parameters for folder delete operations",
+      "type": "object",
+      "properties": {
+        "folderUrn": {
+          "description": "The Urn of the folder for the delete operation",
+          "type": "string"
+        }
+      }
+    },
     "FolderListResponse": {
       "type": "object",
       "properties": {
@@ -3105,6 +3248,10 @@
         "jobStatus": {
           "$ref": "#/definitions/JobStatus"
         },
+        "jobId": {
+          "description": "The job identifier for the current folder operation. Currently only being used for the delete folder operation.",
+          "type": "string"
+        },
         "archiveJobStorageTier": {
           "$ref": "#/definitions/StorageTier"
         }
@@ -3217,6 +3364,10 @@
         "jobStatus": {
           "$ref": "#/definitions/JobStatus"
         },
+        "jobId": {
+          "description": "The job identifier for the current folder operation. Currently only being used for the delete folder operation.",
+          "type": "string"
+        },
         "archiveJobStorageTier": {
           "$ref": "#/definitions/StorageTier"
         },
@@ -3240,6 +3391,9 @@
       "properties": {
         "folderCopy": {
           "$ref": "#/definitions/FolderCopyOperationParameters"
+        },
+        "folderDelete": {
+          "$ref": "#/definitions/FolderDeleteOperationParameters"
         }
       }
     },
@@ -3324,6 +3478,9 @@
         },
         "awsS3TemporaryUploadCredentials": {
           "$ref": "#/definitions/AwsS3TemporaryUploadCredentials"
+        },
+        "awsS3PresignedUrlForUpload": {
+          "$ref": "#/definitions/AwsS3PresignedUrlForUpload"
         }
       }
     },
@@ -3342,6 +3499,45 @@
         },
         "secretId": {
           "description": "Platform credentials Id\r\nMust provide either SecretId or SecretName",
+          "type": "string"
+        }
+      }
+    },
+    "PartEtag": {
+      "description": "PartEtag",
+      "type": "object",
+      "properties": {
+        "part": {
+          "format": "int32",
+          "description": "Part number",
+          "type": "integer",
+          "example": 1
+        },
+        "etag": {
+          "description": "Etag response for the part upload",
+          "type": "string"
+        }
+      }
+    },
+    "PartInfo": {
+      "description": "PartInfo of multi parts presigned url for upload",
+      "type": "object",
+      "properties": {
+        "part": {
+          "format": "int32",
+          "description": "Part number to be applied to {part} in MultipartTemplate",
+          "type": "integer"
+        },
+        "date": {
+          "description": "Date to be applied to {date} in MultipartTemplate",
+          "type": "string"
+        },
+        "dateTime": {
+          "description": "DateTime to be applied to {datetime} in MultipartTemplate",
+          "type": "string"
+        },
+        "signature": {
+          "description": "Signature to be applied to {signature} in MultipartTemplate",
           "type": "string"
         }
       }
@@ -3418,6 +3614,9 @@
         },
         "lifeCycle": {
           "$ref": "#/definitions/FileLifeCycleSettings"
+        },
+        "metadata": {
+          "description": "Metadata about this file and its contents"
         }
       }
     },

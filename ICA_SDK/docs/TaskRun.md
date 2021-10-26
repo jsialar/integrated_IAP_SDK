@@ -1,6 +1,5 @@
 # TaskRun
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -9,15 +8,15 @@ Name | Type | Description | Notes
 **urn** | **str** | URN of the resource | [optional] 
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
-**status** | **str** |  | [optional]  if omitted the server will use the default value of "Pending"
+**status** | **str** |  | [optional] [default to 'Pending']
 **status_details** | **str** |  | [optional] 
 **type_of_resource** | **str** |  | [optional] 
 **size_of_resource** | **str** |  | [optional] 
 **tier_of_resource** | **str** |  | [optional] 
 **execution** | [**Execution**](Execution.md) |  | [optional] 
 **task_version_summary** | [**TaskVersionSummary**](TaskVersionSummary.md) |  | [optional] 
-**logs** | [**[TaskRunLogs]**](TaskRunLogs.md) |  | [optional] 
-**acl** | **[str]** | Access Control List | [optional] 
+**logs** | [**list[TaskRunLogs]**](TaskRunLogs.md) |  | [optional] 
+**acl** | **list[str]** | Access Control List | [optional] 
 **tenant_id** | **str** |  | [optional] 
 **sub_tenant_id** | **str** |  | [optional] 
 **created_by** | **str** | User who created the object | [optional] 

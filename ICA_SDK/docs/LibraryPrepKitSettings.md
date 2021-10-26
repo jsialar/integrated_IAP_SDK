@@ -1,7 +1,6 @@
 # LibraryPrepKitSettings
 
 Settings for a library prep kit
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

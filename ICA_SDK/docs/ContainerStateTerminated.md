@@ -1,6 +1,5 @@
 # ContainerStateTerminated
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

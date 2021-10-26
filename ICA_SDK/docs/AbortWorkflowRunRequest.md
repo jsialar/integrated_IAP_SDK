@@ -1,7 +1,6 @@
 # AbortWorkflowRunRequest
 
 Abort a workflow run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

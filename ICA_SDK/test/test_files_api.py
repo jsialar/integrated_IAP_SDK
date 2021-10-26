@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,17 +10,20 @@
 """
 
 
+from __future__ import absolute_import
+
 import unittest
 
 import ICA_SDK
 from ICA_SDK.api.files_api import FilesApi  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 
 class TestFilesApi(unittest.TestCase):
     """FilesApi unit test stubs"""
 
     def setUp(self):
-        self.api = FilesApi()  # noqa: E501
+        self.api = ICA_SDK.api.files_api.FilesApi()  # noqa: E501
 
     def tearDown(self):
         pass
@@ -27,6 +32,13 @@ class TestFilesApi(unittest.TestCase):
         """Test case for archive_file
 
         Archive a file  # noqa: E501
+        """
+        pass
+
+    def test_complete_file_upload(self):
+        """Test case for complete_file_upload
+
+        Complete a file Upload  # noqa: E501
         """
         pass
 

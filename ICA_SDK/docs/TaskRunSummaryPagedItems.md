@@ -1,10 +1,9 @@
 # TaskRunSummaryPagedItems
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**[TaskRunSummary]**](TaskRunSummary.md) |  | [optional] 
+**items** | [**list[TaskRunSummary]**](TaskRunSummary.md) |  | [optional] 
 **item_count** | **int** |  | [optional] 
 **first_page_token** | **str** |  | [optional] 
 **next_page_token** | **str** |  | [optional] 

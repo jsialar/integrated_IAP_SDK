@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.delivery_target_workflow_run_launch import DeliveryTargetWorkflowRunLaunch
-
+from ICA_SDK.models.delivery_target_workflow_run_launch import DeliveryTargetWorkflowRunLaunch  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestDeliveryTargetWorkflowRunLaunch(unittest.TestCase):
     """DeliveryTargetWorkflowRunLaunch unit test stubs"""
@@ -24,11 +28,30 @@ class TestDeliveryTargetWorkflowRunLaunch(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test DeliveryTargetWorkflowRunLaunch
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.delivery_target_workflow_run_launch.DeliveryTargetWorkflowRunLaunch()  # noqa: E501
+        if include_optional :
+            return DeliveryTargetWorkflowRunLaunch(
+                id = '0', 
+                version = '0', 
+                name = '0', 
+                input = None
+            )
+        else :
+            return DeliveryTargetWorkflowRunLaunch(
+                id = '0',
+                version = '0',
+                name = '0',
+        )
+
     def testDeliveryTargetWorkflowRunLaunch(self):
         """Test DeliveryTargetWorkflowRunLaunch"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = DeliveryTargetWorkflowRunLaunch()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

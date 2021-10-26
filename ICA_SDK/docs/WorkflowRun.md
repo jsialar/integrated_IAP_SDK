@@ -1,7 +1,6 @@
 # WorkflowRun
 
 Details of a workflow run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -18,8 +17,8 @@ Name | Type | Description | Notes
 **error_cause** | **str** | Error cause for a failed workflow run | [optional] 
 **workflow_version** | [**WorkflowVersionCompact**](WorkflowVersionCompact.md) |  | [optional] 
 **created_by_client_id** | **str** | Client ID of the Origin Request | [optional] 
-**input** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Input to workflow run, as JSON | [optional] 
-**output** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Output from workflow run, as JSON | [optional] 
+**input** | [**object**](.md) | Input to workflow run, as JSON | [optional] 
+**output** | [**object**](.md) | Output from workflow run, as JSON | [optional] 
 **definition** | **str** | Definition of the workflow version | [optional] 
 **engine_parameters** | **str** | Workflow Engine Parameters | [optional] 
 **time_created** | **datetime** | Time (in UTC) the resource was created | [optional] 
@@ -27,7 +26,7 @@ Name | Type | Description | Notes
 **created_by** | **str** | User that created the resource | [optional] 
 **modified_by** | **str** | User that modified the resource | [optional] 
 **tenant_id** | **str** | Tenant ID the resource belongs to | [optional] 
-**acl** | **[str]** | Access control list of the resource | [optional] 
+**acl** | **list[str]** | Access control list of the resource | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

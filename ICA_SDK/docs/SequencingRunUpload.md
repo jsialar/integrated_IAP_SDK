@@ -1,7 +1,6 @@
 # SequencingRunUpload
 
 Represents the returned data from the sequencing run upload. Includes sequencing run compact and upload credentials.
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.update_sequencing_run_status_request import UpdateSequencingRunStatusRequest
-
+from ICA_SDK.models.update_sequencing_run_status_request import UpdateSequencingRunStatusRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestUpdateSequencingRunStatusRequest(unittest.TestCase):
     """UpdateSequencingRunStatusRequest unit test stubs"""
@@ -24,11 +28,38 @@ class TestUpdateSequencingRunStatusRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test UpdateSequencingRunStatusRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.update_sequencing_run_status_request.UpdateSequencingRunStatusRequest()  # noqa: E501
+        if include_optional :
+            return UpdateSequencingRunStatusRequest(
+                verification_status = '0', 
+                verification_status_summary = '0', 
+                instrument_run_status = '0', 
+                instrument_run_status_summary = '0', 
+                instrument_analysis_status = '0', 
+                instrument_analysis_status_summary = '0', 
+                upload_status_summary = '0', 
+                verification_progress = 'Started', 
+                instrument_progress = 'Started', 
+                sequencing_progress = 'Started', 
+                instrument_analysis_progress = 'Started', 
+                upload_progress = 'Started', 
+                failure_reason = '0', 
+                needs_attention = True, 
+                needs_attention_reason = '0'
+            )
+        else :
+            return UpdateSequencingRunStatusRequest(
+        )
+
     def testUpdateSequencingRunStatusRequest(self):
         """Test UpdateSequencingRunStatusRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = UpdateSequencingRunStatusRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

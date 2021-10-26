@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.lane_content import LaneContent
-globals()['LaneContent'] = LaneContent
-from ICA_SDK.model.update_sequencing_run_contents_request import UpdateSequencingRunContentsRequest
-
+from ICA_SDK.models.update_sequencing_run_contents_request import UpdateSequencingRunContentsRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestUpdateSequencingRunContentsRequest(unittest.TestCase):
     """UpdateSequencingRunContentsRequest unit test stubs"""
@@ -26,11 +28,72 @@ class TestUpdateSequencingRunContentsRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test UpdateSequencingRunContentsRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.update_sequencing_run_contents_request.UpdateSequencingRunContentsRequest()  # noqa: E501
+        if include_optional :
+            return UpdateSequencingRunContentsRequest(
+                allow_index_updates = True, 
+                lane_contents = [
+                    ICA_SDK.models.lane_content.LaneContent(
+                        lane_number = 56, 
+                        same_as_lane_number = 56, 
+                        adapter_sequence_read1 = '0', 
+                        adapter_sequence_read2 = '0', 
+                        lane_libraries = [
+                            ICA_SDK.models.lane_library.LaneLibrary(
+                                sample_name = '0', 
+                                sample_urn = '0', 
+                                project_name = '0', 
+                                library_name = '0', 
+                                library_urn = '0', 
+                                adapter_sequence_read1 = '0', 
+                                adapter_sequence_read2 = '0', 
+                                index1_sequence = '0', 
+                                index2_sequence = '0', 
+                                index_container_position = '0', 
+                                index1_name = '0', 
+                                index2_name = '0', 
+                                library_prep_kit_urn = '0', 
+                                index_adapter_kit_urn = '0', )
+                            ], )
+                    ]
+            )
+        else :
+            return UpdateSequencingRunContentsRequest(
+                lane_contents = [
+                    ICA_SDK.models.lane_content.LaneContent(
+                        lane_number = 56, 
+                        same_as_lane_number = 56, 
+                        adapter_sequence_read1 = '0', 
+                        adapter_sequence_read2 = '0', 
+                        lane_libraries = [
+                            ICA_SDK.models.lane_library.LaneLibrary(
+                                sample_name = '0', 
+                                sample_urn = '0', 
+                                project_name = '0', 
+                                library_name = '0', 
+                                library_urn = '0', 
+                                adapter_sequence_read1 = '0', 
+                                adapter_sequence_read2 = '0', 
+                                index1_sequence = '0', 
+                                index2_sequence = '0', 
+                                index_container_position = '0', 
+                                index1_name = '0', 
+                                index2_name = '0', 
+                                library_prep_kit_urn = '0', 
+                                index_adapter_kit_urn = '0', )
+                            ], )
+                    ],
+        )
+
     def testUpdateSequencingRunContentsRequest(self):
         """Test UpdateSequencingRunContentsRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = UpdateSequencingRunContentsRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,31 +10,18 @@
 """
 
 
-import re  # noqa: F401
-import sys  # noqa: F401
+from __future__ import absolute_import
 
-from ICA_SDK.api_client import ApiClient, Endpoint as _Endpoint
-from ICA_SDK.model_utils import (  # noqa: F401
-    check_allowed_values,
-    check_validations,
-    date,
-    datetime,
-    file_type,
-    none_type,
-    validate_and_convert_types
+import re  # noqa: F401
+
+# python 2 and python 3 compatibility library
+import six
+
+from ICA_SDK.api_client import ApiClient
+from ICA_SDK.exceptions import (  # noqa: F401
+    ApiTypeError,
+    ApiValueError
 )
-from ICA_SDK.model.complete_session_request import CompleteSessionRequest
-from ICA_SDK.model.create_folder_request import CreateFolderRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.folder_archive_request import FolderArchiveRequest
-from ICA_SDK.model.folder_copy_request import FolderCopyRequest
-from ICA_SDK.model.folder_list_response import FolderListResponse
-from ICA_SDK.model.folder_response import FolderResponse
-from ICA_SDK.model.folder_unarchive_request import FolderUnarchiveRequest
-from ICA_SDK.model.folder_update_request import FolderUpdateRequest
-from ICA_SDK.model.folder_writeable_response import FolderWriteableResponse
-from ICA_SDK.model.job_response import JobResponse
-from ICA_SDK.model.session_response import SessionResponse
 
 
 class FoldersApi(object):
@@ -47,1521 +36,1440 @@ class FoldersApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-        def __archive_folder(
-            self,
-            folder_id,
-            body,
-            **kwargs
-        ):
-            """Archive a folder  # noqa: E501
+    def archive_folder(self, folder_id, body, **kwargs):  # noqa: E501
+        """Archive a folder  # noqa: E501
 
-            Archives a folder to a lower storage cost tier.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        Archives a folder to a lower storage cost tier.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.archive_folder(folder_id, body, async_req=True)
+        >>> result = thread.get()
 
-            >>> thread = api.archive_folder(folder_id, body, async_req=True)
-            >>> result = thread.get()
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be archived. (required)
+        :param FolderArchiveRequest body: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.archive_folder_with_http_info(folder_id, body, **kwargs)  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder to be archived.
-                body (FolderArchiveRequest):
+    def archive_folder_with_http_info(self, folder_id, body, **kwargs):  # noqa: E501
+        """Archive a folder  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        Archives a folder to a lower storage cost tier.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.archive_folder_with_http_info(folder_id, body, async_req=True)
+        >>> result = thread.get()
 
-            Returns:
-                FolderResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            kwargs['body'] = \
-                body
-            return self.call_with_http_info(**kwargs)
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be archived. (required)
+        :param FolderArchiveRequest body: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
 
-        self.archive_folder = _Endpoint(
-            settings={
-                'response_type': (FolderResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}:archive',
-                'operation_id': 'archive_folder',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'body',
-                ],
-                'required': [
-                    'folder_id',
-                    'body',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'body':
-                        (FolderArchiveRequest,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json-patch+json',
-                    'application/json',
-                    'text/json',
-                    'application/*+json'
-                ]
-            },
-            api_client=api_client,
-            callable=__archive_folder
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __complete_folder_session(
-            self,
-            folder_id,
-            session_id,
-            body,
-            **kwargs
-        ):
-            """Complete a folder upload in GDS  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method archive_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `archive_folder`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `archive_folder`")  # noqa: E501
 
-            Complete a folder upload in GDS.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.complete_folder_session(folder_id, session_id, body, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder related to the upload session.
-                session_id (str): The id of the upload session
-                body (CompleteSessionRequest): The request body
+        query_params = []
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                SessionResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            kwargs['session_id'] = \
-                session_id
-            kwargs['body'] = \
-                body
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.complete_folder_session = _Endpoint(
-            settings={
-                'response_type': (SessionResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}/sessions/{sessionId}:complete',
-                'operation_id': 'complete_folder_session',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'session_id',
-                    'body',
-                ],
-                'required': [
-                    'folder_id',
-                    'session_id',
-                    'body',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'session_id':
-                        (str,),
-                    'body':
-                        (CompleteSessionRequest,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                    'session_id': 'sessionId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'session_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__complete_folder_session
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}:archive', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def complete_folder_session(self, folder_id, session_id, body, **kwargs):  # noqa: E501
+        """Complete a folder upload in GDS  # noqa: E501
+
+        Complete a folder upload in GDS.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.complete_folder_session(folder_id, session_id, body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder related to the upload session. (required)
+        :param str session_id: The id of the upload session (required)
+        :param CompleteSessionRequest body: The request body (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: SessionResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.complete_folder_session_with_http_info(folder_id, session_id, body, **kwargs)  # noqa: E501
+
+    def complete_folder_session_with_http_info(self, folder_id, session_id, body, **kwargs):  # noqa: E501
+        """Complete a folder upload in GDS  # noqa: E501
+
+        Complete a folder upload in GDS.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.complete_folder_session_with_http_info(folder_id, session_id, body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder related to the upload session. (required)
+        :param str session_id: The id of the upload session (required)
+        :param CompleteSessionRequest body: The request body (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(SessionResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'session_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __copy_folder(
-            self,
-            folder_id,
-            body,
-            **kwargs
-        ):
-            """Copy a folder  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method complete_folder_session" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `complete_folder_session`")  # noqa: E501
+        # verify the required parameter 'session_id' is set
+        if self.api_client.client_side_validation and ('session_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['session_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `session_id` when calling `complete_folder_session`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `complete_folder_session`")  # noqa: E501
 
-            Copy a folder into a target parent folder  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.copy_folder(folder_id, body, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
+        if 'session_id' in local_var_params:
+            path_params['sessionId'] = local_var_params['session_id']  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder to be copied.
-                body (FolderCopyRequest):
+        query_params = []
 
-            Keyword Args:
-                tenant_id (str): Optional parameter to copy from a shared folder in another tenant. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                JobResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            kwargs['body'] = \
-                body
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.copy_folder = _Endpoint(
-            settings={
-                'response_type': (JobResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}:copy',
-                'operation_id': 'copy_folder',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'body',
-                    'tenant_id',
-                ],
-                'required': [
-                    'folder_id',
-                    'body',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'body':
-                        (FolderCopyRequest,),
-                    'tenant_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                    'tenant_id': 'tenantId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'body': 'body',
-                    'tenant_id': 'query',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json-patch+json',
-                    'application/json',
-                    'text/json',
-                    'application/*+json'
-                ]
-            },
-            api_client=api_client,
-            callable=__copy_folder
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}/sessions/{sessionId}:complete', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='SessionResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def copy_folder(self, folder_id, body, **kwargs):  # noqa: E501
+        """Copy a folder  # noqa: E501
+
+        Copy a folder into a target parent folder  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.copy_folder(folder_id, body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be copied. (required)
+        :param FolderCopyRequest body: (required)
+        :param str tenant_id: Optional parameter to copy from a shared folder in another tenant
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: JobResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.copy_folder_with_http_info(folder_id, body, **kwargs)  # noqa: E501
+
+    def copy_folder_with_http_info(self, folder_id, body, **kwargs):  # noqa: E501
+        """Copy a folder  # noqa: E501
+
+        Copy a folder into a target parent folder  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.copy_folder_with_http_info(folder_id, body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be copied. (required)
+        :param FolderCopyRequest body: (required)
+        :param str tenant_id: Optional parameter to copy from a shared folder in another tenant
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(JobResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'body',
+            'tenant_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __create_folder(
-            self,
-            body,
-            **kwargs
-        ):
-            """Create a folder in GDS and receive credentials for upload  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method copy_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `copy_folder`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `copy_folder`")  # noqa: E501
 
-            Create a folder entry in GDS. Returns temporary credentials for folder upload directly to S3 when the include=objectStoreAccess parameter is used. Volume ID or volume name is required for folder creation. If a folder path is provided and does not exist, GDS automatically creates the folder path in the appropriate account.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.create_folder(body, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
 
-            Args:
-                body (CreateFolderRequest):
+        query_params = []
+        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
+            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
 
-            Keyword Args:
-                include (str): Optionally include additional fields in the response.              Possible values: ObjectStoreAccess. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                FolderWriteableResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['body'] = \
-                body
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.create_folder = _Endpoint(
-            settings={
-                'response_type': (FolderWriteableResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders',
-                'operation_id': 'create_folder',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'body',
-                    'include',
-                ],
-                'required': [
-                    'body',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'body':
-                        (CreateFolderRequest,),
-                    'include':
-                        (str,),
-                },
-                'attribute_map': {
-                    'include': 'include',
-                },
-                'location_map': {
-                    'body': 'body',
-                    'include': 'query',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json'
-                ]
-            },
-            api_client=api_client,
-            callable=__create_folder
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}:copy', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='JobResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def create_folder(self, body, **kwargs):  # noqa: E501
+        """Create a folder in GDS and receive credentials for upload  # noqa: E501
+
+        Create a folder entry in GDS. Returns temporary credentials for folder upload directly to S3 when the include=objectStoreAccess parameter is used. Volume ID or volume name is required for folder creation. If a folder path is provided and does not exist, GDS automatically creates the folder path in the appropriate account.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_folder(body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param CreateFolderRequest body: (required)
+        :param str include: Optionally include additional fields in the response.              Possible values: ObjectStoreAccess
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderWriteableResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.create_folder_with_http_info(body, **kwargs)  # noqa: E501
+
+    def create_folder_with_http_info(self, body, **kwargs):  # noqa: E501
+        """Create a folder in GDS and receive credentials for upload  # noqa: E501
+
+        Create a folder entry in GDS. Returns temporary credentials for folder upload directly to S3 when the include=objectStoreAccess parameter is used. Volume ID or volume name is required for folder creation. If a folder path is provided and does not exist, GDS automatically creates the folder path in the appropriate account.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.create_folder_with_http_info(body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param CreateFolderRequest body: (required)
+        :param str include: Optionally include additional fields in the response.              Possible values: ObjectStoreAccess
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderWriteableResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'body',
+            'include'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __delete_folder(
-            self,
-            folder_id,
-            **kwargs
-        ):
-            """Deletes a folder by id  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `create_folder`")  # noqa: E501
 
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.delete_folder(folder_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
 
-            Args:
-                folder_id (str): Unique identifier for the folder to be deleted.
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                FolderResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.delete_folder = _Endpoint(
-            settings={
-                'response_type': (FolderResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}',
-                'operation_id': 'delete_folder',
-                'http_method': 'DELETE',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                ],
-                'required': [
-                    'folder_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__delete_folder
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderWriteableResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def delete_folder(self, folder_id, **kwargs):  # noqa: E501
+        """Deletes a folder by id  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.delete_folder(folder_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be deleted. (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.delete_folder_with_http_info(folder_id, **kwargs)  # noqa: E501
+
+    def delete_folder_with_http_info(self, folder_id, **kwargs):  # noqa: E501
+        """Deletes a folder by id  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.delete_folder_with_http_info(folder_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be deleted. (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_folder(
-            self,
-            folder_id,
-            **kwargs
-        ):
-            """Get information about a folder in GDS.  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method delete_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `delete_folder`")  # noqa: E501
 
-            Get information for the specified folder ID.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_folder(folder_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder to retrieve.
+        query_params = []
 
-            Keyword Args:
-                tenant_id (str): Optional parameter to see shared data in another tenant. [optional]
-                metadata_include (str): Optional parameter to specify comma separated patterns to include metadata by their field names.. [optional]
-                metadata_exclude (str): Optional parameter to specify comma separated patterns to exclude metadata by their field names.. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                FolderResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_folder = _Endpoint(
-            settings={
-                'response_type': (FolderResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}',
-                'operation_id': 'get_folder',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'tenant_id',
-                    'metadata_include',
-                    'metadata_exclude',
-                ],
-                'required': [
-                    'folder_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'tenant_id':
-                        (str,),
-                    'metadata_include':
-                        (str,),
-                    'metadata_exclude':
-                        (str,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                    'tenant_id': 'tenantId',
-                    'metadata_include': 'metadata.include',
-                    'metadata_exclude': 'metadata.exclude',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'tenant_id': 'query',
-                    'metadata_include': 'query',
-                    'metadata_exclude': 'query',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_folder
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_folder(self, folder_id, **kwargs):  # noqa: E501
+        """Get information about a folder in GDS.  # noqa: E501
+
+        Get information for the specified folder ID.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_folder(folder_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to retrieve. (required)
+        :param str tenant_id: Optional parameter to see shared data in another tenant
+        :param bool include_volume_metadata: Optional parameter to return volume's metadata
+        :param str metadata_include: Optional parameter to specify comma separated patterns to include metadata by their field names.
+        :param str metadata_exclude: Optional parameter to specify comma separated patterns to exclude metadata by their field names.
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_folder_with_http_info(folder_id, **kwargs)  # noqa: E501
+
+    def get_folder_with_http_info(self, folder_id, **kwargs):  # noqa: E501
+        """Get information about a folder in GDS.  # noqa: E501
+
+        Get information for the specified folder ID.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_folder_with_http_info(folder_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to retrieve. (required)
+        :param str tenant_id: Optional parameter to see shared data in another tenant
+        :param bool include_volume_metadata: Optional parameter to return volume's metadata
+        :param str metadata_include: Optional parameter to specify comma separated patterns to include metadata by their field names.
+        :param str metadata_exclude: Optional parameter to specify comma separated patterns to exclude metadata by their field names.
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'tenant_id',
+            'include_volume_metadata',
+            'metadata_include',
+            'metadata_exclude'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_folder_job(
-            self,
-            folder_id,
-            job_id,
-            **kwargs
-        ):
-            """Get status of a folder job in GDS  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `get_folder`")  # noqa: E501
 
-            Get status of a folder job in GDS.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_folder_job(folder_id, job_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder related to the job.
-                job_id (str): The id of the job
+        query_params = []
+        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
+            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
+        if 'include_volume_metadata' in local_var_params and local_var_params['include_volume_metadata'] is not None:  # noqa: E501
+            query_params.append(('includeVolumeMetadata', local_var_params['include_volume_metadata']))  # noqa: E501
+        if 'metadata_include' in local_var_params and local_var_params['metadata_include'] is not None:  # noqa: E501
+            query_params.append(('metadata.include', local_var_params['metadata_include']))  # noqa: E501
+        if 'metadata_exclude' in local_var_params and local_var_params['metadata_exclude'] is not None:  # noqa: E501
+            query_params.append(('metadata.exclude', local_var_params['metadata_exclude']))  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                JobResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            kwargs['job_id'] = \
-                job_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_folder_job = _Endpoint(
-            settings={
-                'response_type': (JobResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}/jobs/{jobId}',
-                'operation_id': 'get_folder_job',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'job_id',
-                ],
-                'required': [
-                    'folder_id',
-                    'job_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'job_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                    'job_id': 'jobId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'job_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_folder_job
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_folder_job(self, folder_id, job_id, **kwargs):  # noqa: E501
+        """Get status of a folder job in GDS  # noqa: E501
+
+        Get status of a folder job in GDS.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_folder_job(folder_id, job_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder related to the job. (required)
+        :param str job_id: The id of the job (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: JobResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_folder_job_with_http_info(folder_id, job_id, **kwargs)  # noqa: E501
+
+    def get_folder_job_with_http_info(self, folder_id, job_id, **kwargs):  # noqa: E501
+        """Get status of a folder job in GDS  # noqa: E501
+
+        Get status of a folder job in GDS.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_folder_job_with_http_info(folder_id, job_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder related to the job. (required)
+        :param str job_id: The id of the job (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(JobResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'job_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __get_folder_session(
-            self,
-            folder_id,
-            session_id,
-            **kwargs
-        ):
-            """Get status of a folder upload in GDS  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_folder_job" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `get_folder_job`")  # noqa: E501
+        # verify the required parameter 'job_id' is set
+        if self.api_client.client_side_validation and ('job_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['job_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `job_id` when calling `get_folder_job`")  # noqa: E501
 
-            Get status of a folder upload in GDS.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.get_folder_session(folder_id, session_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
+        if 'job_id' in local_var_params:
+            path_params['jobId'] = local_var_params['job_id']  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder related to the upload session.
-                session_id (str): The id of the upload session
+        query_params = []
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                SessionResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            kwargs['session_id'] = \
-                session_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.get_folder_session = _Endpoint(
-            settings={
-                'response_type': (SessionResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}/sessions/{sessionId}',
-                'operation_id': 'get_folder_session',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'session_id',
-                ],
-                'required': [
-                    'folder_id',
-                    'session_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'session_id':
-                        (str,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                    'session_id': 'sessionId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'session_id': 'path',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__get_folder_session
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}/jobs/{jobId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='JobResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def get_folder_session(self, folder_id, session_id, **kwargs):  # noqa: E501
+        """Get status of a folder upload in GDS  # noqa: E501
+
+        Get status of a folder upload in GDS.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_folder_session(folder_id, session_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder related to the upload session. (required)
+        :param str session_id: The id of the upload session (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: SessionResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.get_folder_session_with_http_info(folder_id, session_id, **kwargs)  # noqa: E501
+
+    def get_folder_session_with_http_info(self, folder_id, session_id, **kwargs):  # noqa: E501
+        """Get status of a folder upload in GDS  # noqa: E501
+
+        Get status of a folder upload in GDS.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.get_folder_session_with_http_info(folder_id, session_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder related to the upload session. (required)
+        :param str session_id: The id of the upload session (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(SessionResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'session_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __list_folders(
-            self,
-            **kwargs
-        ):
-            """Get a list of folders  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method get_folder_session" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `get_folder_session`")  # noqa: E501
+        # verify the required parameter 'session_id' is set
+        if self.api_client.client_side_validation and ('session_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['session_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `session_id` when calling `get_folder_session`")  # noqa: E501
 
-            Given a volumeId or volume name, get a list of folders accessible by the JWT. The default sort returned is alphabetical, ascending. The default page size is 10 items  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.list_folders(async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
+        if 'session_id' in local_var_params:
+            path_params['sessionId'] = local_var_params['session_id']  # noqa: E501
 
+        query_params = []
 
-            Keyword Args:
-                volume_id ([str]): Optional field that specifies comma-separated volume IDs to include in the list. [optional]
-                volume_name ([str]): Optional field that specifies comma-separated volume names to include in the list. [optional]
-                path ([str]): Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/).. [optional]
-                job_statuses (str): Optional field that specifies comma-separated JobStatuses to include in the list. [optional]
-                acls ([str]): Optional field that specifies comma-separated acls to include in the list. [optional]
-                recursive (bool): Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths. [optional]
-                page_size (int): START_DESC END_DESC. [optional]
-                page_token (str): START_DESC END_DESC. [optional]
-                include (str): Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl. [optional]
-                tenant_id (str): Optional parameter to see shared data in another tenant. [optional]
-                metadata_include (str): Optional parameter to specify comma separated patterns to include metadata by their field names.. [optional]
-                metadata_exclude (str): Optional parameter to specify comma separated patterns to exclude metadata by their field names.. [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                FolderListResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.list_folders = _Endpoint(
-            settings={
-                'response_type': (FolderListResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders',
-                'operation_id': 'list_folders',
-                'http_method': 'GET',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'volume_id',
-                    'volume_name',
-                    'path',
-                    'job_statuses',
-                    'acls',
-                    'recursive',
-                    'page_size',
-                    'page_token',
-                    'include',
-                    'tenant_id',
-                    'metadata_include',
-                    'metadata_exclude',
-                ],
-                'required': [],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                    'page_size',
-                ]
-            },
-            root_map={
-                'validations': {
-                    ('page_size',): {
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
 
-                        'inclusive_maximum': 10000,
-                        'inclusive_minimum': 0,
-                    },
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'volume_id':
-                        ([str],),
-                    'volume_name':
-                        ([str],),
-                    'path':
-                        ([str],),
-                    'job_statuses':
-                        (str,),
-                    'acls':
-                        ([str],),
-                    'recursive':
-                        (bool,),
-                    'page_size':
-                        (int,),
-                    'page_token':
-                        (str,),
-                    'include':
-                        (str,),
-                    'tenant_id':
-                        (str,),
-                    'metadata_include':
-                        (str,),
-                    'metadata_exclude':
-                        (str,),
-                },
-                'attribute_map': {
-                    'volume_id': 'volume.id',
-                    'volume_name': 'volume.name',
-                    'path': 'path',
-                    'job_statuses': 'jobStatuses',
-                    'acls': 'acls',
-                    'recursive': 'recursive',
-                    'page_size': 'pageSize',
-                    'page_token': 'pageToken',
-                    'include': 'include',
-                    'tenant_id': 'tenantId',
-                    'metadata_include': 'metadata.include',
-                    'metadata_exclude': 'metadata.exclude',
-                },
-                'location_map': {
-                    'volume_id': 'query',
-                    'volume_name': 'query',
-                    'path': 'query',
-                    'job_statuses': 'query',
-                    'acls': 'query',
-                    'recursive': 'query',
-                    'page_size': 'query',
-                    'page_token': 'query',
-                    'include': 'query',
-                    'tenant_id': 'query',
-                    'metadata_include': 'query',
-                    'metadata_exclude': 'query',
-                },
-                'collection_format_map': {
-                    'volume_id': 'csv',
-                    'volume_name': 'csv',
-                    'path': 'csv',
-                    'acls': 'csv',
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [],
-            },
-            api_client=api_client,
-            callable=__list_folders
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}/sessions/{sessionId}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='SessionResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def list_folders(self, **kwargs):  # noqa: E501
+        """Get a list of folders  # noqa: E501
+
+        Given a volumeId or volume name, get a list of folders accessible by the JWT. The default sort returned is alphabetical, ascending. The default page size is 10 items  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_folders(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param list[str] volume_id: Optional field that specifies comma-separated volume IDs to include in the list
+        :param list[str] volume_name: Optional field that specifies comma-separated volume names to include in the list
+        :param list[str] path: Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/).
+        :param str job_statuses: Optional field that specifies comma-separated JobStatuses to include in the list
+        :param list[str] acls: Optional field that specifies comma-separated acls to include in the list
+        :param bool recursive: Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths
+        :param int page_size: START_DESC END_DESC
+        :param str page_token: START_DESC END_DESC
+        :param str include: Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl
+        :param str tenant_id: Optional parameter to see shared data in another tenant
+        :param str metadata_include: Optional parameter to specify comma separated patterns to include metadata by their field names.
+        :param str metadata_exclude: Optional parameter to specify comma separated patterns to exclude metadata by their field names.
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderListResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.list_folders_with_http_info(**kwargs)  # noqa: E501
+
+    def list_folders_with_http_info(self, **kwargs):  # noqa: E501
+        """Get a list of folders  # noqa: E501
+
+        Given a volumeId or volume name, get a list of folders accessible by the JWT. The default sort returned is alphabetical, ascending. The default page size is 10 items  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.list_folders_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param list[str] volume_id: Optional field that specifies comma-separated volume IDs to include in the list
+        :param list[str] volume_name: Optional field that specifies comma-separated volume names to include in the list
+        :param list[str] path: Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/).
+        :param str job_statuses: Optional field that specifies comma-separated JobStatuses to include in the list
+        :param list[str] acls: Optional field that specifies comma-separated acls to include in the list
+        :param bool recursive: Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths
+        :param int page_size: START_DESC END_DESC
+        :param str page_token: START_DESC END_DESC
+        :param str include: Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl
+        :param str tenant_id: Optional parameter to see shared data in another tenant
+        :param str metadata_include: Optional parameter to specify comma separated patterns to include metadata by their field names.
+        :param str metadata_exclude: Optional parameter to specify comma separated patterns to exclude metadata by their field names.
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderListResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'volume_id',
+            'volume_name',
+            'path',
+            'job_statuses',
+            'acls',
+            'recursive',
+            'page_size',
+            'page_token',
+            'include',
+            'tenant_id',
+            'metadata_include',
+            'metadata_exclude'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __unarchive_folder(
-            self,
-            folder_id,
-            body,
-            **kwargs
-        ):
-            """Unarchive a folder  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method list_folders" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
 
-            Unarchive a folder from a lower storage cost tier.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        if self.api_client.client_side_validation and 'page_size' in local_var_params and local_var_params['page_size'] > 10000:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `page_size` when calling `list_folders`, must be a value less than or equal to `10000`")  # noqa: E501
+        if self.api_client.client_side_validation and 'page_size' in local_var_params and local_var_params['page_size'] < 0:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `page_size` when calling `list_folders`, must be a value greater than or equal to `0`")  # noqa: E501
+        collection_formats = {}
 
-            >>> thread = api.unarchive_folder(folder_id, body, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
 
-            Args:
-                folder_id (str): Unique identifier for the folder to be unarchived.
-                body (FolderUnarchiveRequest):
+        query_params = []
+        if 'volume_id' in local_var_params and local_var_params['volume_id'] is not None:  # noqa: E501
+            query_params.append(('volume.id', local_var_params['volume_id']))  # noqa: E501
+            collection_formats['volume.id'] = 'csv'  # noqa: E501
+        if 'volume_name' in local_var_params and local_var_params['volume_name'] is not None:  # noqa: E501
+            query_params.append(('volume.name', local_var_params['volume_name']))  # noqa: E501
+            collection_formats['volume.name'] = 'csv'  # noqa: E501
+        if 'path' in local_var_params and local_var_params['path'] is not None:  # noqa: E501
+            query_params.append(('path', local_var_params['path']))  # noqa: E501
+            collection_formats['path'] = 'csv'  # noqa: E501
+        if 'job_statuses' in local_var_params and local_var_params['job_statuses'] is not None:  # noqa: E501
+            query_params.append(('jobStatuses', local_var_params['job_statuses']))  # noqa: E501
+        if 'acls' in local_var_params and local_var_params['acls'] is not None:  # noqa: E501
+            query_params.append(('acls', local_var_params['acls']))  # noqa: E501
+            collection_formats['acls'] = 'csv'  # noqa: E501
+        if 'recursive' in local_var_params and local_var_params['recursive'] is not None:  # noqa: E501
+            query_params.append(('recursive', local_var_params['recursive']))  # noqa: E501
+        if 'page_size' in local_var_params and local_var_params['page_size'] is not None:  # noqa: E501
+            query_params.append(('pageSize', local_var_params['page_size']))  # noqa: E501
+        if 'page_token' in local_var_params and local_var_params['page_token'] is not None:  # noqa: E501
+            query_params.append(('pageToken', local_var_params['page_token']))  # noqa: E501
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+        if 'tenant_id' in local_var_params and local_var_params['tenant_id'] is not None:  # noqa: E501
+            query_params.append(('tenantId', local_var_params['tenant_id']))  # noqa: E501
+        if 'metadata_include' in local_var_params and local_var_params['metadata_include'] is not None:  # noqa: E501
+            query_params.append(('metadata.include', local_var_params['metadata_include']))  # noqa: E501
+        if 'metadata_exclude' in local_var_params and local_var_params['metadata_exclude'] is not None:  # noqa: E501
+            query_params.append(('metadata.exclude', local_var_params['metadata_exclude']))  # noqa: E501
 
-            Keyword Args:
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                FolderResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            kwargs['body'] = \
-                body
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.unarchive_folder = _Endpoint(
-            settings={
-                'response_type': (FolderResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}:unarchive',
-                'operation_id': 'unarchive_folder',
-                'http_method': 'POST',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'body',
-                ],
-                'required': [
-                    'folder_id',
-                    'body',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'body':
-                        (FolderUnarchiveRequest,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json-patch+json',
-                    'application/json',
-                    'text/json',
-                    'application/*+json'
-                ]
-            },
-            api_client=api_client,
-            callable=__unarchive_folder
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderListResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def unarchive_folder(self, folder_id, body, **kwargs):  # noqa: E501
+        """Unarchive a folder  # noqa: E501
+
+        Unarchive a folder from a lower storage cost tier.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.unarchive_folder(folder_id, body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be unarchived. (required)
+        :param FolderUnarchiveRequest body: (required)
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.unarchive_folder_with_http_info(folder_id, body, **kwargs)  # noqa: E501
+
+    def unarchive_folder_with_http_info(self, folder_id, body, **kwargs):  # noqa: E501
+        """Unarchive a folder  # noqa: E501
+
+        Unarchive a folder from a lower storage cost tier.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.unarchive_folder_with_http_info(folder_id, body, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be unarchived. (required)
+        :param FolderUnarchiveRequest body: (required)
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
 
-        def __update_folder(
-            self,
-            folder_id,
-            **kwargs
-        ):
-            """Update a folder content or acl  # noqa: E501
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method unarchive_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `unarchive_folder`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and ('body' not in local_var_params or  # noqa: E501
+                                                        local_var_params['body'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `unarchive_folder`")  # noqa: E501
 
-            Update an existing folder in GDS and return upload credentials for that folder. Changes to the folder name and other metadata are not supported at this time.  Optionally overwrite the acl for this folder if acl is provided in the request.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
+        collection_formats = {}
 
-            >>> thread = api.update_folder(folder_id, async_req=True)
-            >>> result = thread.get()
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
 
-            Args:
-                folder_id (str): Unique identifier for the folder to be updated.
+        query_params = []
 
-            Keyword Args:
-                include (str): Optionally include additional fields in the response.              Possible values: ObjectStoreAccess. [optional]
-                body (FolderUpdateRequest): [optional]
-                _return_http_data_only (bool): response data without head status
-                    code and headers. Default is True.
-                _preload_content (bool): if False, the urllib3.HTTPResponse object
-                    will be returned without reading/decoding response data.
-                    Default is True.
-                _request_timeout (float/tuple): timeout setting for this request. If one
-                    number provided, it will be total request timeout. It can also
-                    be a pair (tuple) of (connection, read) timeouts.
-                    Default is None.
-                _check_input_type (bool): specifies if type checking
-                    should be done one the data sent to the server.
-                    Default is True.
-                _check_return_type (bool): specifies if type checking
-                    should be done one the data received from the server.
-                    Default is True.
-                _host_index (int/None): specifies the index of the server
-                    that we want to use.
-                    Default is read from the configuration.
-                async_req (bool): execute request asynchronously
+        header_params = {}
 
-            Returns:
-                FolderWriteableResponse
-                    If the method is called asynchronously, returns the request
-                    thread.
-            """
-            kwargs['async_req'] = kwargs.get(
-                'async_req', False
-            )
-            kwargs['_return_http_data_only'] = kwargs.get(
-                '_return_http_data_only', True
-            )
-            kwargs['_preload_content'] = kwargs.get(
-                '_preload_content', True
-            )
-            kwargs['_request_timeout'] = kwargs.get(
-                '_request_timeout', None
-            )
-            kwargs['_check_input_type'] = kwargs.get(
-                '_check_input_type', True
-            )
-            kwargs['_check_return_type'] = kwargs.get(
-                '_check_return_type', True
-            )
-            kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['folder_id'] = \
-                folder_id
-            return self.call_with_http_info(**kwargs)
+        form_params = []
+        local_var_files = {}
 
-        self.update_folder = _Endpoint(
-            settings={
-                'response_type': (FolderWriteableResponse,),
-                'auth': [
-                    'Basic',
-                    'Bearer'
-                ],
-                'endpoint_path': '/v1/folders/{folderId}',
-                'operation_id': 'update_folder',
-                'http_method': 'PATCH',
-                'servers': None,
-            },
-            params_map={
-                'all': [
-                    'folder_id',
-                    'include',
-                    'body',
-                ],
-                'required': [
-                    'folder_id',
-                ],
-                'nullable': [
-                ],
-                'enum': [
-                ],
-                'validation': [
-                ]
-            },
-            root_map={
-                'validations': {
-                },
-                'allowed_values': {
-                },
-                'openapi_types': {
-                    'folder_id':
-                        (str,),
-                    'include':
-                        (str,),
-                    'body':
-                        (FolderUpdateRequest,),
-                },
-                'attribute_map': {
-                    'folder_id': 'folderId',
-                    'include': 'include',
-                },
-                'location_map': {
-                    'folder_id': 'path',
-                    'include': 'query',
-                    'body': 'body',
-                },
-                'collection_format_map': {
-                }
-            },
-            headers_map={
-                'accept': [
-                    'application/json'
-                ],
-                'content_type': [
-                    'application/json-patch+json',
-                    'application/json',
-                    'text/json',
-                    'application/*+json'
-                ]
-            },
-            api_client=api_client,
-            callable=__update_folder
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}:unarchive', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)
+
+    def update_folder(self, folder_id, **kwargs):  # noqa: E501
+        """Update a folder content or acl  # noqa: E501
+
+        Update an existing folder in GDS and return upload credentials for that folder. Changes to the folder name and other metadata are not supported at this time.  Optionally overwrite the acl for this folder if acl is provided in the request.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_folder(folder_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be updated. (required)
+        :param str include: Optionally include additional fields in the response.              Possible values: ObjectStoreAccess
+        :param FolderUpdateRequest body:
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: FolderWriteableResponse
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.update_folder_with_http_info(folder_id, **kwargs)  # noqa: E501
+
+    def update_folder_with_http_info(self, folder_id, **kwargs):  # noqa: E501
+        """Update a folder content or acl  # noqa: E501
+
+        Update an existing folder in GDS and return upload credentials for that folder. Changes to the folder name and other metadata are not supported at this time.  Optionally overwrite the acl for this folder if acl is provided in the request.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+        >>> thread = api.update_folder_with_http_info(folder_id, async_req=True)
+        >>> result = thread.get()
+
+        :param async_req bool: execute request asynchronously
+        :param str folder_id: Unique identifier for the folder to be updated. (required)
+        :param str include: Optionally include additional fields in the response.              Possible values: ObjectStoreAccess
+        :param FolderUpdateRequest body:
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: tuple(FolderWriteableResponse, status_code(int), headers(HTTPHeaderDict))
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'folder_id',
+            'include',
+            'body'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout'
+            ]
         )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_folder" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'folder_id' is set
+        if self.api_client.client_side_validation and ('folder_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['folder_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `folder_id` when calling `update_folder`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'folder_id' in local_var_params:
+            path_params['folderId'] = local_var_params['folder_id']  # noqa: E501
+
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json-patch+json', 'application/json', 'text/json', 'application/*+json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['Basic', 'Bearer']  # noqa: E501
+
+        return self.api_client.call_api(
+            '/v1/folders/{folderId}', 'PATCH',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_type='FolderWriteableResponse',  # noqa: E501
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats)

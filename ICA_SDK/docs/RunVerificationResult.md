@@ -1,7 +1,6 @@
 # RunVerificationResult
 
 Dto of run verification result
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

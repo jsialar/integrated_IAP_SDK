@@ -27,63 +27,81 @@ Archives a folder to a lower storage cost tier.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.folder_archive_request import FolderArchiveRequest
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.folder_response import FolderResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder to be archived.
-    body = FolderArchiveRequest(
-        storage_tier=FolderArchiveStorageTier("Archive"),
-    ) # FolderArchiveRequest | 
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be archived.
+body = ICA_SDK.FolderArchiveRequest() # FolderArchiveRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Archive a folder
         api_response = api_instance.archive_folder(folder_id, body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->archive_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be archived.
+body = ICA_SDK.FolderArchiveRequest() # FolderArchiveRequest | 
+
+    try:
+        # Archive a folder
+        api_response = api_instance.archive_folder(folder_id, body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->archive_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder to be archived. |
- **body** | [**FolderArchiveRequest**](FolderArchiveRequest.md)|  |
+ **folder_id** | **str**| Unique identifier for the folder to be archived. | 
+ **body** | [**FolderArchiveRequest**](FolderArchiveRequest.md)|  | 
 
 ### Return type
 
@@ -97,7 +115,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -122,65 +139,84 @@ Complete a folder upload in GDS.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.session_response import SessionResponse
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.complete_session_request import CompleteSessionRequest
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder related to the upload session.
-    session_id = "sessionId_example" # str | The id of the upload session
-    body = CompleteSessionRequest(
-        expected_session_file_count=1,
-    ) # CompleteSessionRequest | The request body
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder related to the upload session.
+session_id = 'session_id_example' # str | The id of the upload session
+body = ICA_SDK.CompleteSessionRequest() # CompleteSessionRequest | The request body
 
-    # example passing only required values which don't have defaults set
     try:
         # Complete a folder upload in GDS
         api_response = api_instance.complete_folder_session(folder_id, session_id, body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->complete_folder_session: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder related to the upload session.
+session_id = 'session_id_example' # str | The id of the upload session
+body = ICA_SDK.CompleteSessionRequest() # CompleteSessionRequest | The request body
+
+    try:
+        # Complete a folder upload in GDS
+        api_response = api_instance.complete_folder_session(folder_id, session_id, body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->complete_folder_session: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder related to the upload session. |
- **session_id** | **str**| The id of the upload session |
- **body** | [**CompleteSessionRequest**](CompleteSessionRequest.md)| The request body |
+ **folder_id** | **str**| Unique identifier for the folder related to the upload session. | 
+ **session_id** | **str**| The id of the upload session | 
+ **body** | [**CompleteSessionRequest**](CompleteSessionRequest.md)| The request body | 
 
 ### Return type
 
@@ -194,7 +230,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -211,7 +246,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **copy_folder**
-> JobResponse copy_folder(folder_id, body)
+> JobResponse copy_folder(folder_id, body, tenant_id=tenant_id)
 
 Copy a folder
 
@@ -220,75 +255,84 @@ Copy a folder into a target parent folder
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.folder_copy_request import FolderCopyRequest
-from ICA_SDK.model.job_response import JobResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder to be copied.
-    body = FolderCopyRequest(
-        target_parent_folder_id="target_parent_folder_id_example",
-        destination_folder_name="k",
-    ) # FolderCopyRequest | 
-    tenant_id = "tenantId_example" # str | Optional parameter to copy from a shared folder in another tenant (optional)
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be copied.
+body = ICA_SDK.FolderCopyRequest() # FolderCopyRequest | 
+tenant_id = 'tenant_id_example' # str | Optional parameter to copy from a shared folder in another tenant (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Copy a folder
-        api_response = api_instance.copy_folder(folder_id, body)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling FoldersApi->copy_folder: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Copy a folder
         api_response = api_instance.copy_folder(folder_id, body, tenant_id=tenant_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->copy_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be copied.
+body = ICA_SDK.FolderCopyRequest() # FolderCopyRequest | 
+tenant_id = 'tenant_id_example' # str | Optional parameter to copy from a shared folder in another tenant (optional)
+
+    try:
+        # Copy a folder
+        api_response = api_instance.copy_folder(folder_id, body, tenant_id=tenant_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->copy_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder to be copied. |
- **body** | [**FolderCopyRequest**](FolderCopyRequest.md)|  |
- **tenant_id** | **str**| Optional parameter to copy from a shared folder in another tenant | [optional]
+ **folder_id** | **str**| Unique identifier for the folder to be copied. | 
+ **body** | [**FolderCopyRequest**](FolderCopyRequest.md)|  | 
+ **tenant_id** | **str**| Optional parameter to copy from a shared folder in another tenant | [optional] 
 
 ### Return type
 
@@ -302,7 +346,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -319,7 +362,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_folder**
-> FolderWriteableResponse create_folder(body)
+> FolderWriteableResponse create_folder(body, include=include)
 
 Create a folder in GDS and receive credentials for upload
 
@@ -328,79 +371,81 @@ Create a folder entry in GDS. Returns temporary credentials for folder upload di
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.folder_writeable_response import FolderWriteableResponse
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.create_folder_request import CreateFolderRequest
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    body = CreateFolderRequest(
-        name="k",
-        folder_path="folder_path_example",
-        volume_id="volume_id_example",
-        volume_name="volume_name_example",
-        metadata={},
-        acl=[
-            "acl_example",
-        ],
-    ) # CreateFolderRequest | 
-    include = "include_example" # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    body = ICA_SDK.CreateFolderRequest() # CreateFolderRequest | 
+include = 'include_example' # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Create a folder in GDS and receive credentials for upload
-        api_response = api_instance.create_folder(body)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling FoldersApi->create_folder: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Create a folder in GDS and receive credentials for upload
         api_response = api_instance.create_folder(body, include=include)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->create_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    body = ICA_SDK.CreateFolderRequest() # CreateFolderRequest | 
+include = 'include_example' # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
+
+    try:
+        # Create a folder in GDS and receive credentials for upload
+        api_response = api_instance.create_folder(body, include=include)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->create_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | [**CreateFolderRequest**](CreateFolderRequest.md)|  |
- **include** | **str**| Optionally include additional fields in the response.              Possible values: ObjectStoreAccess | [optional]
+ **body** | [**CreateFolderRequest**](CreateFolderRequest.md)|  | 
+ **include** | **str**| Optionally include additional fields in the response.              Possible values: ObjectStoreAccess | [optional] 
 
 ### Return type
 
@@ -414,7 +459,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -436,58 +480,78 @@ Deletes a folder by id
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.folder_response import FolderResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder to be deleted.
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be deleted.
 
-    # example passing only required values which don't have defaults set
     try:
         # Deletes a folder by id
         api_response = api_instance.delete_folder(folder_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be deleted.
+
+    try:
+        # Deletes a folder by id
+        api_response = api_instance.delete_folder(folder_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->delete_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder to be deleted. |
+ **folder_id** | **str**| Unique identifier for the folder to be deleted. | 
 
 ### Return type
 
@@ -501,7 +565,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -516,7 +579,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_folder**
-> FolderResponse get_folder(folder_id)
+> FolderResponse get_folder(folder_id, tenant_id=tenant_id, include_volume_metadata=include_volume_metadata, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
 
 Get information about a folder in GDS.
 
@@ -525,73 +588,90 @@ Get information for the specified folder ID.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.folder_response import FolderResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder to retrieve.
-    tenant_id = "tenantId_example" # str | Optional parameter to see shared data in another tenant (optional)
-    metadata_include = "metadata.include_example" # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
-    metadata_exclude = "metadata.exclude_example" # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to retrieve.
+tenant_id = 'tenant_id_example' # str | Optional parameter to see shared data in another tenant (optional)
+include_volume_metadata = True # bool | Optional parameter to return volume's metadata (optional)
+metadata_include = 'metadata_include_example' # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
+metadata_exclude = 'metadata_exclude_example' # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
 
-    # example passing only required values which don't have defaults set
     try:
         # Get information about a folder in GDS.
-        api_response = api_instance.get_folder(folder_id)
+        api_response = api_instance.get_folder(folder_id, tenant_id=tenant_id, include_volume_metadata=include_volume_metadata, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling FoldersApi->get_folder: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
-    try:
-        # Get information about a folder in GDS.
-        api_response = api_instance.get_folder(folder_id, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->get_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to retrieve.
+tenant_id = 'tenant_id_example' # str | Optional parameter to see shared data in another tenant (optional)
+include_volume_metadata = True # bool | Optional parameter to return volume's metadata (optional)
+metadata_include = 'metadata_include_example' # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
+metadata_exclude = 'metadata_exclude_example' # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
+
+    try:
+        # Get information about a folder in GDS.
+        api_response = api_instance.get_folder(folder_id, tenant_id=tenant_id, include_volume_metadata=include_volume_metadata, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->get_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder to retrieve. |
- **tenant_id** | **str**| Optional parameter to see shared data in another tenant | [optional]
- **metadata_include** | **str**| Optional parameter to specify comma separated patterns to include metadata by their field names. | [optional]
- **metadata_exclude** | **str**| Optional parameter to specify comma separated patterns to exclude metadata by their field names. | [optional]
+ **folder_id** | **str**| Unique identifier for the folder to retrieve. | 
+ **tenant_id** | **str**| Optional parameter to see shared data in another tenant | [optional] 
+ **include_volume_metadata** | **bool**| Optional parameter to return volume&#39;s metadata | [optional] 
+ **metadata_include** | **str**| Optional parameter to specify comma separated patterns to include metadata by their field names. | [optional] 
+ **metadata_exclude** | **str**| Optional parameter to specify comma separated patterns to exclude metadata by their field names. | [optional] 
 
 ### Return type
 
@@ -605,7 +685,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -629,60 +708,81 @@ Get status of a folder job in GDS.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.job_response import JobResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder related to the job.
-    job_id = "jobId_example" # str | The id of the job
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder related to the job.
+job_id = 'job_id_example' # str | The id of the job
 
-    # example passing only required values which don't have defaults set
     try:
         # Get status of a folder job in GDS
         api_response = api_instance.get_folder_job(folder_id, job_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->get_folder_job: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder related to the job.
+job_id = 'job_id_example' # str | The id of the job
+
+    try:
+        # Get status of a folder job in GDS
+        api_response = api_instance.get_folder_job(folder_id, job_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->get_folder_job: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder related to the job. |
- **job_id** | **str**| The id of the job |
+ **folder_id** | **str**| Unique identifier for the folder related to the job. | 
+ **job_id** | **str**| The id of the job | 
 
 ### Return type
 
@@ -696,7 +796,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -721,60 +820,81 @@ Get status of a folder upload in GDS.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.session_response import SessionResponse
-from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder related to the upload session.
-    session_id = "sessionId_example" # str | The id of the upload session
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder related to the upload session.
+session_id = 'session_id_example' # str | The id of the upload session
 
-    # example passing only required values which don't have defaults set
     try:
         # Get status of a folder upload in GDS
         api_response = api_instance.get_folder_session(folder_id, session_id)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->get_folder_session: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder related to the upload session.
+session_id = 'session_id_example' # str | The id of the upload session
+
+    try:
+        # Get status of a folder upload in GDS
+        api_response = api_instance.get_folder_session(folder_id, session_id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->get_folder_session: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder related to the upload session. |
- **session_id** | **str**| The id of the upload session |
+ **folder_id** | **str**| Unique identifier for the folder related to the upload session. | 
+ **session_id** | **str**| The id of the upload session | 
 
 ### Return type
 
@@ -788,7 +908,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -804,7 +923,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_folders**
-> FolderListResponse list_folders()
+> FolderListResponse list_folders(volume_id=volume_id, volume_name=volume_name, path=path, job_statuses=job_statuses, acls=acls, recursive=recursive, page_size=page_size, page_token=page_token, include=include, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
 
 Get a list of folders
 
@@ -813,89 +932,111 @@ Given a volumeId or volume name, get a list of folders accessible by the JWT. Th
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.folder_list_response import FolderListResponse
-from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    volume_id = [
-        "volume.id_example",
-    ] # [str] | Optional field that specifies comma-separated volume IDs to include in the list (optional)
-    volume_name = [
-        "volume.name_example",
-    ] # [str] | Optional field that specifies comma-separated volume names to include in the list (optional)
-    path = [
-        "path_example",
-    ] # [str] | Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/). (optional)
-    job_statuses = "jobStatuses_example" # str | Optional field that specifies comma-separated JobStatuses to include in the list (optional)
-    acls = [
-        "acls_example",
-    ] # [str] | Optional field that specifies comma-separated acls to include in the list (optional)
-    recursive = True # bool | Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths (optional)
-    page_size = 0 # int | START_DESC END_DESC (optional)
-    page_token = "pageToken_example" # str | START_DESC END_DESC (optional)
-    include = "include_example" # str | Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl (optional)
-    tenant_id = "tenantId_example" # str | Optional parameter to see shared data in another tenant (optional)
-    metadata_include = "metadata.include_example" # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
-    metadata_exclude = "metadata.exclude_example" # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    volume_id = ['volume_id_example'] # list[str] | Optional field that specifies comma-separated volume IDs to include in the list (optional)
+volume_name = ['volume_name_example'] # list[str] | Optional field that specifies comma-separated volume names to include in the list (optional)
+path = ['path_example'] # list[str] | Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/). (optional)
+job_statuses = 'job_statuses_example' # str | Optional field that specifies comma-separated JobStatuses to include in the list (optional)
+acls = ['acls_example'] # list[str] | Optional field that specifies comma-separated acls to include in the list (optional)
+recursive = True # bool | Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths (optional)
+page_size = 56 # int | START_DESC END_DESC (optional)
+page_token = 'page_token_example' # str | START_DESC END_DESC (optional)
+include = 'include_example' # str | Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl (optional)
+tenant_id = 'tenant_id_example' # str | Optional parameter to see shared data in another tenant (optional)
+metadata_include = 'metadata_include_example' # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
+metadata_exclude = 'metadata_exclude_example' # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
 
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Get a list of folders
         api_response = api_instance.list_folders(volume_id=volume_id, volume_name=volume_name, path=path, job_statuses=job_statuses, acls=acls, recursive=recursive, page_size=page_size, page_token=page_token, include=include, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->list_folders: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    volume_id = ['volume_id_example'] # list[str] | Optional field that specifies comma-separated volume IDs to include in the list (optional)
+volume_name = ['volume_name_example'] # list[str] | Optional field that specifies comma-separated volume names to include in the list (optional)
+path = ['path_example'] # list[str] | Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/). (optional)
+job_statuses = 'job_statuses_example' # str | Optional field that specifies comma-separated JobStatuses to include in the list (optional)
+acls = ['acls_example'] # list[str] | Optional field that specifies comma-separated acls to include in the list (optional)
+recursive = True # bool | Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths (optional)
+page_size = 56 # int | START_DESC END_DESC (optional)
+page_token = 'page_token_example' # str | START_DESC END_DESC (optional)
+include = 'include_example' # str | Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl (optional)
+tenant_id = 'tenant_id_example' # str | Optional parameter to see shared data in another tenant (optional)
+metadata_include = 'metadata_include_example' # str | Optional parameter to specify comma separated patterns to include metadata by their field names. (optional)
+metadata_exclude = 'metadata_exclude_example' # str | Optional parameter to specify comma separated patterns to exclude metadata by their field names. (optional)
+
+    try:
+        # Get a list of folders
+        api_response = api_instance.list_folders(volume_id=volume_id, volume_name=volume_name, path=path, job_statuses=job_statuses, acls=acls, recursive=recursive, page_size=page_size, page_token=page_token, include=include, tenant_id=tenant_id, metadata_include=metadata_include, metadata_exclude=metadata_exclude)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->list_folders: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **volume_id** | **[str]**| Optional field that specifies comma-separated volume IDs to include in the list | [optional]
- **volume_name** | **[str]**| Optional field that specifies comma-separated volume names to include in the list | [optional]
- **path** | **[str]**| Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/). | [optional]
- **job_statuses** | **str**| Optional field that specifies comma-separated JobStatuses to include in the list | [optional]
- **acls** | **[str]**| Optional field that specifies comma-separated acls to include in the list | [optional]
- **recursive** | **bool**| Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths | [optional]
- **page_size** | **int**| START_DESC END_DESC | [optional]
- **page_token** | **str**| START_DESC END_DESC | [optional]
- **include** | **str**| Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl | [optional]
- **tenant_id** | **str**| Optional parameter to see shared data in another tenant | [optional]
- **metadata_include** | **str**| Optional parameter to specify comma separated patterns to include metadata by their field names. | [optional]
- **metadata_exclude** | **str**| Optional parameter to specify comma separated patterns to exclude metadata by their field names. | [optional]
+ **volume_id** | [**list[str]**](str.md)| Optional field that specifies comma-separated volume IDs to include in the list | [optional] 
+ **volume_name** | [**list[str]**](str.md)| Optional field that specifies comma-separated volume names to include in the list | [optional] 
+ **path** | [**list[str]**](str.md)| Optional field that specifies comma-separated paths to include in the list. Value can use wildcards (e.g. /a/b/c/*) or exact matches (e.g. /a/b/c/d/). | [optional] 
+ **job_statuses** | **str**| Optional field that specifies comma-separated JobStatuses to include in the list | [optional] 
+ **acls** | [**list[str]**](str.md)| Optional field that specifies comma-separated acls to include in the list | [optional] 
+ **recursive** | **bool**| Optional field to specify if folders should be returned recursively in and under the specified paths, or only directly in the specified paths | [optional] 
+ **page_size** | **int**| START_DESC END_DESC | [optional] 
+ **page_token** | **str**| START_DESC END_DESC | [optional] 
+ **include** | **str**| Optionally include additional fields in the response. Multiple fields can be included by comma-separation.  Possible values: TotalItemCount, InheritedAcl | [optional] 
+ **tenant_id** | **str**| Optional parameter to see shared data in another tenant | [optional] 
+ **metadata_include** | **str**| Optional parameter to specify comma separated patterns to include metadata by their field names. | [optional] 
+ **metadata_exclude** | **str**| Optional parameter to specify comma separated patterns to exclude metadata by their field names. | [optional] 
 
 ### Return type
 
@@ -909,7 +1050,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -932,63 +1072,81 @@ Unarchive a folder from a lower storage cost tier.
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.error_response import ErrorResponse
-from ICA_SDK.model.folder_unarchive_request import FolderUnarchiveRequest
-from ICA_SDK.model.folder_response import FolderResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder to be unarchived.
-    body = FolderUnarchiveRequest(
-        restore_speed="restore_speed_example",
-    ) # FolderUnarchiveRequest | 
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be unarchived.
+body = ICA_SDK.FolderUnarchiveRequest() # FolderUnarchiveRequest | 
 
-    # example passing only required values which don't have defaults set
     try:
         # Unarchive a folder
         api_response = api_instance.unarchive_folder(folder_id, body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->unarchive_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be unarchived.
+body = ICA_SDK.FolderUnarchiveRequest() # FolderUnarchiveRequest | 
+
+    try:
+        # Unarchive a folder
+        api_response = api_instance.unarchive_folder(folder_id, body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->unarchive_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder to be unarchived. |
- **body** | [**FolderUnarchiveRequest**](FolderUnarchiveRequest.md)|  |
+ **folder_id** | **str**| Unique identifier for the folder to be unarchived. | 
+ **body** | [**FolderUnarchiveRequest**](FolderUnarchiveRequest.md)|  | 
 
 ### Return type
 
@@ -1002,7 +1160,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1019,7 +1176,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_folder**
-> FolderWriteableResponse update_folder(folder_id)
+> FolderWriteableResponse update_folder(folder_id, include=include, body=body)
 
 Update a folder content or acl
 
@@ -1028,77 +1185,84 @@ Update an existing folder in GDS and return upload credentials for that folder. 
 ### Example
 
 * Basic Authentication (Basic):
-* Api Key Authentication (Bearer):
 ```python
+from __future__ import print_function
 import time
 import ICA_SDK
-from ICA_SDK.api import folders_api
-from ICA_SDK.model.folder_update_request import FolderUpdateRequest
-from ICA_SDK.model.folder_writeable_response import FolderWriteableResponse
-from ICA_SDK.model.error_response import ErrorResponse
+from ICA_SDK.rest import ApiException
 from pprint import pprint
-# Defining the host is optional and defaults to https://use1.platform.illumina.com
-# See configuration.py for a list of all supported configuration parameters.
-configuration = ICA_SDK.Configuration(
-    host = "https://use1.platform.illumina.com"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
+configuration = ICA_SDK.Configuration()
 # Configure HTTP basic authorization: Basic
-configuration = ICA_SDK.Configuration(
-    username = 'YOUR_USERNAME',
-    password = 'YOUR_PASSWORD'
-)
-
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
 # Configure API key authorization: Bearer
-configuration.api_key['Bearer'] = 'YOUR_API_KEY'
-
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Bearer'] = 'Bearer'
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
 
 # Enter a context with an instance of the API client
 with ICA_SDK.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = folders_api.FoldersApi(api_client)
-    folder_id = "folderId_example" # str | Unique identifier for the folder to be updated.
-    include = "include_example" # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
-    body = FolderUpdateRequest(
-        metadata={},
-        acl=[
-            "acl_example",
-        ],
-    ) # FolderUpdateRequest |  (optional)
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be updated.
+include = 'include_example' # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
+body = ICA_SDK.FolderUpdateRequest() # FolderUpdateRequest |  (optional)
 
-    # example passing only required values which don't have defaults set
-    try:
-        # Update a folder content or acl
-        api_response = api_instance.update_folder(folder_id)
-        pprint(api_response)
-    except ICA_SDK.ApiException as e:
-        print("Exception when calling FoldersApi->update_folder: %s\n" % e)
-
-    # example passing only required values which don't have defaults set
-    # and optional values
     try:
         # Update a folder content or acl
         api_response = api_instance.update_folder(folder_id, include=include, body=body)
         pprint(api_response)
-    except ICA_SDK.ApiException as e:
+    except ApiException as e:
         print("Exception when calling FoldersApi->update_folder: %s\n" % e)
 ```
 
+* Api Key Authentication (Bearer):
+```python
+from __future__ import print_function
+import time
+import ICA_SDK
+from ICA_SDK.rest import ApiException
+from pprint import pprint
+configuration = ICA_SDK.Configuration()
+# Configure HTTP basic authorization: Basic
+configuration.username = 'YOUR_USERNAME'
+configuration.password = 'YOUR_PASSWORD'
+configuration = ICA_SDK.Configuration()
+# Configure API key authorization: Bearer
+configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['Authorization'] = 'Bearer'
+
+# Defining host is optional and default to https://use1.platform.illumina.com
+configuration.host = "https://use1.platform.illumina.com"
+
+# Enter a context with an instance of the API client
+with ICA_SDK.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = ICA_SDK.FoldersApi(api_client)
+    folder_id = 'folder_id_example' # str | Unique identifier for the folder to be updated.
+include = 'include_example' # str | Optionally include additional fields in the response.              Possible values: ObjectStoreAccess (optional)
+body = ICA_SDK.FolderUpdateRequest() # FolderUpdateRequest |  (optional)
+
+    try:
+        # Update a folder content or acl
+        api_response = api_instance.update_folder(folder_id, include=include, body=body)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling FoldersApi->update_folder: %s\n" % e)
+```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder_id** | **str**| Unique identifier for the folder to be updated. |
- **include** | **str**| Optionally include additional fields in the response.              Possible values: ObjectStoreAccess | [optional]
- **body** | [**FolderUpdateRequest**](FolderUpdateRequest.md)|  | [optional]
+ **folder_id** | **str**| Unique identifier for the folder to be updated. | 
+ **include** | **str**| Optionally include additional fields in the response.              Possible values: ObjectStoreAccess | [optional] 
+ **body** | [**FolderUpdateRequest**](FolderUpdateRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -1112,7 +1276,6 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
-
 
 ### HTTP response details
 | Status code | Description | Response headers |

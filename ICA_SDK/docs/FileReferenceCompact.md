@@ -1,7 +1,6 @@
 # FileReferenceCompact
 
 Compact model of gds file reference
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

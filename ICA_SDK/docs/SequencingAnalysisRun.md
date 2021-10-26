@@ -1,14 +1,13 @@
 # SequencingAnalysisRun
 
 Data contract for the full SequencingAnalysisRun
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Unique object ID | [optional] 
 **urn** | **str** | URN of the object | [optional] 
 **href** | **str** | HREF to the object | [optional] 
-**analysis_datasets** | [**[AnalysisDatasetCompact]**](AnalysisDatasetCompact.md) | The optional list of analysis datasets that are associated with this analysis run | [optional] 
+**analysis_datasets** | [**list[AnalysisDatasetCompact]**](AnalysisDatasetCompact.md) | The optional list of analysis datasets that are associated with this analysis run | [optional] 
 **analysis_run_results** | [**SequencingAnalysisRunResults**](SequencingAnalysisRunResults.md) |  | [optional] 
 **name** | **str** | Name of the sequencing analysis run | [optional] 
 **status** | **str** | Status of the sequencing analysis run | [optional] 
@@ -26,7 +25,7 @@ Name | Type | Description | Notes
 **can_abort** | **bool** | Indicates whether the analysis run can be aborted or not | [optional] 
 **is_active** | **bool** | Indicates whether the analysis run is active or not | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

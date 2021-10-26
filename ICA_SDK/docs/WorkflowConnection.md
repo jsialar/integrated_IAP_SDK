@@ -1,7 +1,6 @@
 # WorkflowConnection
 
 Defines a connection that can be used in a workflow definition to perform actions
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

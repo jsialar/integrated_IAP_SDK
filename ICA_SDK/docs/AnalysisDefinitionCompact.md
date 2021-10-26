@@ -1,7 +1,6 @@
 # AnalysisDefinitionCompact
 
 Defines the data contract for an analysis definition
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -19,7 +18,7 @@ Name | Type | Description | Notes
 **analysis_versions** | [**AnalysisVersionDefinitionCompactItemList**](AnalysisVersionDefinitionCompactItemList.md) |  | [optional] 
 **checksum** | **str** | Stores the checksum of AnalysisDefinition | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 

@@ -1,7 +1,6 @@
 # ImportPlannedRunWarning
 
 Warning of importing planned run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

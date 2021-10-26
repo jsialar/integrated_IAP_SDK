@@ -1,6 +1,5 @@
 # TaskRunLogs
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

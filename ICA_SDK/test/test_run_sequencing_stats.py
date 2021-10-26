@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.run_sequencing_stats import RunSequencingStats
-
+from ICA_SDK.models.run_sequencing_stats import RunSequencingStats  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestRunSequencingStats(unittest.TestCase):
     """RunSequencingStats unit test stubs"""
@@ -24,11 +28,78 @@ class TestRunSequencingStats(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test RunSequencingStats
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.run_sequencing_stats.RunSequencingStats()  # noqa: E501
+        if include_optional :
+            return RunSequencingStats(
+                num_cycles_index1 = 56, 
+                num_cycles_index2 = 56, 
+                num_cycles_read1 = 56, 
+                num_cycles_read2 = 56, 
+                num_lanes = 56, 
+                num_reads = 56, 
+                num_surfaces = 56, 
+                num_swaths_per_lane = 56, 
+                num_tiles_per_swath = 56, 
+                error_rate = 1.337, 
+                error_rate_r1 = 1.337, 
+                error_rate_r2 = 1.337, 
+                intensity_cycle1 = 1.337, 
+                is_indexed = True, 
+                max_cycle_called = 56, 
+                max_cycle_extracted = 56, 
+                max_cycle_scored = 56, 
+                min_cycle_called = 56, 
+                min_cycle_extracted = 56, 
+                min_cycle_scored = 56, 
+                non_indexed_error_rate = 1.337, 
+                non_indexed_intensity_cycle1 = 1.337, 
+                non_indexed_percent_aligned = 1.337, 
+                non_indexed_percent_gt_q30 = 1.337, 
+                non_indexed_projected_total_yield = 1.337, 
+                non_indexed_yield_total = 1.337, 
+                percent_aligned = 1.337, 
+                percent_gt_q30 = 1.337, 
+                percent_gt_q30_last10_cycles = 1.337, 
+                percent_gt_q30_r1 = 1.337, 
+                percent_gt_q30_r2 = 1.337, 
+                percent_pf = 1.337, 
+                percent_resynthesis = 1.337, 
+                phasing_r1 = 1.337, 
+                phasing_r2 = 1.337, 
+                pre_phasing_r1 = 1.337, 
+                pre_phasing_r2 = 1.337, 
+                projected_total_yield = 1.337, 
+                reads_pf_total = 56, 
+                reads_total = 56, 
+                yield_total = 1.337, 
+                clusters = 56, 
+                clusters_pf = 56, 
+                cluster_density = 1.337, 
+                occupancy = 1.337, 
+                percent_loading_concentration = 1.337
+            )
+        else :
+            return RunSequencingStats(
+                num_cycles_index1 = 56,
+                num_cycles_index2 = 56,
+                num_cycles_read1 = 56,
+                num_cycles_read2 = 56,
+                num_lanes = 56,
+                num_reads = 56,
+                num_surfaces = 56,
+                num_swaths_per_lane = 56,
+                num_tiles_per_swath = 56,
+        )
+
     def testRunSequencingStats(self):
         """Test RunSequencingStats"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = RunSequencingStats()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

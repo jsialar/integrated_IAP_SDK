@@ -1,7 +1,6 @@
 # TokenResponse
 
 Response payload for token create
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

@@ -1,7 +1,6 @@
 # LaneLibrary
 
 Defines the API model that represents the sample content in the lane
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

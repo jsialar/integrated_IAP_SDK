@@ -1,7 +1,6 @@
 # CreateIndexAdapterKitByDefinitionRequest
 
 Request to create an index adapter kit by definition
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

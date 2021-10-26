@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,22 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.analysis_definition_compact import AnalysisDefinitionCompact
-from ICA_SDK.model.analysis_version_definition_settings import AnalysisVersionDefinitionSettings
-from ICA_SDK.model.genome_compact import GenomeCompact
-from ICA_SDK.model.instrument_platform_and_types_response import InstrumentPlatformAndTypesResponse
-from ICA_SDK.model.library_prep_kit_compact import LibraryPrepKitCompact
-globals()['AnalysisDefinitionCompact'] = AnalysisDefinitionCompact
-globals()['AnalysisVersionDefinitionSettings'] = AnalysisVersionDefinitionSettings
-globals()['GenomeCompact'] = GenomeCompact
-globals()['InstrumentPlatformAndTypesResponse'] = InstrumentPlatformAndTypesResponse
-globals()['LibraryPrepKitCompact'] = LibraryPrepKitCompact
-from ICA_SDK.model.analysis_version_definition import AnalysisVersionDefinition
-
+from ICA_SDK.models.analysis_version_definition import AnalysisVersionDefinition  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestAnalysisVersionDefinition(unittest.TestCase):
     """AnalysisVersionDefinition unit test stubs"""
@@ -34,11 +28,345 @@ class TestAnalysisVersionDefinition(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test AnalysisVersionDefinition
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.analysis_version_definition.AnalysisVersionDefinition()  # noqa: E501
+        if include_optional :
+            return AnalysisVersionDefinition(
+                id = '0', 
+                urn = '0', 
+                href = '0', 
+                version = '0', 
+                description = '0', 
+                supported_instrument_platform_and_types = [
+                    ICA_SDK.models.instrument_platform_and_types_response.InstrumentPlatformAndTypesResponse(
+                        instrument_platform = '0', 
+                        instrument_types = [
+                            '0'
+                            ], )
+                    ], 
+                status = '0', 
+                analysis_type = '0', 
+                is_dragen = True, 
+                analysis_settings = None, 
+                settings = ICA_SDK.models.analysis_version_definition_settings.AnalysisVersionDefinitionSettings(
+                    sample_sheet = ICA_SDK.models.analysis_version_definition_settings_sample_sheet_configuration.AnalysisVersionDefinitionSettingsSampleSheetConfiguration(
+                        bcl_convert_section_settings = {
+                            'key' : '0'
+                            }, 
+                        analysis_section_settings = {
+                            'key' : '0'
+                            }, 
+                        cloud_section_settings = {
+                            'key' : '0'
+                            }, ), 
+                    run_analysis_settings = ICA_SDK.models.run_analysis_settings.runAnalysisSettings(), 
+                    run_setup_validation = ICA_SDK.models.run_setup_validation.RunSetupValidation(
+                        require_unique_sample_ids_per_lane = True, 
+                        enable_custom_prep_kits = True, 
+                        read1_length_min = 56, 
+                        read1_length_max = 56, 
+                        read2_length_min = 56, 
+                        read2_length_max = 56, 
+                        allowed_index_strategies = [
+                            'NoIndex'
+                            ], 
+                        allowed_read_types = [
+                            'Single'
+                            ], 
+                        allow_deviations = True, 
+                        deviation_warning_message = '0', 
+                        custom_prep_kit_warning_message = '0', 
+                        skip_validate_index_cycles_with_index_sequence_lengths = True, ), 
+                    workflow_metadata = ICA_SDK.models.workflow_metadata_dto.WorkflowMetadataDto(
+                        workflow_type = '0', 
+                        workflow_url = '0', 
+                        volume_size_in_gigabytes = 56, 
+                        tags = ICA_SDK.models.tags.tags(), 
+                        workflow_params = ICA_SDK.models.workflow_params.workflowParams(), 
+                        workflow_resources_folder = '0', ), ), 
+                skip_analysis_section = True, 
+                analysis_sample_settings = None, 
+                on_render_require_run_contents = True, 
+                analysis_definition = ICA_SDK.models.analysis_definition_compact.AnalysisDefinitionCompact(
+                    id = '0', 
+                    urn = '0', 
+                    href = '0', 
+                    name = '0', 
+                    organization = '0', 
+                    is_illumina = True, 
+                    description = '0', 
+                    status = '0', 
+                    illumina_kit_support_mode = '0', 
+                    regulatory_mode = '0', 
+                    display_name = '0', 
+                    analysis_versions = ICA_SDK.models.analysis_version_definition_compact_item_list.AnalysisVersionDefinitionCompactItemList(
+                        href_items = '0', 
+                        items = [
+                            ICA_SDK.models.analysis_version_definition_compact.AnalysisVersionDefinitionCompact(
+                                id = '0', 
+                                urn = '0', 
+                                href = '0', 
+                                version = '0', 
+                                description = '0', 
+                                supported_instrument_platform_and_types = [
+                                    ICA_SDK.models.instrument_platform_and_types_response.InstrumentPlatformAndTypesResponse(
+                                        instrument_platform = '0', 
+                                        instrument_types = [
+                                            '0'
+                                            ], )
+                                    ], 
+                                status = '0', 
+                                analysis_type = '0', 
+                                is_dragen = True, 
+                                analysis_settings = ICA_SDK.models.analysis_settings.analysisSettings(), 
+                                settings = ICA_SDK.models.analysis_version_definition_settings.AnalysisVersionDefinitionSettings(
+                                    sample_sheet = ICA_SDK.models.analysis_version_definition_settings_sample_sheet_configuration.AnalysisVersionDefinitionSettingsSampleSheetConfiguration(
+                                        bcl_convert_section_settings = {
+                                            'key' : '0'
+                                            }, 
+                                        analysis_section_settings = {
+                                            'key' : '0'
+                                            }, 
+                                        cloud_section_settings = {
+                                            'key' : '0'
+                                            }, ), 
+                                    run_analysis_settings = ICA_SDK.models.run_analysis_settings.runAnalysisSettings(), 
+                                    run_setup_validation = ICA_SDK.models.run_setup_validation.RunSetupValidation(
+                                        require_unique_sample_ids_per_lane = True, 
+                                        enable_custom_prep_kits = True, 
+                                        read1_length_min = 56, 
+                                        read1_length_max = 56, 
+                                        read2_length_min = 56, 
+                                        read2_length_max = 56, 
+                                        allowed_index_strategies = [
+                                            'NoIndex'
+                                            ], 
+                                        allowed_read_types = [
+                                            'Single'
+                                            ], 
+                                        allow_deviations = True, 
+                                        deviation_warning_message = '0', 
+                                        custom_prep_kit_warning_message = '0', 
+                                        skip_validate_index_cycles_with_index_sequence_lengths = True, ), 
+                                    workflow_metadata = ICA_SDK.models.workflow_metadata_dto.WorkflowMetadataDto(
+                                        workflow_type = '0', 
+                                        workflow_url = '0', 
+                                        volume_size_in_gigabytes = 56, 
+                                        tags = ICA_SDK.models.tags.tags(), 
+                                        workflow_params = ICA_SDK.models.workflow_params.workflowParams(), 
+                                        workflow_resources_folder = '0', ), ), 
+                                skip_analysis_section = True, 
+                                analysis_sample_settings = ICA_SDK.models.analysis_sample_settings.analysisSampleSettings(), 
+                                on_render_require_run_contents = True, 
+                                analysis_definition = ICA_SDK.models.analysis_definition_compact.AnalysisDefinitionCompact(
+                                    id = '0', 
+                                    urn = '0', 
+                                    href = '0', 
+                                    name = '0', 
+                                    organization = '0', 
+                                    is_illumina = True, 
+                                    description = '0', 
+                                    status = '0', 
+                                    illumina_kit_support_mode = '0', 
+                                    regulatory_mode = '0', 
+                                    display_name = '0', 
+                                    checksum = '0', 
+                                    sub_tenant_id = '0', 
+                                    acl = [
+                                        '0'
+                                        ], 
+                                    tenant_id = '0', 
+                                    tenant_name = '0', 
+                                    created_by_client_id = '0', 
+                                    created_by = '0', 
+                                    modified_by = '0', 
+                                    time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                    time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                                checksum = '0', 
+                                sub_tenant_id = '0', 
+                                acl = [
+                                    '0'
+                                    ], 
+                                tenant_id = '0', 
+                                tenant_name = '0', 
+                                created_by_client_id = '0', 
+                                created_by = '0', 
+                                modified_by = '0', 
+                                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                            ], 
+                        item_count = 56, ), 
+                    checksum = '0', 
+                    sub_tenant_id = '0', 
+                    acl = [
+                        '0'
+                        ], 
+                    tenant_id = '0', 
+                    tenant_name = '0', 
+                    created_by_client_id = '0', 
+                    created_by = '0', 
+                    modified_by = '0', 
+                    time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                checksum = '0', 
+                sub_tenant_id = '0', 
+                acl = [
+                    '0'
+                    ], 
+                compatible_library_prep_kits = [
+                    ICA_SDK.models.library_prep_kit_compact.LibraryPrepKitCompact(
+                        id = '0', 
+                        urn = '0', 
+                        href = '0', 
+                        display_name = '0', 
+                        name = '0', 
+                        organization = '0', 
+                        is_illumina = True, 
+                        description = '0', 
+                        allowed_read_types = [
+                            '0'
+                            ], 
+                        default_read1_length = 56, 
+                        default_read2_length = 56, 
+                        is_application_specific = True, 
+                        settings = ICA_SDK.models.library_prep_kit_settings_response.LibraryPrepKitSettingsResponse(
+                            default_read_type = '0', ), 
+                        checksum = '0', 
+                        sub_tenant_id = '0', 
+                        acl = [
+                            '0'
+                            ], 
+                        tenant_id = '0', 
+                        tenant_name = '0', 
+                        created_by_client_id = '0', 
+                        created_by = '0', 
+                        modified_by = '0', 
+                        time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                    ], 
+                compatible_library_prep_kits_defined_for_version = [
+                    ICA_SDK.models.library_prep_kit_compact.LibraryPrepKitCompact(
+                        id = '0', 
+                        urn = '0', 
+                        href = '0', 
+                        display_name = '0', 
+                        name = '0', 
+                        organization = '0', 
+                        is_illumina = True, 
+                        description = '0', 
+                        allowed_read_types = [
+                            '0'
+                            ], 
+                        default_read1_length = 56, 
+                        default_read2_length = 56, 
+                        is_application_specific = True, 
+                        settings = ICA_SDK.models.library_prep_kit_settings_response.LibraryPrepKitSettingsResponse(
+                            default_read_type = '0', ), 
+                        checksum = '0', 
+                        sub_tenant_id = '0', 
+                        acl = [
+                            '0'
+                            ], 
+                        tenant_id = '0', 
+                        tenant_name = '0', 
+                        created_by_client_id = '0', 
+                        created_by = '0', 
+                        modified_by = '0', 
+                        time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                    ], 
+                supported_genomes = [
+                    ICA_SDK.models.genome_compact.GenomeCompact(
+                        id = '0', 
+                        urn = '0', 
+                        href = '0', 
+                        name = '0', 
+                        display_name = '0', 
+                        order = 56, 
+                        organization = '0', 
+                        description = '0', 
+                        status = '0', 
+                        species = '0', 
+                        source = '0', 
+                        build = '0', 
+                        dragen_version = '0', 
+                        data_location_urn = '0', 
+                        genome_format = '0', 
+                        settings = ICA_SDK.models.settings.settings(), 
+                        source_file_metadata = ICA_SDK.models.source_file_metadata.sourceFileMetadata(), 
+                        fasta_file_urn = '0', 
+                        is_application_specific = True, 
+                        is_illumina = True, 
+                        checksum = '0', 
+                        sub_tenant_id = '0', 
+                        acl = [
+                            '0'
+                            ], 
+                        tenant_id = '0', 
+                        tenant_name = '0', 
+                        created_by_client_id = '0', 
+                        created_by = '0', 
+                        modified_by = '0', 
+                        time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                    ], 
+                excluded_genomes = [
+                    ICA_SDK.models.genome_compact.GenomeCompact(
+                        id = '0', 
+                        urn = '0', 
+                        href = '0', 
+                        name = '0', 
+                        display_name = '0', 
+                        order = 56, 
+                        organization = '0', 
+                        description = '0', 
+                        status = '0', 
+                        species = '0', 
+                        source = '0', 
+                        build = '0', 
+                        dragen_version = '0', 
+                        data_location_urn = '0', 
+                        genome_format = '0', 
+                        settings = ICA_SDK.models.settings.settings(), 
+                        source_file_metadata = ICA_SDK.models.source_file_metadata.sourceFileMetadata(), 
+                        fasta_file_urn = '0', 
+                        is_application_specific = True, 
+                        is_illumina = True, 
+                        checksum = '0', 
+                        sub_tenant_id = '0', 
+                        acl = [
+                            '0'
+                            ], 
+                        tenant_id = '0', 
+                        tenant_name = '0', 
+                        created_by_client_id = '0', 
+                        created_by = '0', 
+                        modified_by = '0', 
+                        time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                    ], 
+                on_submit_function = '0', 
+                on_render_function = '0', 
+                tenant_id = '0', 
+                tenant_name = '0', 
+                created_by_client_id = '0', 
+                created_by = '0', 
+                modified_by = '0', 
+                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_modified = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+            )
+        else :
+            return AnalysisVersionDefinition(
+        )
+
     def testAnalysisVersionDefinition(self):
         """Test AnalysisVersionDefinition"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = AnalysisVersionDefinition()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

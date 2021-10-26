@@ -1,10 +1,9 @@
 # Environment
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**variables** | **{str: (str,)}** |  | [optional] 
+**variables** | **dict(str, str)** |  | [optional] 
 **resources** | [**Resources**](Resources.md) |  | [optional] 
 **input_stream_settings** | [**InputStreamSettings**](InputStreamSettings.md) |  | [optional] 
 

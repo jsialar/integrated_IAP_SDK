@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,16 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.product_usage import ProductUsage
-from ICA_SDK.model.user import User
-globals()['ProductUsage'] = ProductUsage
-globals()['User'] = User
-from ICA_SDK.model.user_aggregated_usage import UserAggregatedUsage
-
+from ICA_SDK.models.user_aggregated_usage import UserAggregatedUsage  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestUserAggregatedUsage(unittest.TestCase):
     """UserAggregatedUsage unit test stubs"""
@@ -28,11 +28,38 @@ class TestUserAggregatedUsage(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test UserAggregatedUsage
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.user_aggregated_usage.UserAggregatedUsage()  # noqa: E501
+        if include_optional :
+            return UserAggregatedUsage(
+                user = ICA_SDK.models.user.User(
+                    full_name = '0', 
+                    user_name = '0', 
+                    domain = ICA_SDK.models.domain.Domain(
+                        id = '0', 
+                        name = '0', ), 
+                    type = '0', ), 
+                i_credit = 1.337, 
+                usages = [
+                    ICA_SDK.models.product_usage.ProductUsage(
+                        type = '0', 
+                        amount = 1.337, 
+                        unit = '0', 
+                        i_credit = 1.337, )
+                    ]
+            )
+        else :
+            return UserAggregatedUsage(
+        )
+
     def testUserAggregatedUsage(self):
         """Test UserAggregatedUsage"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = UserAggregatedUsage()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

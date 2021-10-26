@@ -1,7 +1,6 @@
 # SequencingRunConfiguration
 
 Defines the configuration required for an instrument to start a run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

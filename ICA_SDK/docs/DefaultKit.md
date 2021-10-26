@@ -1,7 +1,6 @@
 # DefaultKit
 
 DTO for specifying default kit during sample sheet parsing
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

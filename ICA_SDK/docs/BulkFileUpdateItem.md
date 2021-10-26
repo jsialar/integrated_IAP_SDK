@@ -1,11 +1,10 @@
 # BulkFileUpdateItem
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **str** | Id of this file | [optional] 
-**metadata** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Metadata about this file and its contents | [optional] 
+**metadata** | [**object**](.md) | Metadata about this file and its contents | [optional] 
 **format** | **str** | The File&#39;s Format | [optional] 
 **format_edam** | **str** | The File&#39;s Edam Format | [optional] 
 **life_cycle** | [**FileLifeCycleSettings**](FileLifeCycleSettings.md) |  | [optional] 

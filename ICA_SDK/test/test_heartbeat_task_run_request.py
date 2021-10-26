@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,14 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.container_status import ContainerStatus
-globals()['ContainerStatus'] = ContainerStatus
-from ICA_SDK.model.heartbeat_task_run_request import HeartbeatTaskRunRequest
-
+from ICA_SDK.models.heartbeat_task_run_request import HeartbeatTaskRunRequest  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestHeartbeatTaskRunRequest(unittest.TestCase):
     """HeartbeatTaskRunRequest unit test stubs"""
@@ -26,11 +28,47 @@ class TestHeartbeatTaskRunRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test HeartbeatTaskRunRequest
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.heartbeat_task_run_request.HeartbeatTaskRunRequest()  # noqa: E501
+        if include_optional :
+            return HeartbeatTaskRunRequest(
+                last_heartbeat = True, 
+                pod_name = '0', 
+                pod_uid = '0', 
+                pod_hardware_details = '0', 
+                job_retry_count = 56, 
+                nonce = '0', 
+                container_status = [
+                    ICA_SDK.models.container_status.ContainerStatus(
+                        name = '0', 
+                        state = ICA_SDK.models.container_state.ContainerState(
+                            waiting = ICA_SDK.models.container_state_waiting.ContainerStateWaiting(
+                                reason = '0', 
+                                message = '0', ), 
+                            running = ICA_SDK.models.container_state_running.ContainerStateRunning(
+                                started_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                            terminated = ICA_SDK.models.container_state_terminated.ContainerStateTerminated(
+                                exit_code = 56, 
+                                signal = 56, 
+                                reason = '0', 
+                                message = '0', 
+                                started_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                finished_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                container_id = '0', ), ), )
+                    ]
+            )
+        else :
+            return HeartbeatTaskRunRequest(
+        )
+
     def testHeartbeatTaskRunRequest(self):
         """Test HeartbeatTaskRunRequest"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = HeartbeatTaskRunRequest()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

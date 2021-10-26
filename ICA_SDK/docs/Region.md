@@ -1,7 +1,6 @@
 # Region
 
 Resource representing environment details
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

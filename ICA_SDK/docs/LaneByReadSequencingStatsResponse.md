@@ -1,7 +1,6 @@
 # LaneByReadSequencingStatsResponse
 
 Response of LaneByReadSequencingStats
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

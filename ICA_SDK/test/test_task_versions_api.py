@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,17 +10,20 @@
 """
 
 
+from __future__ import absolute_import
+
 import unittest
 
 import ICA_SDK
 from ICA_SDK.api.task_versions_api import TaskVersionsApi  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 
 class TestTaskVersionsApi(unittest.TestCase):
     """TaskVersionsApi unit test stubs"""
 
     def setUp(self):
-        self.api = TaskVersionsApi()  # noqa: E501
+        self.api = ICA_SDK.api.task_versions_api.TaskVersionsApi()  # noqa: E501
 
     def tearDown(self):
         pass

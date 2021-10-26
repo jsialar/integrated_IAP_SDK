@@ -1,7 +1,6 @@
 # MultiAnalysisConfiguration
 
 Information about multi-analysis configuration
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

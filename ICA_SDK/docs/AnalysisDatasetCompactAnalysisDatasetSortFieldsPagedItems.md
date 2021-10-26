@@ -1,11 +1,10 @@
 # AnalysisDatasetCompactAnalysisDatasetSortFieldsPagedItems
 
 Paged list response including sort details
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**items** | [**[AnalysisDatasetCompact]**](AnalysisDatasetCompact.md) | Items in paged list | [optional] 
+**items** | [**list[AnalysisDatasetCompact]**](AnalysisDatasetCompact.md) | Items in paged list | [optional] 
 **item_count** | **int** | Number of items included in the page | [optional] 
 **first_page_token** | **str** | PageToken for first paged list | [optional] 
 **next_page_token** | **str** | PageToken for the next paged list | [optional] 
@@ -13,7 +12,7 @@ Name | Type | Description | Notes
 **last_page_token** | **str** | PageToken for the last paged list. Only included when totalItemCount is listed | [optional] 
 **total_item_count** | **int** | Total number of items in all pages. Only included when requested | [optional] 
 **total_page_count** | **int** | Total number of pages. Only included when totalItemCount is listed | [optional] 
-**sorted_by** | **str** | Sort order of item list | [optional]  if omitted the server will use the default value of "TimeCreated"
+**sorted_by** | **str** | Sort order of item list | [optional] 
 **sort_direction** | **str** | Sort direction | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

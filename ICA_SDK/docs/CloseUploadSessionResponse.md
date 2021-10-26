@@ -1,7 +1,6 @@
 # CloseUploadSessionResponse
 
 Represents the returned data from the run closeUploadSession.
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

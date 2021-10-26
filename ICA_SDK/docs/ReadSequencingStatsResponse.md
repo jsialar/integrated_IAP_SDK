@@ -1,7 +1,6 @@
 # ReadSequencingStatsResponse
 
 Response of ReadSequencingStats
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

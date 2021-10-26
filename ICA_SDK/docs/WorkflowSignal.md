@@ -1,6 +1,5 @@
 # WorkflowSignal
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -14,10 +13,10 @@ Name | Type | Description | Notes
 **status** | **str** | Current status of the signal | [optional] 
 **type** | **str** | User-defined type associated with the signal | [optional] 
 **description** | **str** | Description of the signal | [optional] 
-**inputs** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Inputs defined by the originating WaitForSignal state, in JSON. | [optional] 
+**inputs** | [**object**](.md) | Inputs defined by the originating WaitForSignal state, in JSON. | [optional] 
 **workflow_run** | [**WorkflowRunCompact**](WorkflowRunCompact.md) |  | [optional] 
 **timeout_seconds** | **int** | Signal timeout in seconds. The Signal will timeout if a heartbeat, succeed or fail is not received in this time interval. | [optional] 
-**result** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | The result of a successful signalling action in JSON. | [optional] 
+**result** | [**object**](.md) | The result of a successful signalling action in JSON. | [optional] 
 **error** | **str** | The error of a failed signal. | [optional] 
 **error_cause** | **str** | The error cause of a failed signal. | [optional] 
 **created_by_client_id** | **str** | Client ID of the Origin Request | [optional] 
@@ -26,7 +25,7 @@ Name | Type | Description | Notes
 **created_by** | **str** | User that created the resource | [optional] 
 **modified_by** | **str** | User that modified the resource | [optional] 
 **tenant_id** | **str** | Tenant ID the resource belongs to | [optional] 
-**acl** | **[str]** | Access control list of the resource | [optional] 
+**acl** | **list[str]** | Access control list of the resource | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,16 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.object_store_access import ObjectStoreAccess
-from ICA_SDK.model.session_status import SessionStatus
-globals()['ObjectStoreAccess'] = ObjectStoreAccess
-globals()['SessionStatus'] = SessionStatus
-from ICA_SDK.model.create_session_response import CreateSessionResponse
-
+from ICA_SDK.models.create_session_response import CreateSessionResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestCreateSessionResponse(unittest.TestCase):
     """CreateSessionResponse unit test stubs"""
@@ -28,11 +28,48 @@ class TestCreateSessionResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test CreateSessionResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.create_session_response.CreateSessionResponse()  # noqa: E501
+        if include_optional :
+            return CreateSessionResponse(
+                object_store_access = ICA_SDK.models.object_store_access.ObjectStoreAccess(
+                    aws_s3_temporary_upload_credentials = ICA_SDK.models.aws_s3_temporary_upload_credentials.AwsS3TemporaryUploadCredentials(
+                        access_key_id = '0', 
+                        secret_access_key = '0', 
+                        session_token = '0', 
+                        region = '0', 
+                        bucket_name = '0', 
+                        key_prefix = '0', 
+                        expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), ), 
+                    direct_upload_credentials = ICA_SDK.models.direct_upload_credentials.DirectUploadCredentials(
+                        prefix = '0', 
+                        volume_name = '0', 
+                        expiration_date = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        file_creation_api_path = '0', 
+                        file_upload_api_path = '0', 
+                        upload_id = '0', ), 
+                    session_id = '0', ), 
+                id = '0', 
+                folder_urn = '0', 
+                status = 'Open', 
+                time_created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_credentials_expire = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_closed = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                time_completed = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                metadata = None
+            )
+        else :
+            return CreateSessionResponse(
+        )
+
     def testCreateSessionResponse(self):
         """Test CreateSessionResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = CreateSessionResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

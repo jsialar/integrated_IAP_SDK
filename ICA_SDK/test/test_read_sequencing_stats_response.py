@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     IAP Services
 
@@ -8,12 +10,14 @@
 """
 
 
-import sys
+from __future__ import absolute_import
+
 import unittest
+import datetime
 
 import ICA_SDK
-from ICA_SDK.model.read_sequencing_stats_response import ReadSequencingStatsResponse
-
+from ICA_SDK.models.read_sequencing_stats_response import ReadSequencingStatsResponse  # noqa: E501
+from ICA_SDK.rest import ApiException
 
 class TestReadSequencingStatsResponse(unittest.TestCase):
     """ReadSequencingStatsResponse unit test stubs"""
@@ -24,11 +28,33 @@ class TestReadSequencingStatsResponse(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def make_instance(self, include_optional):
+        """Test ReadSequencingStatsResponse
+            include_option is a boolean, when False only required
+            params are included, when True both required and
+            optional params are included """
+        # model = ICA_SDK.models.read_sequencing_stats_response.ReadSequencingStatsResponse()  # noqa: E501
+        if include_optional :
+            return ReadSequencingStatsResponse(
+                read_number = 56, 
+                is_indexed = True, 
+                total_cycles = 56, 
+                yield_total = 1.337, 
+                projected_total_yield = 1.337, 
+                percent_aligned = 1.337, 
+                error_rate = 1.337, 
+                intensity_cycle1 = 1.337, 
+                percent_gt_q30 = 1.337, 
+                percent_gt_q30_last10_cycles = 1.337
+            )
+        else :
+            return ReadSequencingStatsResponse(
+        )
+
     def testReadSequencingStatsResponse(self):
         """Test ReadSequencingStatsResponse"""
-        # FIXME: construct object with mandatory attributes with example values
-        # model = ReadSequencingStatsResponse()  # noqa: E501
-        pass
+        inst_req_only = self.make_instance(include_optional=False)
+        inst_req_and_optional = self.make_instance(include_optional=True)
 
 
 if __name__ == '__main__':

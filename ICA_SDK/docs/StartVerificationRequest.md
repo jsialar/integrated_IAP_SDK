@@ -1,7 +1,6 @@
 # StartVerificationRequest
 
 Start verification of a sequencing run
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------

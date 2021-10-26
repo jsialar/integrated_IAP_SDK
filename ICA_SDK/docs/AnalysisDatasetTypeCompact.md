@@ -1,6 +1,5 @@
 # AnalysisDatasetTypeCompact
 
-
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
@@ -12,9 +11,9 @@ Name | Type | Description | Notes
 **display_name** | **str** | Display name of the analysis dataset type | [optional] 
 **documentation_uri** | **str** | Documentation uri of the analysis dataset type | [optional] 
 **description_markdown** | **str** | Description markdown of the analysis dataset type | [optional] 
-**attribute_schema** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** | Attribute schema of the analysis dataset type | [optional] 
+**attribute_schema** | [**object**](.md) | Attribute schema of the analysis dataset type | [optional] 
 **sub_tenant_id** | **str** | Organizational or Workgroup ID. If neither are present, User ID. | [optional] 
-**acl** | **[str]** | Access control list of the object | [optional] 
+**acl** | **list[str]** | Access control list of the object | [optional] 
 **tenant_id** | **str** | Unique identifier for the resource tenant | [optional] 
 **tenant_name** | **str** | Unique tenant name for the resource tenant | [optional] 
 **created_by_client_id** | **str** | ClientId that created the resource (bssh, stratus...) | [optional] 
